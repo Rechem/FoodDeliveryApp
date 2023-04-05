@@ -1,11 +1,11 @@
-package com.example.fooddelieveryapp
+package com.example.fooddelieveryapp.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import com.example.fooddelieveryapp.databinding.CartItemLayoutBinding
+import com.example.fooddelieveryapp.models.CartItem
 import com.example.fooddelieveryapp.databinding.ItemPriceLayoutBinding
 
 class ItemPriceAdapter(val data:List<CartItem>, val ctx: Context): BaseAdapter() {
@@ -22,7 +22,7 @@ class ItemPriceAdapter(val data:List<CartItem>, val ctx: Context): BaseAdapter()
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val item:CartItem = getItem(position);
+        val item: CartItem = getItem(position);
 //        ItemPriceLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 //        return ItemPriceLayoutBinding
 

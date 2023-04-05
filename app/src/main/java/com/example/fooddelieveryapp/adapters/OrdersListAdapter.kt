@@ -1,11 +1,11 @@
-package com.example.fooddelieveryapp
+package com.example.fooddelieveryapp.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fooddelieveryapp.databinding.OrderItemLayoutBinding
-import com.example.fooddelieveryapp.databinding.OrdersListActivityBinding
+import com.example.fooddelieveryapp.models.OrderItem
 
 class OrdersListAdapter(val data:List<OrderItem>, val ctx: Context): RecyclerView.Adapter<OrdersListAdapter.MyViewHolder>() {
 

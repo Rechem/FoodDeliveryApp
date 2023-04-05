@@ -1,27 +1,24 @@
-package com.example.fooddelieveryapp
+package com.example.fooddelieveryapp.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.fooddelieveryapp.databinding.CartActivityBinding
+import androidx.appcompat.app.AppCompatActivity
+import com.example.fooddelieveryapp.R
+import com.example.fooddelieveryapp.adapters.ItemPriceAdapter
+import com.example.fooddelieveryapp.databinding.OrderActivityBinding
+import com.example.fooddelieveryapp.models.CartItem
 
-class CartActivity : AppCompatActivity() {
+class OrderActivity : AppCompatActivity() {
 
-    lateinit var binding: CartActivityBinding
+    lateinit var binding: OrderActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= CartActivityBinding.inflate(layoutInflater)
+        binding= OrderActivityBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        binding.itemPriceList.adapter = ItemPriceAdapter(loadData(), this)
 
-        binding.cartRecyclerView.layoutManager = LinearLayoutManager(this)
-        binding.cartRecyclerView.adapter = CartItemAdapter(loadData(), this)
-
-        binding.mealsPrice.text = "69 DZD"
-        binding.deliveryFeesPrice.text = "69 DZD"
-
-        binding.totalCart.text = "4200 DZD"
+        binding.totalSum.text = "4200 DZD"
     }
 
     fun loadData():List<CartItem> {

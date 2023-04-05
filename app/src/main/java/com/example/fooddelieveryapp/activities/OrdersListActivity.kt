@@ -1,9 +1,11 @@
-package com.example.fooddelieveryapp
+package com.example.fooddelieveryapp.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fooddelieveryapp.adapters.OrdersListAdapter
 import com.example.fooddelieveryapp.databinding.OrdersListActivityBinding
+import com.example.fooddelieveryapp.models.OrderItem
 
 class OrdersListActivity : AppCompatActivity() {
 

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="12dp"
+    android:paddingBottom="16dp"
+    android:paddingRight="12dp"
+    android:paddingLeft="12dp"
+    android:background="@drawable/shadow_background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="437dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/restau_image"
+            android:layout_width="132dp"
+            android:layout_height="99dp"
+            android:background="@drawable/image_container"
+            android:clipToOutline="true"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/restau" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Restau 1"
+            android:textColor="@color/text_color"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/restau_image"
+            app:layout_constraintTop_toTopOf="@+id/restau_image" />
+
+        <RatingBar
+            android:id="@+id/rating"
+            style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:numStars="5"
+            android:progressTint="@color/golden"
+            android:rating="4"
+            app:layout_constraintStart_toEndOf="@+id/restau_image"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
+
+        <TextView
+            android:id="@+id/cuisine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Turki"
+            android:textColor="@color/orange"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/restau_image"
+            app:layout_constraintTop_toBottomOf="@+id/rating" />
+
+        <TextView
+            android:id="@+id/num_views"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="11 views"
+            android:textColor="@color/text_color"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/rating"
+            app:layout_constraintStart_toEndOf="@+id/rating"
+            app:layout_constraintTop_toTopOf="@+id/rating" />
+
+        <ImageView
+            android:id="@+id/location"
+            android:layout_width="17dp"
+            android:layout_height="22dp"
+            app:layout_constraintBottom_toBottomOf="@+id/Adresse"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/Adresse"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/location" />
+
+        <ImageView
+            android:id="@+id/email_image"
+            android:layout_width="31dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/facebook"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/phone"
+            app:layout_constraintTop_toBottomOf="@+id/restau_image"
+            app:srcCompat="@drawable/mail" />
+
+        <ImageView
+            android:id="@+id/phone"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/email_image"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/restau_image"
+            app:srcCompat="@drawable/telephone" />
+
+        <ImageView
+            android:id="@+id/facebook"
+            android:layout_width="27dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/instagram"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/email_image"
+            app:layout_constraintTop_toBottomOf="@+id/restau_image"
+            app:srcCompat="@drawable/facebook" />
+
+        <ImageView
+            android:id="@+id/instagram"
+            android:layout_width="22dp"
+            android:layout_height="23dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/facebook"
+            app:layout_constraintTop_toBottomOf="@+id/restau_image"
+            app:srcCompat="@drawable/instagram" />
+
+        <TextView
+            android:id="@+id/Adresse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="TextView"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/restau_image"
+            app:layout_constraintStart_toEndOf="@+id/restau_image" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

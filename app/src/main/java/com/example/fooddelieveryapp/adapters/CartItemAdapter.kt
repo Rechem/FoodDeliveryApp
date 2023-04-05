@@ -1,9 +1,10 @@
-package com.example.fooddelieveryapp
+package com.example.fooddelieveryapp.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fooddelieveryapp.models.CartItem
 import com.example.fooddelieveryapp.databinding.CartItemLayoutBinding
 
 

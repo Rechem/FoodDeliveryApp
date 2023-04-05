@@ -12,23 +12,24 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".SignupActivity"
+            android:name=".activities.RestaurantsList"
             android:exported="true" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.SignupActivity"
             android:exported="true">
 
         </activity>
         <activity
-            android:name=".OrdersListActivity"
-            android:exported="true">
-
-        </activity>
+            android:name=".activities.LoginActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".activities.OrdersListActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

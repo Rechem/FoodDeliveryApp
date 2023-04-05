@@ -1,4 +1,4 @@
-package com.example.fooddelieveryapp
+package com.example.fooddelieveryapp.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +14,7 @@ class LoginActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         binding.signupText.setOnClickListener {
-            val intent = Intent(this,SignupActivity::class.java)
+            val intent = Intent(this, SignupActivity::class.java)
             this.startActivity(intent)
         }
     }
