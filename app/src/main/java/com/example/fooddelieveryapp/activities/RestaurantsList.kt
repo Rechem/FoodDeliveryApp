@@ -1,5 +1,6 @@
 package com.example.fooddelieveryapp.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.res.ResourcesCompat
@@ -13,15 +14,21 @@ import com.example.fooddelieveryapp.models.Restaurant
 
 class RestaurantsList : AppCompatActivity() {
     lateinit var binding: ActivityRestaurantsListBinding
+    private val restaurantAdapter = RestaurantAdapter(loadData(),this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityRestaurantsListBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = RestaurantAdapter(loadData(),this)
+        binding.recyclerView.adapter = restaurantAdapter
+        restaurantAdapter.onItemClick = {
+            val intent = Intent(this,FoodList::class.java)
+            intent.putExtra("restaurant",it)
+            startActivity(intent)
+        }
         val dividerItemDecoration = DividerItemDecoration(this, RecyclerView.VERTICAL)
-        ResourcesCompat.getDrawable(resources, R.drawable.devider_16, null)
+        ResourcesCompat.getDrawable(resources, R.drawable.devider_16_vertical, null)
             ?.let { drawable -> dividerItemDecoration.setDrawable(drawable) }
         binding.recyclerView.addItemDecoration(dividerItemDecoration)
     }

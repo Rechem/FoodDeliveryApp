@@ -1,6 +1,4 @@
 package com.example.fooddelieveryapp.adapters
-
-import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.view.LayoutInflater
@@ -16,53 +14,59 @@ class RestaurantAdapter(val data:List<Restaurant>, val context: Context):Recycle
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(RestaurantLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
-    val util : Util = Util()
+    private val util : Util = Util()
+    var onItemClick : ((Restaurant)->Unit)? = null
     override fun getItemCount() = data.size
 
-    @SuppressLint("SetTextI18n")
+
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val restaurant = data[position]
+
         holder.binding.apply {
-            name.text = data[position].name
+            name.text = restaurant.name
             restauImage.setImageResource(data[position].logo)
-            rating.rating = data[position].rating
-            cuisine.text = data[position].cuisineType
-            numViews.text = "(${data[position].reviews})"
-            Adresse.text=data[position].adresse
+            rating.rating = restaurant.rating
+            cuisine.text = restaurant.cuisineType
+            numViews.text = "(${restaurant.reviews})"
+            Adresse.text=restaurant.adresse
         }
         holder.binding.facebook.setOnClickListener{
             try{
-                util.openPage(context, data[position].fbMob)
+                util.openPage(context, restaurant.fbMob)
             }catch(e : ActivityNotFoundException){
-                util.openPage(context, data[position].fbWeb)
+                util.openPage(context, restaurant.fbWeb)
             }
         }
         holder.binding.instagram.setOnClickListener{
             try{
-                util.openPage(context, data[position].igMob)
+                util.openPage(context, restaurant.igMob)
             }catch(e : ActivityNotFoundException){
-                util.openPage(context, data[position].igWeb)
+                util.openPage(context, restaurant.igWeb)
             }
         }
         holder.binding.location.setOnClickListener{
             try{
-                util.openPage(context, data[position].location)
+                util.openPage(context, restaurant.location)
             }catch(e : ActivityNotFoundException){
-                util.openPage(context, data[position].location)
+                util.openPage(context, restaurant.location)
             }
         }
         holder.binding.phone.setOnClickListener{
             try{
-                util.dial(context, data[position].phone)
+                util.dial(context, restaurant.phone)
             }catch(e : ActivityNotFoundException){
                 print("your phone is Fed up")
             }
         }
         holder.binding.emailImage.setOnClickListener{
             try{
-                util.email(context, data[position].email)
+                util.email(context, restaurant.email)
             }catch(e : ActivityNotFoundException){
                 print("you don't have mail app you prick")
             }
+        }
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(restaurant)
         }
     }
 
