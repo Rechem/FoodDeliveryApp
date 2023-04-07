@@ -12,10 +12,19 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".activities.DeliveryCheckoutActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.FoodList"
             android:exported="false" />
         <activity
+            android:name=".activities.FeedbackActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.RestaurantsList"
+            android:exported="false" />
+        <activity
+            android:name=".activities.DrawerActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

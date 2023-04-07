@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="modal_bg">#80000000</color>
     <color name="text_color">#1F1E23</color>
     <color name="white">#FFFFFFFF</color>
     <color name="main_color">#C0392B</color>
     <color name="bg">#FFF8F8</color>
     <color name="warning">#F8851A</color>
+    <color name="red">#E04E4E</color>
     <color name="orange">#E47321</color>
     <color name="golden">#EDC95A</color>
 </resources>

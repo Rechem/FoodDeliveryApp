@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/poppins"
-        android:text="Orders"
+        android:text="@string/orders"
         android:textAppearance="@style/TextAppearance.App.H4"
         android:textColor="@color/main_color"
         android:textFontWeight="600"

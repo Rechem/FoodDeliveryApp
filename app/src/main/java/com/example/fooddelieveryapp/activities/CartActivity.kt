@@ -5,16 +5,16 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fooddelieveryapp.R
 import com.example.fooddelieveryapp.adapters.CartItemAdapter
-import com.example.fooddelieveryapp.databinding.CartActivityBinding
+import com.example.fooddelieveryapp.databinding.ActivityCartBinding
 import com.example.fooddelieveryapp.models.CartItem
 
 class CartActivity : AppCompatActivity() {
 
-    lateinit var binding: CartActivityBinding
+    lateinit var binding: ActivityCartBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= CartActivityBinding.inflate(layoutInflater)
+        binding= ActivityCartBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 

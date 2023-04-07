@@ -4,16 +4,16 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fooddelieveryapp.R
 import com.example.fooddelieveryapp.adapters.ItemPriceAdapter
-import com.example.fooddelieveryapp.databinding.OrderActivityBinding
+import com.example.fooddelieveryapp.databinding.ActivityOrderBinding
 import com.example.fooddelieveryapp.models.CartItem
 
 class OrderActivity : AppCompatActivity() {
 
-    lateinit var binding: OrderActivityBinding
+    lateinit var binding: ActivityOrderBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= OrderActivityBinding.inflate(layoutInflater)
+        binding= ActivityOrderBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
         binding.itemPriceList.adapter = ItemPriceAdapter(loadData(), this)
