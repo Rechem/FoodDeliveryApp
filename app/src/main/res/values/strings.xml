@@ -46,4 +46,8 @@
     <string name="last_name">Nom</string>
     <string name="first_name">Prénom</string>
     <string name="telephone">Téléphone</string>
+    <string name="restaurants_cap">Restaurants</string>
+    <string name="orders_cap">Orders</string>
+    <string name="settings_cap">Settings</string>
+    <string name="open">Open</string>
 </resources>
