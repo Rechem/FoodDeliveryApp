@@ -1,6 +1,7 @@
 package com.example.fooddelieveryapp.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fooddelieveryapp.R
+import com.example.fooddelieveryapp.activities.FoodList
 import com.example.fooddelieveryapp.adapters.RestaurantAdapter
 
 import com.example.fooddelieveryapp.databinding.FragmentRestaurantsBinding
@@ -24,20 +26,7 @@ class RestaurantsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= FragmentRestaurantsBinding.inflate(layoutInflater)
-        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
-        restaurantAdapter = RestaurantAdapter(loadData(),activity as Context)
-        binding.recyclerView.adapter = restaurantAdapter
-        restaurantAdapter.onItemClick = {
-            // replace intent with fragment navigation
-//            val intent = Intent(this, FoodList::class.java)
-//            intent.putExtra("restaurant",it )
-//            startActivity(intent)
-        }
-        val dividerItemDecoration = DividerItemDecoration(activity, RecyclerView.VERTICAL)
-        ResourcesCompat.getDrawable(resources, R.drawable.devider_16_vertical, null)
-            ?.let { drawable -> dividerItemDecoration.setDrawable(drawable) }
-        binding.recyclerView.addItemDecoration(dividerItemDecoration)
+
     }
 
     override fun onCreateView(
@@ -45,9 +34,38 @@ class RestaurantsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
         return inflater.inflate(R.layout.fragment_restaurants, container, false)
 
+    }
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment FirstFragment.
+         */
+        // TODO: Rename and change types and number of parameters
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding= FragmentRestaurantsBinding.inflate(layoutInflater)
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        restaurantAdapter = RestaurantAdapter(loadData(),context as Context)
+        binding.recyclerView.adapter = restaurantAdapter
+//        restaurantAdapter.onItemClick = {
+//            //replace intent with fragment navigation
+//            val intent = Intent(this, FoodList::class.java)
+//            intent.putExtra("restaurant",it )
+//            startActivity(intent)
+//        }
+        val dividerItemDecoration = DividerItemDecoration(activity, RecyclerView.VERTICAL)
+        ResourcesCompat.getDrawable(resources, R.drawable.devider_16_vertical, null)
+            ?.let { drawable -> dividerItemDecoration.setDrawable(drawable) }
+        binding.recyclerView.addItemDecoration(dividerItemDecoration)
     }
 
 
