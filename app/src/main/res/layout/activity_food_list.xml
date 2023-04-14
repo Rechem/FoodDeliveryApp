@@ -29,7 +29,7 @@
         android:layout_marginTop="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/arrow_back" />
+        app:srcCompat="@drawable/arrow_left" />
 
     <TextView
         android:id="@+id/restaurantName"

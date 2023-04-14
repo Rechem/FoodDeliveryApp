@@ -24,7 +24,7 @@ class RestaurantsList : AppCompatActivity() {
         binding.recyclerView.adapter = restaurantAdapter
         restaurantAdapter.onItemClick = {
             val intent = Intent(this,FoodList::class.java)
-            intent.putExtra("restaurant",it)
+            intent.putExtra("restaurant",it )
             startActivity(intent)
         }
         val dividerItemDecoration = DividerItemDecoration(this, RecyclerView.VERTICAL)
