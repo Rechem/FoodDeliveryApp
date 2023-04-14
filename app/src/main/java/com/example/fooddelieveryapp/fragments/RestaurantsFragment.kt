@@ -21,19 +21,9 @@ class RestaurantsFragment : Fragment() {
     lateinit var binding: FragmentRestaurantsBinding
     lateinit var restaurantAdapter : RestaurantAdapter
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding= FragmentRestaurantsBinding.inflate(layoutInflater)
-        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
-        restaurantAdapter = RestaurantAdapter(loadData(),activity as Context)
-        binding.recyclerView.adapter = restaurantAdapter
-        restaurantAdapter.onItemClick = {
-            // replace intent with fragment navigation
-//            val intent = Intent(this, FoodList::class.java)
-//            intent.putExtra("restaurant",it )
-//            startActivity(intent)
-        }
         val dividerItemDecoration = DividerItemDecoration(activity, RecyclerView.VERTICAL)
         ResourcesCompat.getDrawable(resources, R.drawable.devider_16_vertical, null)
             ?.let { drawable -> dividerItemDecoration.setDrawable(drawable) }
@@ -44,9 +34,23 @@ class RestaurantsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        binding= FragmentRestaurantsBinding.inflate(layoutInflater)
+        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+        restaurantAdapter = RestaurantAdapter(loadData(),activity as Context)
+        binding.recyclerView.adapter = restaurantAdapter
+        restaurantAdapter.onItemClick = {
+            // replace intent with fragment navigation
+//            val intent = Intent(this, FoodList::class.java)
+//            intent.putExtra("restaurant",it )
+//            startActivity(intent)
+        }
 
-        return inflater.inflate(R.layout.fragment_restaurants, container, false)
+        val dividerItemDecoration = DividerItemDecoration(activity, RecyclerView.VERTICAL)
+        ResourcesCompat.getDrawable(resources, R.drawable.devider_16_vertical, null)
+            ?.let { drawable -> dividerItemDecoration.setDrawable(drawable) }
+        binding.recyclerView.addItemDecoration(dividerItemDecoration)
+
+        return binding.root
 
     }
 
