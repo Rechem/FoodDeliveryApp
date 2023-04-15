@@ -7,9 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fooddelieveryapp.R
-import com.example.fooddelieveryapp.adapters.RestaurantAdapter
 import com.example.fooddelieveryapp.databinding.ActivityMainBinding
 import com.example.fooddelieveryapp.fragments.OrdersFragment
 import com.example.fooddelieveryapp.fragments.RestaurantsFragment

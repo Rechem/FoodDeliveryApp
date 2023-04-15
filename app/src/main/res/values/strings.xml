@@ -50,4 +50,5 @@
     <string name="orders_cap">Orders</string>
     <string name="settings_cap">Settings</string>
     <string name="open">Open</string>
+    <string name="add_to_cart">Add to cart</string>
 </resources>

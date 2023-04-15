@@ -3,11 +3,12 @@ package com.example.fooddelieveryapp.models
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Food(val image: Int, val name: String, val price: Double) : Parcelable {
+data class Food(val image: Int, val name: String, val price: Double,val description: String) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString()!!,
-        parcel.readDouble()
+        parcel.readDouble(),
+        parcel.readString()!!
     ) {
     }
 
@@ -15,6 +16,7 @@ data class Food(val image: Int, val name: String, val price: Double) : Parcelabl
         parcel.writeInt(image)
         parcel.writeString(name)
         parcel.writeDouble(price)
+        parcel.writeString(description)
     }
 
     override fun describeContents(): Int {

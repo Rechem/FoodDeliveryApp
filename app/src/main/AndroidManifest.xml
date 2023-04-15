@@ -15,9 +15,6 @@
             android:name=".activities.DeliveryCheckoutActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.FoodList"
-            android:exported="false" />
-        <activity
             android:name=".activities.FeedbackActivity"
             android:exported="false" />
         <activity

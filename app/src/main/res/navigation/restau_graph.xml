@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/restau_graph"
+    app:startDestination="@id/restaurantsFragment">
+
+    <fragment
+        android:id="@+id/restaurantsFragment"
+        android:name="com.example.fooddelieveryapp.fragments.RestaurantsFragment"
+        android:label="fragment_restaurants"
+        tools:layout="@layout/fragment_restaurants" >
+        <action
+            android:id="@+id/action_restaurantsFragment_to_foodFragment"
+            app:destination="@id/foodFragment"
+            app:popUpTo="@id/restaurantsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/foodFragment"
+        android:name="com.example.fooddelieveryapp.fragments.FoodFragment"
+        android:label="fragment_food"
+        tools:layout="@layout/fragment_food" >
+        <action
+            android:id="@+id/action_foodFragment_to_foodDetailsFragment"
+            app:destination="@id/foodDetailsFragment"
+            app:popUpTo="@id/foodFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/foodDetailsFragment"
+        android:name="com.example.fooddelieveryapp.fragments.FoodDetailsFragment"
+        android:label="fragment_food_details"
+        tools:layout="@layout/fragment_food_details" />
+</navigation>
