@@ -46,7 +46,9 @@ class FoodDetailsFragment : Fragment() {
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
+
+        binding.cart.setOnClickListener {
+            findNavController().navigate(R.id.action_foodDetailsFragment_to_cartFragment)
+        }
     }
-
-
 }

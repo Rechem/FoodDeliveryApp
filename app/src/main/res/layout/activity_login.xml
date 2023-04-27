@@ -64,7 +64,6 @@
         android:layout_gravity="start"
         android:layout_marginTop="40dp"
         android:background="@drawable/botton"
-        android:enabled="false"
         android:fontFamily="@font/poppins_semibold"
         android:text="@string/login"
         android:textAlignment="gravity"

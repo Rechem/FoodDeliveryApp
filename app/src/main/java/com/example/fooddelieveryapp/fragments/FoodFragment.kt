@@ -63,8 +63,13 @@ class FoodFragment : Fragment() {
             vm.restaurant = restaurant
             findNavController().navigate(R.id.action_foodFragment_to_foodDetailsFragment)
         }
+
         binding.back.setOnClickListener {
             findNavController().popBackStack()
+        }
+
+        binding.cart.setOnClickListener {
+            findNavController().navigate(R.id.action_foodFragment_to_cartFragment)
         }
     }
 

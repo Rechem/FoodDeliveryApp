@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/cart_cross_btn"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="24dp"
@@ -27,9 +27,9 @@
         android:textAppearance="@style/TextAppearance.App.H4"
         android:textColor="@color/main_color"
         android:textFontWeight="600"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintBottom_toBottomOf="@+id/cart_cross_btn"
+        app:layout_constraintStart_toEndOf="@+id/cart_cross_btn"
+        app:layout_constraintTop_toTopOf="@+id/cart_cross_btn" />
 
     <TextView
         android:id="@+id/password_text"
@@ -41,7 +41,7 @@
         android:textAppearance="@style/TextAppearance.App.Body1"
         android:textColor="@color/main_color"
         android:textFontWeight="500"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/cart_cross_btn"
         app:layout_constraintTop_toBottomOf="@+id/email_text" />
 
     <TextView
@@ -54,7 +54,7 @@
         android:textAppearance="@style/TextAppearance.App.Body1"
         android:textColor="@color/warning"
         android:textFontWeight="500"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/cart_cross_btn"
         app:layout_constraintTop_toBottomOf="@+id/password_text" />
 
 

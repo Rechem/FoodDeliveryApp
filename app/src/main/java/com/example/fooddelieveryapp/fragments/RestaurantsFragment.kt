@@ -25,24 +25,6 @@ class RestaurantsFragment : Fragment() {
     lateinit var binding: FragmentRestaurantsBinding
     lateinit var restaurantAdapter : RestaurantAdapter
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val dividerItemDecoration = DividerItemDecoration(activity, RecyclerView.VERTICAL)
-        ResourcesCompat.getDrawable(resources, R.drawable.devider_16_vertical, null)
-            ?.let { drawable -> dividerItemDecoration.setDrawable(drawable) }
-        binding.recyclerView.addItemDecoration(dividerItemDecoration)
-
-        restaurantAdapter.onItemClick = {
-            // replace intent with fragment navigation
-            val vm = ViewModelProvider(requireActivity())[RestauModel::class.java]
-            vm.restau = it
-            findNavController().navigate(R.id.action_restaurantsFragment_to_foodFragment)
-//            val intent = Intent(this, FoodList::class.java)
-//            intent.putExtra("restaurant",it )
-//            startActivity(intent)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,6 +45,24 @@ class RestaurantsFragment : Fragment() {
 
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val dividerItemDecoration = DividerItemDecoration(activity, RecyclerView.VERTICAL)
+        ResourcesCompat.getDrawable(resources, R.drawable.devider_16_vertical, null)
+            ?.let { drawable -> dividerItemDecoration.setDrawable(drawable) }
+        binding.recyclerView.addItemDecoration(dividerItemDecoration)
+
+        restaurantAdapter.onItemClick = {
+            // replace intent with fragment navigation
+            val vm = ViewModelProvider(requireActivity())[RestauModel::class.java]
+            vm.restau = it
+            findNavController().navigate(R.id.action_restaurantsFragment_to_foodFragment)
+//            val intent = Intent(this, FoodList::class.java)
+//            intent.putExtra("restaurant",it )
+//            startActivity(intent)
+        }
+    }
 
     fun loadData():List<Restaurant> {
         val data = mutableListOf<Restaurant>()
