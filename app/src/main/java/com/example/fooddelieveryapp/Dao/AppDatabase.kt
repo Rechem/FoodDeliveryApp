@@ -10,6 +10,7 @@ import androidx.room.TypeConverters
 @TypeConverters(Converters::class)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun getUserDao():UserDao
+    abstract fun getCartDao():CartDao
     companion object {
 
         private var INSTANCE: AppDatabase? =null

@@ -6,8 +6,8 @@ import java.util.Date
 
 @Entity(tableName ="carts" )
 data class Cart(
-    @PrimaryKey
-    val cartid: Int,
-    var retaurant:Long? = null,
+    @PrimaryKey val cartId: Int,
+    val ownerId : Int?,
+    val restaurantId : Int?
 //    var userId,
 )

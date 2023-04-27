@@ -1,13 +1,16 @@
 package com.example.fooddelieveryapp.Dao
 
+import UserAndCart
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 
+@Dao
 interface UserDao {
-    @Query("select * from users where firstName=:firstName")
-    fun getUsersByFirstName(firstName:String):List<User>
+    @Query("select * from users")
+    fun getUserCarts():List<UserAndCart>
     @Insert
     fun addUsers(vararg users:User)
     @Update
