@@ -10,6 +10,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.edit
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.fooddelieveryapp.Dao.AppDatabase
 import com.example.fooddelieveryapp.R
 import com.example.fooddelieveryapp.databinding.ActivityMainBinding
 import com.example.fooddelieveryapp.fragments.OrdersFragment
@@ -73,7 +74,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-
-
-
+    init {
+        AppDatabase.buildDatabase(this)
+    }
 }
