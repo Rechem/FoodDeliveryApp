@@ -1,12 +1,17 @@
 package com.example.fooddelieveryapp
 
+import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.fooddelieveryapp.Dao.AppDatabase
+import com.example.fooddelieveryapp.Dao.Cart
+import org.junit.After
 
 import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Assert.*
+import org.junit.Before
 
 /**
  * Instrumented test, which will execute on an Android device.
