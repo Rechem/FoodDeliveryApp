@@ -52,4 +52,9 @@
         android:name="com.example.fooddelieveryapp.fragments.CheckoutFragment"
         android:label="fragment_checkout"
         tools:layout="@layout/fragment_checkout" />
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.example.fooddelieveryapp.fragments.OrdersFragment"
+        android:label="fragment_orders"
+        tools:layout="@layout/fragment_orders" />
 </navigation>

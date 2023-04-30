@@ -6,11 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
-@Database(entities = [User::class],version =1)
+@Database(entities = [User::class,Cart::class,CartItem::class],version =1)
 @TypeConverters(Converters::class)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun getUserDao():UserDao
     abstract fun getCartDao():CartDao
+
+    abstract fun getCartItemDao():CartItemDao
     companion object {
 
         private var INSTANCE: AppDatabase? =null

@@ -34,7 +34,7 @@ class CartDaoTests {
     @Test
     fun testGetCarItems(){
         val cart = Cart(1, 1, 1)
-        val cartItem = CartItem(1,"je3fer",1,1,1,1)
+        val cartItem = CartItem(1,"je3fer",1,1.0,1,1)
         mDataBase.getCartDao().addCart(cart)
         mDataBase.getCartItemDao().addCartItem(cartItem)
 
@@ -44,7 +44,7 @@ class CartDaoTests {
     @Test
     fun testDeleteCartItem(){
         val cart = Cart(1, 1, 1)
-        val cartItem = CartItem(1,"je3fer",1,1,1,1)
+        val cartItem = CartItem(1,"je3fer",1,1.0,1,1)
         mDataBase.getCartDao().addCart(cart)
         mDataBase.getCartItemDao().addCartItem(cartItem)
 
@@ -58,7 +58,7 @@ class CartDaoTests {
     @Test
     fun testUpdateCartItem(){
         val cart = Cart(1, 1, 1)
-        val cartItem = CartItem(1,"je3fer",1,1,1,1)
+        val cartItem = CartItem(1,"je3fer",1,1.0,1,1)
         mDataBase.getCartDao().addCart(cart)
         mDataBase.getCartItemDao().addCartItem(cartItem)
 
@@ -71,6 +71,18 @@ class CartDaoTests {
             "ze3ter"
         )
     }
+    @Test
+    fun testEmptyCart(){
+        val cart = Cart(1, 1, 1)
+        val cartItem = CartItem(1,"je3fer",1,1.0,1,1)
+        val cartItem2 = CartItem(2,"je3fer2",1,1.0,1,1)
+        mDataBase.getCartDao().addCart(cart)
+        mDataBase.getCartItemDao().addCartItem(cartItem)
+        mDataBase.getCartItemDao().addCartItem(cartItem2)
+        mDataBase.getCartItemDao().emptyCart(1)
+        assertTrue(mDataBase.getCartItemDao().getCartItemsbyCart(1).isEmpty())
+    }
+
 
     @After
     fun closeDb(){

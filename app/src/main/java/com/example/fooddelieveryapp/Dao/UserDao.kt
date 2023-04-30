@@ -10,7 +10,7 @@ import androidx.room.Update
 @Dao
 interface UserDao {
     @Query("select * from users")
-    fun getUserCarts():List<UserAndCart>
+    fun getUsers():List<User>
     @Insert
     fun addUsers(vararg users:User)
     @Update

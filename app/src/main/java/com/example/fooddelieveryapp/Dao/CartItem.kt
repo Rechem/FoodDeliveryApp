@@ -9,7 +9,7 @@ data class CartItem(
     @PrimaryKey var cartItemId: Int?,
     var name:String?,
     var image:Int?,
-    var price:Int?,
+    var price:Double?,
     var quantity:Int?,
     var cartId : Int?
 )
