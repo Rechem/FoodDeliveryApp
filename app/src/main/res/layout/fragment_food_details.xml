@@ -6,6 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".fragments.FoodDetailsFragment">
 
+    <ScrollView android:id="@+id/ScrollViewID"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -85,14 +89,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/details_price" />
 
-
         <TextView
             android:id="@+id/quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
             android:fontFamily="@font/poppins_regular"
-            android:text="2"
+            android:text="0"
             android:textAppearance="@style/TextAppearance.App.Body1"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -129,7 +132,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:background="@drawable/botton"
-            android:enabled="false"
+            android:enabled="true"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center"
             android:text="@string/add_to_cart"
@@ -143,4 +146,5 @@
             app:layout_constraintTop_toBottomOf="@+id/quantity" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </ScrollView>
 </FrameLayout>

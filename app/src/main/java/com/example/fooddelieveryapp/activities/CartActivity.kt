@@ -29,13 +29,13 @@ class CartActivity : AppCompatActivity() {
 
     fun loadData():List<CartItem> {
         val data = mutableListOf<CartItem>()
-        data.add(CartItem("Yelena", R.drawable.w, 240, 2))
-        data.add(CartItem("Yelena", R.drawable.w, 240, 2))
-        data.add(CartItem("Yelena", R.drawable.w, 240, 2))
-        data.add(CartItem("Yelena", R.drawable.w, 240, 2))
-        data.add(CartItem("Yelena", R.drawable.w, 240, 2))
-        data.add(CartItem("Yelena", R.drawable.w, 240, 2))
-        data.add(CartItem("Yelena", R.drawable.w, 240, 2))
+        data.add(CartItem("Yelena", R.drawable.w, 240.0, 2))
+        data.add(CartItem("Yelena", R.drawable.w, 240.0, 2))
+        data.add(CartItem("Yelena", R.drawable.w, 240.0, 2))
+        data.add(CartItem("Yelena", R.drawable.w, 240.0, 2))
+        data.add(CartItem("Yelena", R.drawable.w, 240.0, 2))
+        data.add(CartItem("Yelena", R.drawable.w, 240.0, 2))
+        data.add(CartItem("Yelena", R.drawable.w, 240.0, 2))
 
         return data
     }

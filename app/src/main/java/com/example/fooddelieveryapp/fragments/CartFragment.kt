@@ -12,6 +12,8 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
+import com.example.fooddelieveryapp.Dao.AppDatabase
 import com.example.fooddelieveryapp.R
 import com.example.fooddelieveryapp.activities.LoginActivity
 import com.example.fooddelieveryapp.activities.SignupActivity
@@ -19,14 +21,19 @@ import com.example.fooddelieveryapp.adapters.CartItemAdapter
 import com.example.fooddelieveryapp.databinding.ActivityCartBinding
 import com.example.fooddelieveryapp.databinding.FragmentCartBinding
 import com.example.fooddelieveryapp.models.CartItem
+import com.example.fooddelieveryapp.utils.CartModel
 
 class CartFragment : Fragment() {
     lateinit var binding: FragmentCartBinding
-
+    lateinit var dataBase: AppDatabase
+    lateinit var cartmodel: CartModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        dataBase = Room
+            .databaseBuilder(activity as Context, AppDatabase::class.java,"database")
+            .build()
+        cartmodel = CartModel()
     }
 
     override fun onCreateView(
@@ -42,6 +49,7 @@ class CartFragment : Fragment() {
         binding.deliveryFeesPrice.text = "69 DZD"
 
         binding.totalCart.text = "4200 DZD"
+
         return binding.root
     }
 
@@ -57,7 +65,6 @@ class CartFragment : Fragment() {
             else{
                 val intent = Intent(activity, LoginActivity::class.java)
                 this.startActivity(intent)
-
             }
         }
 
@@ -68,13 +75,48 @@ class CartFragment : Fragment() {
 
     fun loadData():List<CartItem> {
         val data = mutableListOf<CartItem>()
-        data.add(CartItem("Yelena", R.drawable.w, 240, 2))
-        data.add(CartItem("Yelena", R.drawable.w, 240, 2))
-        data.add(CartItem("Yelena", R.drawable.w, 240, 2))
-        data.add(CartItem("Yelena", R.drawable.w, 240, 2))
-        data.add(CartItem("Yelena", R.drawable.w, 240, 2))
-        data.add(CartItem("Yelena", R.drawable.w, 240, 2))
-        data.add(CartItem("Yelena", R.drawable.w, 240, 2))
+
+
+       val restaurantId = 1
+        val userId = 1
+        var cartId = 0
+        if(
+            cartmodel.checkIfCartExists(
+                cartDao = dataBase.getCartDao(),
+                restaurantId = restaurantId,
+                userId= userId
+            )
+        )
+            cartmodel.createCart(
+                cartDao = dataBase.getCartDao(),
+                restaurantId = restaurantId,
+                ownerId = userId
+            )
+        else
+            data.addAll(
+                cartmodel.getCartItems(
+                    cartDao = dataBase.getCartDao(),
+                    cartItemDao = dataBase.getCartItemDao(),
+                    restaurantId = restaurantId,
+                    userId = userId
+                ).map {
+                    CartItem(
+                        name = it.name,
+                        image = it.image,
+                        price = it.price,
+                        quantity = it.quantity
+                    )
+                }
+            )
+
+//        data.add(CartItem("Yelena", R.drawable.w, 240.0, 2))
+//        data.add(CartItem("Yelena", R.drawable.w, 240.0, 2))
+//        data.add(CartItem("Yelena", R.drawable.w, 240.0, 2))
+//        data.add(CartItem("Yelena", R.drawable.w, 240.0, 2))
+//        data.add(CartItem("Yelena", R.drawable.w, 240.0, 2))
+//        data.add(CartItem("Yelena", R.drawable.w, 240.0, 2))
+//        data.add(CartItem("Yelena", R.drawable.w, 240.0, 2))
+
 
         return data
     }

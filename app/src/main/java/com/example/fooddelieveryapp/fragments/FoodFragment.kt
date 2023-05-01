@@ -19,6 +19,7 @@ import com.example.fooddelieveryapp.databinding.FragmentFoodBinding
 import com.example.fooddelieveryapp.models.Food
 import com.example.fooddelieveryapp.models.RestauModel
 import com.example.fooddelieveryapp.models.FoodModel
+import com.example.fooddelieveryapp.utils.CartModel
 
 class FoodFragment : Fragment() {
     lateinit var binding: FragmentFoodBinding
@@ -64,10 +65,12 @@ class FoodFragment : Fragment() {
             findNavController().navigate(R.id.action_foodFragment_to_foodDetailsFragment)
         }
 
+        //  back listner
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
 
+        // cart listner
         binding.cart.setOnClickListener {
             findNavController().navigate(R.id.action_foodFragment_to_cartFragment)
         }

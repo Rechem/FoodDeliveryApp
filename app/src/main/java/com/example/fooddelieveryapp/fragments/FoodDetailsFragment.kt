@@ -3,6 +3,7 @@ package com.example.fooddelieveryapp.fragments
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -52,10 +53,20 @@ class FoodDetailsFragment : Fragment() {
             foodDescritpion.text = food?.description
             addToCartBtn.setOnClickListener {
                 val cartmodel = CartModel();
-                cartmodel.CreateCart(dataBase.getCartDao(), food!!.restaurantId,1)
-                cartmodel.addItemToCart(dataBase.getCartItemDao(),
-                    food.restaurantId,dataBase.getCartDao().getCartById(1)[0].restaurantId!!,
-                    1,food,quantity.text.toString().toInt())
+                cartmodel.createCart(
+                    dataBase.getCartDao(),
+                    food!!.restaurantId,1
+                )
+                cartmodel.addItemToCart(
+                    dataBase.getCartItemDao(),
+                    food.restaurantId,
+                    dataBase.getCartDao().getCartById(1)[0].restaurantId!!,
+                    1,
+                    food,
+                    quantity.text.toString().toInt()
+                )
+                val TAG = "ch3er"
+                Log.i(TAG, "im here")
             }
         }
         binding.back.setOnClickListener {

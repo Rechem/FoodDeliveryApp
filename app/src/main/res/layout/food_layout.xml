@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="12dp"
@@ -55,42 +56,6 @@
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/name"
             app:layout_constraintTop_toBottomOf="@+id/name" />
-
-        <TextView
-            android:id="@+id/quantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="2"
-            android:textAppearance="@style/TextAppearance.App.Body1"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/addBtn"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/minusBtn"
-            app:layout_constraintTop_toBottomOf="@+id/food_price" />
-
-        <ImageView
-            android:id="@+id/addBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/quantity"
-            app:layout_constraintTop_toBottomOf="@+id/food_price"
-            app:srcCompat="@drawable/add" />
-
-        <ImageView
-            android:id="@+id/minusBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/quantity"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/food_price"
-            app:srcCompat="@drawable/minus" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

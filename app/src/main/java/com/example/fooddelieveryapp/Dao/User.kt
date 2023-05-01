@@ -6,9 +6,9 @@ import java.util.Date
 
 @Entity(tableName ="users" )
 data class User(
-    @PrimaryKey
-    var userId:Long? = null,
-    var firstName:String?= null,
-    var lastName:String? = null,
+    @PrimaryKey(autoGenerate = true)
+    var userId:Long,
+    var firstName:String,
+    var lastName:String,
     val birthDate: Date?
 )

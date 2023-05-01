@@ -7,7 +7,7 @@ import androidx.room.*
 interface CartItemDao {
     @Transaction
     @Query("select * from cartItems where cartId=:cartId")
-    fun getCartItemsbyCart(cartId:Int):List<CartItem>
+    fun getCartItemsByCart(cartId:Int):List<CartItem>
     @Query("select * from cartItems where cartItemId=:id")
     fun getCartItemById(id:Int):List<CartItem>
 

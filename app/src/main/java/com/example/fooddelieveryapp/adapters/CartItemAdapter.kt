@@ -22,12 +22,6 @@ class CartItemAdapter(val data:List<CartItem>, val ctx: Context):RecyclerView.Ad
             name.text = data[position].name
             price.text = data[position].price.toString() + " DZD"
             quantity.text = data[position].quantity.toString()
-            addBtn.setOnClickListener{
-
-            }
-            minusBtn.setOnClickListener{
-
-            }
         }
     }
 

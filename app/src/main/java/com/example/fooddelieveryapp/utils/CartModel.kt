@@ -1,18 +1,31 @@
 package com.example.fooddelieveryapp.utils
 
-import com.example.fooddelieveryapp.Dao.Cart
-import com.example.fooddelieveryapp.Dao.CartDao
-import com.example.fooddelieveryapp.Dao.CartItem
-import com.example.fooddelieveryapp.Dao.CartItemDao
+import android.content.Context
+import androidx.room.Room
+import com.example.fooddelieveryapp.Dao.*
 import com.example.fooddelieveryapp.models.Food
 
-class CartModel {
-    fun CreateCart(Dao : CartDao,restaurantId : Int, ownerId : Int){
-        Dao.addCart(Cart(1,ownerId,restaurantId))
+class CartModel{
+    fun createCart(cartDao: CartDao,restaurantId : Int, ownerId : Int):Long{
+        return cartDao.addCart(Cart(0,ownerId,restaurantId))
     }
-    fun addItemToCart(Dao : CartItemDao, restaurantId : Int,cartRestaurantId : Int,cartId:Int, food : Food, qty : Int){
+    fun addItemToCart(cartItemDao: CartItemDao,restaurantId : Int,cartRestaurantId : Int,cartId:Int, food : Food, qty : Int){
         if(restaurantId ==cartRestaurantId ){
-            Dao.addCartItem(CartItem(food.hashCode(),food.name,food.image,food.price,qty,cartId))
+            cartItemDao.addCartItem(CartItem(0,food.name,food.image,food.price,qty,cartId))
         }
+    }
+
+    fun checkIfCartExists(cartDao: CartDao,restaurantId:Int,userId:Int):Boolean{
+        val results = cartDao.getCartByUserIdAndRestaurantId(userId = userId,restaurantId = restaurantId)
+        return results.isNotEmpty()
+    }
+
+    fun getCartItems(cartDao: CartDao,cartItemDao: CartItemDao,restaurantId:Int,userId:Int):List<CartItem>{
+        return cartItemDao.getCartItemsByCart(
+            cartDao.getCartByUserIdAndRestaurantId(
+                restaurantId,
+                userId
+            )[0].cartId
+        )
     }
 }

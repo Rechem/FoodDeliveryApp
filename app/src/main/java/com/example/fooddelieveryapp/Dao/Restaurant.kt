@@ -6,6 +6,9 @@ import java.util.Date
 
 @Entity(tableName ="restaurants" )
 data class Restaurant(
-    @PrimaryKey var restaurantId: Int?,
+    @PrimaryKey(autoGenerate = true)
+    val restaurantId: Int?,
     var name:String?,
-)
+){
+    constructor(name:String?) : this(0,name)
+}
