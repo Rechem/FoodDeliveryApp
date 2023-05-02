@@ -29,7 +29,7 @@ class RestaurantsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding= FragmentRestaurantsBinding.inflate(layoutInflater)
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         restaurantAdapter = RestaurantAdapter(loadData(),activity as Context)

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.fooddelieveryapp.Dao.*
 import com.example.fooddelieveryapp.models.Food
+import java.lang.IndexOutOfBoundsException
 
 class CartModel{
     fun createCart(cartDao: CartDao,restaurantId : Int, ownerId : Int):Long{
@@ -21,11 +22,15 @@ class CartModel{
     }
 
     fun getCartItems(cartDao: CartDao,cartItemDao: CartItemDao,restaurantId:Int,userId:Int):List<CartItem>{
-        return cartItemDao.getCartItemsByCart(
-            cartDao.getCartByUserIdAndRestaurantId(
-                restaurantId,
-                userId
-            )[0].cartId
-        )
+        try {
+            return cartItemDao.getCartItemsByCart(
+                cartDao.getCartByUserIdAndRestaurantId(
+                    restaurantId,
+                    userId
+                )[0].cartId
+            )
+        }catch (e : IndexOutOfBoundsException){
+            return emptyList()
+        }
     }
 }

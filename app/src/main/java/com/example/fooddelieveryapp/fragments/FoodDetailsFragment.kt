@@ -22,7 +22,6 @@ import com.example.fooddelieveryapp.utils.CartModel
 
 class FoodDetailsFragment : Fragment() {
     lateinit var binding: FragmentFoodDetailsBinding
-    lateinit var dataBase: AppDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,10 +30,9 @@ class FoodDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        dataBase = Room.databaseBuilder(activity as Context, AppDatabase::class.java,"database")
-            .build()
+
         binding= FragmentFoodDetailsBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -42,6 +40,7 @@ class FoodDetailsFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val dataBase = AppDatabase.getInstance(requireActivity())
         val vm = ViewModelProvider(requireActivity())[FoodModel::class.java]
         val food = vm.food
         binding.apply {
@@ -53,20 +52,20 @@ class FoodDetailsFragment : Fragment() {
             foodDescritpion.text = food?.description
             addToCartBtn.setOnClickListener {
                 val cartmodel = CartModel();
-                cartmodel.createCart(
-                    dataBase.getCartDao(),
+                val cartId = cartmodel.createCart(
+                    dataBase!!.getCartDao(),
                     food!!.restaurantId,1
                 )
                 cartmodel.addItemToCart(
                     dataBase.getCartItemDao(),
                     food.restaurantId,
-                    dataBase.getCartDao().getCartById(1)[0].restaurantId!!,
-                    1,
+                    dataBase.getCartDao().getCartById(cartId.toInt())[0].restaurantId!!,
+                    cartId.toInt(),
                     food,
                     quantity.text.toString().toInt()
                 )
-                val TAG = "ch3er"
-                Log.i(TAG, "im here")
+                val TAG = "add to cart"
+                Log.i(TAG, "added")
             }
         }
         binding.back.setOnClickListener {

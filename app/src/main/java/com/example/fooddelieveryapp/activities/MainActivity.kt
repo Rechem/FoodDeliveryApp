@@ -26,12 +26,11 @@ import com.google.android.material.navigation.NavigationView
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var prefs: SharedPreferences
-    private lateinit var drawerLayout: DrawerLayout
     lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        AppDatabase.buildDatabase(this)
+        AppDatabase.getInstance(this)
         prefs = getSharedPreferences("connection", Context.MODE_PRIVATE)
 
 
@@ -43,16 +42,6 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         NavigationUI.setupActionBarWithNavController(this, navController, binding.drawerLayout)
         NavigationUI.setupWithNavController(binding.navView, navController)
-//        drawerLayout  = binding.drawerLayout
-//        binding.navView.setNavigationItemSelectedListener(this)
-//        val toggle = ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close)
-//        drawerLayout.addDrawerListener(toggle)
-//        toggle.syncState()
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true);
-//        if(savedInstanceState==null){
-//            supportFragmentManager.beginTransaction().replace(R.id.fragment_container,RestaurantsFragment()).commit()
-//            binding.navView.setCheckedItem(R.id.restaurants)
-//        }
 
         prefs.apply {
             if (!this.contains("connected"))

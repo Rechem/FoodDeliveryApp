@@ -25,16 +25,7 @@ import com.example.fooddelieveryapp.utils.CartModel
 
 class CartFragment : Fragment() {
     lateinit var binding: FragmentCartBinding
-    lateinit var dataBase: AppDatabase
-    lateinit var cartmodel: CartModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        dataBase = Room
-            .databaseBuilder(activity as Context, AppDatabase::class.java,"database")
-            .build()
-        cartmodel = CartModel()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,6 +40,7 @@ class CartFragment : Fragment() {
         binding.deliveryFeesPrice.text = "69 DZD"
 
         binding.totalCart.text = "4200 DZD"
+
 
         return binding.root
     }
@@ -68,6 +60,7 @@ class CartFragment : Fragment() {
             }
         }
 
+
         binding.cartCrossBtn.setOnClickListener{
             findNavController().popBackStack()
         }
@@ -75,14 +68,13 @@ class CartFragment : Fragment() {
 
     fun loadData():List<CartItem> {
         val data = mutableListOf<CartItem>()
-
-
+        val dataBase = AppDatabase.getInstance(requireActivity())
+        val cartmodel =  CartModel()
        val restaurantId = 1
         val userId = 1
-        var cartId = 0
         if(
             cartmodel.checkIfCartExists(
-                cartDao = dataBase.getCartDao(),
+                cartDao = dataBase!!.getCartDao(),
                 restaurantId = restaurantId,
                 userId= userId
             )
