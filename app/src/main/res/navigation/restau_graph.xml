@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/restaurantsFragment"
         android:name="com.example.fooddelieveryapp.fragments.RestaurantsFragment"
-        android:label="fragment_restaurants"
-        tools:layout="@layout/fragment_restaurants" >
+        android:label="@string/restaurants"
+        tools:layout="@layout/fragment_restaurants">
         <action
             android:id="@+id/action_restaurantsFragment_to_foodFragment"
             app:destination="@id/foodFragment"

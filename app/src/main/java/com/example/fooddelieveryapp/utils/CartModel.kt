@@ -12,7 +12,7 @@ class CartModel{
     }
     fun addItemToCart(cartItemDao: CartItemDao,restaurantId : Int,cartRestaurantId : Int,cartId:Int, food : Food, qty : Int){
         if(restaurantId ==cartRestaurantId ){
-            cartItemDao.addCartItem(CartItem(0,food.name,food.image,food.price,qty,cartId))
+            cartItemDao.addCartItem(CartItem(0,food.name,food.picture,food.price,qty,cartId))
         }
     }
 

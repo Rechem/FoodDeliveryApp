@@ -4,8 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.fooddelieveryapp.models.CartItem
 import com.example.fooddelieveryapp.databinding.CartItemLayoutBinding
+import com.example.fooddelieveryapp.utils.API_URL
 
 
 class CartItemAdapter(val data:List<CartItem>, val ctx: Context):RecyclerView.Adapter<CartItemAdapter.MyViewHolder>() {
@@ -18,7 +20,10 @@ class CartItemAdapter(val data:List<CartItem>, val ctx: Context):RecyclerView.Ad
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.binding.apply {
-            image.setImageResource(data[position].image)
+            Glide.with(ctx)
+                .load(API_URL +data[position].image)
+                .into(image)
+
             name.text = data[position].name
             price.text = data[position].price.toString() + " DZD"
             quantity.text = data[position].quantity.toString()

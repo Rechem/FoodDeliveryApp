@@ -67,8 +67,12 @@ class CartFragment : Fragment() {
     }
 
     fun loadData():List<CartItem> {
+
         val data = mutableListOf<CartItem>()
         val dataBase = AppDatabase.getInstance(requireActivity())
+        val carts = dataBase!!.getCartItemDao().getAllItems();
+        val TAG = "all"
+        Log.i(TAG, carts.toString())
         val cartmodel =  CartModel()
        val restaurantId = 1
         val userId = 1

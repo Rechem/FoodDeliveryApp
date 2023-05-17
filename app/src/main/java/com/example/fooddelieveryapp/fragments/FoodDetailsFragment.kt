@@ -12,12 +12,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
+import com.bumptech.glide.Glide
 import com.example.fooddelieveryapp.Dao.AppDatabase
 import com.example.fooddelieveryapp.R
 import com.example.fooddelieveryapp.databinding.FragmentFoodDetailsBinding
 import com.example.fooddelieveryapp.models.Food
 import com.example.fooddelieveryapp.models.FoodModel
 import com.example.fooddelieveryapp.models.RestauModel
+import com.example.fooddelieveryapp.utils.API_URL
 import com.example.fooddelieveryapp.utils.CartModel
 
 class FoodDetailsFragment : Fragment() {
@@ -44,21 +46,24 @@ class FoodDetailsFragment : Fragment() {
         val vm = ViewModelProvider(requireActivity())[FoodModel::class.java]
         val food = vm.food
         binding.apply {
+
             foodName.text = food?.name
             detailsPrice.text = "${food?.price} DA"
             if (food != null) {
-                foodDetailsImage.setImageResource(food.image)
+                Glide.with(requireActivity())
+                    .load(API_URL +food.picture)
+                    .into(foodDetailsImage)
             }
             foodDescritpion.text = food?.description
             addToCartBtn.setOnClickListener {
                 val cartmodel = CartModel();
                 val cartId = cartmodel.createCart(
                     dataBase!!.getCartDao(),
-                    food!!.restaurantId,1
+                    food!!.idRestaurant,1
                 )
                 cartmodel.addItemToCart(
                     dataBase.getCartItemDao(),
-                    food.restaurantId,
+                    food.idRestaurant,
                     dataBase.getCartDao().getCartById(cartId.toInt())[0].restaurantId!!,
                     cartId.toInt(),
                     food,

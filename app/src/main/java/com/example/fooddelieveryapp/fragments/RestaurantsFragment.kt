@@ -13,12 +13,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fooddelieveryapp.Dao.Endpoint
 import com.example.fooddelieveryapp.R
 import com.example.fooddelieveryapp.adapters.RestaurantAdapter
 
 import com.example.fooddelieveryapp.databinding.FragmentRestaurantsBinding
 import com.example.fooddelieveryapp.models.RestauModel
 import com.example.fooddelieveryapp.models.Restaurant
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class RestaurantsFragment : Fragment() {
@@ -31,18 +36,13 @@ class RestaurantsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding= FragmentRestaurantsBinding.inflate(layoutInflater)
-        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
-        restaurantAdapter = RestaurantAdapter(loadData(),activity as Context)
-        binding.recyclerView.adapter = restaurantAdapter
-
-
+        binding.progressBar.visibility = View.VISIBLE
+        loadData()
         val dividerItemDecoration = DividerItemDecoration(activity, RecyclerView.VERTICAL)
         ResourcesCompat.getDrawable(resources, R.drawable.devider_16_vertical, null)
             ?.let { drawable -> dividerItemDecoration.setDrawable(drawable) }
         binding.recyclerView.addItemDecoration(dividerItemDecoration)
-
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,68 +53,28 @@ class RestaurantsFragment : Fragment() {
             ?.let { drawable -> dividerItemDecoration.setDrawable(drawable) }
         binding.recyclerView.addItemDecoration(dividerItemDecoration)
 
-        restaurantAdapter.onItemClick = {
-            // replace intent with fragment navigation
-            val vm = ViewModelProvider(requireActivity())[RestauModel::class.java]
-            vm.restau = it
-            findNavController().navigate(R.id.action_restaurantsFragment_to_foodFragment)
-//            val intent = Intent(this, FoodList::class.java)
-//            intent.putExtra("restaurant",it )
-//            startActivity(intent)
-        }
+
     }
 
-    fun loadData():List<Restaurant> {
-        val data = mutableListOf<Restaurant>()
-        data.add(
-            Restaurant("dezdouz", R.drawable.restau,"https://goo.gl/maps/Wj9NRgtKmX3h8jNE7",
-                "Turkey", 4.5F,11,"0534523142","restau1@gmail.com",
-                "fb://page/218641444910278","https://www.facebook.com/RenaultRomania/photos/",
-                "https://www.instagram.com/noufel_17/","https://www.instagram.com/noufel_17/",
-                "24 Rue Didouche Mourad")
-        )
-        data.add(
-            Restaurant("Restau1", R.drawable.restau,"https://goo.gl/maps/Wj9NRgtKmX3h8jNE7",
-                "Turkey",4.5F,11,"0534523142","restau1@gmail.com",
-                "fb://page/218641444910278","https://www.facebook.com/RenaultRomania/photos/",
-                "https://www.instagram.com/noufel_17/","https://www.instagram.com/noufel_17/",
-                "24 Rue Didouche Mourad")
-        )
-        data.add(
-            Restaurant("Restau1", R.drawable.restau,"https://goo.gl/maps/Wj9NRgtKmX3h8jNE7",
-                "Turkey",4.5F,11,"0534523142","restau1@gmail.com",
-                "fb://page/218641444910278","https://www.facebook.com/RenaultRomania/photos/",
-                "https://www.instagram.com/noufel_17/","https://www.instagram.com/noufel_17/"
-                ,"24 Rue Didouche Mourad")
-        )
-        data.add(
-            Restaurant("Restau1", R.drawable.restau,"https://goo.gl/maps/Wj9NRgtKmX3h8jNE7",
-                "Turkey",4.5F,11,"0534523142","restau1@gmail.com",
-                "fb://page/218641444910278","https://www.facebook.com/RenaultRomania/photos/",
-                "https://www.instagram.com/noufel_17/","https://www.instagram.com/noufel_17/",
-                "24 Rue Didouche Mourad")
-        )
-        data.add(
-            Restaurant("Restau1", R.drawable.restau,"https://goo.gl/maps/Wj9NRgtKmX3h8jNE7",
-                "Turkey",4.5F,11,"0534523142","restau1@gmail.com",
-                "fb://page/218641444910278","https://www.facebook.com/RenaultRomania/photos/",
-                "https://www.instagram.com/noufel_17/","https://www.instagram.com/noufel_17/",
-                "24 Rue Didouche Mourad")
-        )
-        data.add(
-            Restaurant("Restau1", R.drawable.restau,"https://goo.gl/maps/Wj9NRgtKmX3h8jNE7",
-                "Turkey",4.5F,11,"0534523142","restau1@gmail.com",
-                "fb://page/218641444910278","https://www.facebook.com/RenaultRomania/photos/",
-                "https://www.instagram.com/noufel_17/","https://www.instagram.com/noufel_17/",
-                "24 Rue Didouche Mourad")
-        )
-        data.add(
-            Restaurant("Restau1", R.drawable.restau,"https://goo.gl/maps/Wj9NRgtKmX3h8jNE7",
-                "Turkey",4.5F,11,"0534523142","restau1@gmail.com",
-                "fb://page/218641444910278","https://www.facebook.com/RenaultRomania/photos/",
-                "https://www.instagram.com/noufel_17/","https://www.instagram.com/noufel_17/",
-                "24 Rue Didouche Mourad")
-        )
-        return data
+    private fun loadData() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = Endpoint.createEndpoint().getRestaurants()
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    binding.progressBar.visibility = View.GONE
+                    val restaurants = response.body()
+                    binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+                    restaurantAdapter = RestaurantAdapter(restaurants!!,activity as Context)
+                    binding.recyclerView.adapter = restaurantAdapter
+                    restaurantAdapter.onItemClick = {
+                        val vm = ViewModelProvider(requireActivity())[RestauModel::class.java]
+                        vm.restau = it
+                        findNavController().navigate(R.id.action_restaurantsFragment_to_foodFragment)
+                    }
+                } else {
+                    throw Exception("failed to load restaurants, error code : ${response.code()}")
+                }
+            }
+        }
     }
 }

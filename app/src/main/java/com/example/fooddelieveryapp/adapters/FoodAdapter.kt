@@ -4,8 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.fooddelieveryapp.databinding.FoodLayoutBinding
 import com.example.fooddelieveryapp.models.Food
+import com.example.fooddelieveryapp.utils.API_URL
 
 
 class FoodAdapter(val data:List<Food>, val context: Context):RecyclerView.Adapter<FoodAdapter.MyViewHolder>() {
@@ -20,12 +22,14 @@ class FoodAdapter(val data:List<Food>, val context: Context):RecyclerView.Adapte
         val food = data[position]
         holder.binding.apply {
             name.text = food.name
+            Glide.with(context)
+                .load(API_URL +food.picture)
+                .into(foodImage)
             foodPrice.text = "${food.price} DA"
         }
         holder.itemView.setOnClickListener {
             onItemClick?.invoke(food)
         }
-
     }
 
 

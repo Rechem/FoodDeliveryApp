@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         super.onSupportNavigateUp() || NavigationUI.navigateUp(navController, binding.drawerLayout)
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.drawer, menu)
+        menuInflater.inflate(R.menu.menu, menu)
         return true
     }
 

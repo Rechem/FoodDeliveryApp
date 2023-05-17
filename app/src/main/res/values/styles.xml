@@ -2,8 +2,10 @@
 <resources>
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/main_color</item>
+        <item name="colorPrimary">@color/bg</item>
         <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textColor">@color/main_color</item>
+
     </style>
     <style name="Divider">
         <item name="android:layout_width">180dp</item>

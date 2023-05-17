@@ -12,14 +12,22 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fooddelieveryapp.Dao.Endpoint
 import com.example.fooddelieveryapp.R
 import com.example.fooddelieveryapp.adapters.FoodAdapter
+import com.example.fooddelieveryapp.adapters.RestaurantAdapter
 import com.example.fooddelieveryapp.databinding.FragmentFoodBinding
 import com.example.fooddelieveryapp.models.Food
 import com.example.fooddelieveryapp.models.RestauModel
 import com.example.fooddelieveryapp.models.FoodModel
+import com.example.fooddelieveryapp.models.Restaurant
 import com.example.fooddelieveryapp.utils.CartModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class FoodFragment : Fragment() {
     lateinit var binding: FragmentFoodBinding
@@ -36,9 +44,7 @@ class FoodFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding= FragmentFoodBinding.inflate(layoutInflater)
-        binding.recyclerView.layoutManager = GridLayoutManager(activity,2)
-        foodAdpater = FoodAdapter(loadData(),activity as Context)
-        binding.recyclerView.adapter = foodAdpater
+
 
         val verticalDividerItemDecoration = DividerItemDecoration(activity, RecyclerView.VERTICAL)
         val horizontalDividerItemDecoration = DividerItemDecoration(activity, RecyclerView.HORIZONTAL)
@@ -58,12 +64,8 @@ class FoodFragment : Fragment() {
         val vm = ViewModelProvider(requireActivity())[RestauModel::class.java]
         val restaurant = vm.restau
         binding.restaurantName.text = restaurant?.name
-        foodAdpater.onItemClick={
-            val vm = ViewModelProvider(requireActivity())[FoodModel::class.java]
-            vm.food = it
-            vm.restaurant = restaurant
-            findNavController().navigate(R.id.action_foodFragment_to_foodDetailsFragment)
-        }
+        loadData(restaurant!!)
+
 
         //  back listner
         binding.back.setOnClickListener {
@@ -76,13 +78,26 @@ class FoodFragment : Fragment() {
         }
     }
 
-    private fun loadData() : List<Food>{
-        val data  = mutableListOf<Food>()
-        data.add(Food(1,R.drawable.restau,"food1",240.0,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit,"))
-        data.add(Food(1,R.drawable.restau,"food2",240.0,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit,"))
-        data.add(Food(1,R.drawable.restau,"food3",240.0,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit,"))
-        data.add(Food(1,R.drawable.restau,"food4",240.0,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit,"))
-        return data
-
+    private fun loadData(restaurant : Restaurant){
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = Endpoint.createEndpoint().getMenus(restaurant.idRestaurant)
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    //binding.progressBar.visibility = View.GONE
+                    val menus = response.body()
+                    binding.recyclerView.layoutManager = GridLayoutManager(activity,2)
+                    foodAdpater = FoodAdapter(menus!!,activity as Context)
+                    binding.recyclerView.adapter = foodAdpater
+                    foodAdpater.onItemClick={
+                        val vm = ViewModelProvider(requireActivity())[FoodModel::class.java]
+                        vm.food = it
+                        vm.restaurant = restaurant
+                        findNavController().navigate(R.id.action_foodFragment_to_foodDetailsFragment)
+                    }
+                } else {
+                    throw Exception("failed to load restaurants, error code : ${response.code()}")
+                }
+            }
+        }
     }
 }
