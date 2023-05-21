@@ -59,7 +59,14 @@ class FoodDetailsFragment : Fragment() {
                     .into(foodDetailsImage)
             }
             foodDescritpion.text = food?.description
+
             quantity.text = "1";
+            addBtn.setOnClickListener {
+                quantity.text = (quantity.text.toString().toInt()+1).toString()
+            }
+            minusBtn.setOnClickListener {
+                quantity.text = (quantity.text.toString().toInt()-1).toString()
+            }
             addToCartBtn.setOnClickListener {
                 val cartmodel = CartModel.getInstance(cartItemDao);
 //                val cartId = cartmodel.createCart(
@@ -78,8 +85,6 @@ class FoodDetailsFragment : Fragment() {
                     Snackbar.make(binding.root,e.toString(), Snackbar.LENGTH_LONG).show()
                     Log.i(TAG, "not added")
                 }
-
-
             }
         }
         binding.back.setOnClickListener {

@@ -27,7 +27,7 @@ import com.example.fooddelieveryapp.utils.CartModel
 class CartFragment : Fragment() {
     lateinit var binding: FragmentCartBinding;
     lateinit var cartmodel: CartModel;
-
+    lateinit var items : List<CartItem>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,13 +39,17 @@ class CartFragment : Fragment() {
         binding= FragmentCartBinding.inflate(layoutInflater)
 
         binding.cartRecyclerView.layoutManager = LinearLayoutManager(activity)
-
+        items = loadData()
         binding.cartRecyclerView.adapter = CartItemAdapter(loadData(), activity as Context, cartmodel);
 
-        binding.mealsPrice.text = "69 DZD"
-        binding.deliveryFeesPrice.text = "69 DZD"
-
-        binding.totalCart.text = "4200 DZD"
+        var sum : Int = 0;
+        for (item in items){
+            sum +=item.price *item.quantity
+        }
+        binding.mealsPrice.text = "${sum}"
+        val deliveryFee = 70;
+        binding.deliveryFeesPrice.text = "$deliveryFee"
+        binding.totalCart.text = "${sum+deliveryFee}"
 
 
         return binding.root
@@ -74,7 +78,10 @@ class CartFragment : Fragment() {
         binding.clearAllBtn.setOnClickListener {
             cartmodel.clearCart();
             (binding.cartRecyclerView.adapter as CartItemAdapter).clearItems();
+            binding.mealsPrice.text = "0";
+            binding.totalCart.text = binding.deliveryFeesPrice.text
         }
+
     }
 
     fun loadData():List<CartItem> {
