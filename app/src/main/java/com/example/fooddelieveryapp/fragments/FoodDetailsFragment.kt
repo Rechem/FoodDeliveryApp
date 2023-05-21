@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.room.Room
@@ -21,6 +22,7 @@ import com.example.fooddelieveryapp.models.FoodModel
 import com.example.fooddelieveryapp.models.RestauModel
 import com.example.fooddelieveryapp.utils.API_URL
 import com.example.fooddelieveryapp.utils.CartModel
+import com.google.android.material.snackbar.Snackbar
 
 class FoodDetailsFragment : Fragment() {
     lateinit var binding: FragmentFoodDetailsBinding
@@ -42,7 +44,7 @@ class FoodDetailsFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val dataBase = AppDatabase.getInstance(requireActivity())
+        val cartItemDao = AppDatabase.getInstance(requireActivity())!!.getCartItemDao()
         val vm = ViewModelProvider(requireActivity())[FoodModel::class.java]
         val food = vm.food
         binding.apply {
@@ -56,21 +58,25 @@ class FoodDetailsFragment : Fragment() {
             }
             foodDescritpion.text = food?.description
             addToCartBtn.setOnClickListener {
-                val cartmodel = CartModel();
-                val cartId = cartmodel.createCart(
-                    dataBase!!.getCartDao(),
-                    food!!.idRestaurant,1
-                )
-                cartmodel.addItemToCart(
-                    dataBase.getCartItemDao(),
-                    food.idRestaurant,
-                    dataBase.getCartDao().getCartById(cartId.toInt())[0].restaurantId!!,
-                    cartId.toInt(),
-                    food,
-                    quantity.text.toString().toInt()
-                )
+                val cartmodel = CartModel(cartItemDao);
+//                val cartId = cartmodel.createCart(
+//                    dataBase!!.getCartDao(),
+//                    food!!.idRestaurant,1
+//                )
                 val TAG = "add to cart"
-                Log.i(TAG, "added")
+                try {
+                    cartmodel.addItemToCart(
+                        food!!,
+                        quantity.text.toString().toInt()
+                    )
+
+                    Log.i(TAG, "added")
+                }catch (e:java.lang.Exception){
+                    Snackbar.make(binding.root,e.toString(), Snackbar.LENGTH_LONG).show()
+                    Log.i(TAG, "not added")
+                }
+
+
             }
         }
         binding.back.setOnClickListener {

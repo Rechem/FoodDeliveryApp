@@ -7,10 +7,10 @@ import java.util.Date
 @Entity(tableName ="cartItems" )
 data class CartItem(
     @PrimaryKey(autoGenerate = true)
-    val cartItemId: Int,
+    val mealId: Int,
     var name:String,
     var image:String,
     var price:Int,
     var quantity:Int,
-    var cartId : Int
+    var restaurantId : Int
 )

@@ -10,7 +10,7 @@ import com.example.fooddelieveryapp.databinding.CartItemLayoutBinding
 import com.example.fooddelieveryapp.utils.API_URL
 
 
-class CartItemAdapter(val data:List<CartItem>, val ctx: Context):RecyclerView.Adapter<CartItemAdapter.MyViewHolder>() {
+class CartItemAdapter(var data:List<CartItem>, val ctx: Context):RecyclerView.Adapter<CartItemAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(CartItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -28,6 +28,11 @@ class CartItemAdapter(val data:List<CartItem>, val ctx: Context):RecyclerView.Ad
             price.text = data[position].price.toString() + " DZD"
             quantity.text = data[position].quantity.toString()
         }
+    }
+
+    fun clearItems(){
+        data = emptyList();
+        notifyDataSetChanged();
     }
 
 

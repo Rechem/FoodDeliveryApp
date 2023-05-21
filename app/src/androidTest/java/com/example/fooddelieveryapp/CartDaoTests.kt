@@ -4,7 +4,6 @@ import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.fooddelieveryapp.Dao.AppDatabase
-import com.example.fooddelieveryapp.Dao.Cart
 import com.example.fooddelieveryapp.Dao.CartItem
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -24,14 +23,6 @@ class CartDaoTests {
     }
 
     @Test
-    fun testInsertAndGetCart() {
-        val cart = Cart(1, 1, 1)
-
-        mDataBase.getCartDao().addCart(cart)
-        val list = mDataBase.getCartDao().getCartById(1)
-        assertEquals(cart, list[0])
-    }
-    @Test
     fun testGetCarItems(){
         val cart = Cart(1, 1, 1)
         val cartItem = CartItem(1,"je3fer",1,1.0,1,1)
@@ -41,19 +32,19 @@ class CartDaoTests {
         val list = mDataBase.getCartItemDao().getCartItemsbyCart(1)
         assertEquals(cartItem,list[0])
     }
-    @Test
-    fun testDeleteCartItem(){
-        val cart = Cart(1, 1, 1)
-        val cartItem = CartItem(1,"je3fer",1,1.0,1,1)
-        mDataBase.getCartDao().addCart(cart)
-        mDataBase.getCartItemDao().addCartItem(cartItem)
-
-        mDataBase.getCartItemDao().deleteCartItem(
-            mDataBase.getCartItemDao().getCartItemById(1)[0]
-        )
-
-        assertTrue(mDataBase.getCartItemDao().getCartItemById(1).isEmpty())
-    }
+//    @Test
+//    fun testDeleteCartItem(){
+//        val cart = Cart(1, 1, 1)
+//        val cartItem = CartItem(1,"je3fer",1,1.0,1,1)
+//        mDataBase.getCartDao().addCart(cart)
+//        mDataBase.getCartItemDao().addCartItem(cartItem)
+//
+//        mDataBase.getCartItemDao().deleteCartItem(
+//            mDataBase.getCartItemDao().getCartItemById(1)[0]
+//        )
+//
+//        assertTrue(mDataBase.getCartItemDao().getCartItemById(1).isEmpty())
+//    }
 
     @Test
     fun testUpdateCartItem(){

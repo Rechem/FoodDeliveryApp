@@ -24,17 +24,19 @@ import com.example.fooddelieveryapp.models.CartItem
 import com.example.fooddelieveryapp.utils.CartModel
 
 class CartFragment : Fragment() {
-    lateinit var binding: FragmentCartBinding
-
+    lateinit var binding: FragmentCartBinding;
+    lateinit var cartmodel: CartModel;
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        cartmodel = CartModel(AppDatabase.getInstance(requireActivity())!!.getCartItemDao());
         binding= FragmentCartBinding.inflate(layoutInflater)
 
         binding.cartRecyclerView.layoutManager = LinearLayoutManager(activity)
-        binding.cartRecyclerView.adapter = CartItemAdapter(loadData(), activity as Context)
+
+        binding.cartRecyclerView.adapter = CartItemAdapter(loadData(), activity as Context);
 
         binding.mealsPrice.text = "69 DZD"
         binding.deliveryFeesPrice.text = "69 DZD"
@@ -64,6 +66,11 @@ class CartFragment : Fragment() {
         binding.cartCrossBtn.setOnClickListener{
             findNavController().popBackStack()
         }
+
+        binding.clearAllBtn.setOnClickListener {
+            cartmodel.clearCart();
+            (binding.cartRecyclerView.adapter as CartItemAdapter).clearItems();
+        }
     }
 
     fun loadData():List<CartItem> {
@@ -73,29 +80,8 @@ class CartFragment : Fragment() {
         val carts = dataBase!!.getCartItemDao().getAllItems();
         val TAG = "all"
         Log.i(TAG, carts.toString())
-        val cartmodel =  CartModel()
-       val restaurantId = 1
-        val userId = 1
-        if(
-            cartmodel.checkIfCartExists(
-                cartDao = dataBase!!.getCartDao(),
-                restaurantId = restaurantId,
-                userId= userId
-            )
-        )
-            cartmodel.createCart(
-                cartDao = dataBase.getCartDao(),
-                restaurantId = restaurantId,
-                ownerId = userId
-            )
-        else
             data.addAll(
-                cartmodel.getCartItems(
-                    cartDao = dataBase.getCartDao(),
-                    cartItemDao = dataBase.getCartItemDao(),
-                    restaurantId = restaurantId,
-                    userId = userId
-                ).map {
+                cartmodel.getCartItems().map {
                     CartItem(
                         name = it.name,
                         image = it.image,
