@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,12 +32,15 @@ class CartFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        cartmodel = CartModel(AppDatabase.getInstance(requireActivity())!!.getCartItemDao());
+
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = resources.getString(R.string.cart);
+
+        cartmodel = CartModel.getInstance(AppDatabase.getInstance(requireActivity())!!.getCartItemDao());
         binding= FragmentCartBinding.inflate(layoutInflater)
 
         binding.cartRecyclerView.layoutManager = LinearLayoutManager(activity)
 
-        binding.cartRecyclerView.adapter = CartItemAdapter(loadData(), activity as Context);
+        binding.cartRecyclerView.adapter = CartItemAdapter(loadData(), activity as Context, cartmodel);
 
         binding.mealsPrice.text = "69 DZD"
         binding.deliveryFeesPrice.text = "69 DZD"
@@ -83,6 +87,7 @@ class CartFragment : Fragment() {
             data.addAll(
                 cartmodel.getCartItems().map {
                     CartItem(
+                        id = it.mealId,
                         name = it.name,
                         image = it.image,
                         price = it.price,

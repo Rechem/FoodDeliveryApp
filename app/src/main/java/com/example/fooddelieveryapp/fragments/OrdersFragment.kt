@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.example.fooddelieveryapp.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -25,6 +26,8 @@ class OrdersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        (requireActivity() as AppCompatActivity).supportActionBar?.title =
+            requireActivity().resources.getString(R.string.orders);
         return inflater.inflate(R.layout.fragment_orders, container, false)
     }
 

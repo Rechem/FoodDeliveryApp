@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDirections
@@ -32,10 +33,13 @@ import kotlinx.coroutines.withContext
 class FoodFragment : Fragment() {
     lateinit var binding: FragmentFoodBinding
     private lateinit var foodAdpater : FoodAdapter
+    lateinit var vm:RestauModel;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        vm = ViewModelProvider(requireActivity())[RestauModel::class.java];
+        (requireActivity() as AppCompatActivity).supportActionBar?.title =
+            vm.restau!!.name;
     }
 
     override fun onCreateView(
@@ -61,7 +65,6 @@ class FoodFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val vm = ViewModelProvider(requireActivity())[RestauModel::class.java]
         val restaurant = vm.restau
         binding.restaurantName.text = restaurant?.name
         loadData(restaurant!!)

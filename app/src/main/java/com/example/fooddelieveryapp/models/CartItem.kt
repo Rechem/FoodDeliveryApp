@@ -3,8 +3,9 @@ package com.example.fooddelieveryapp.models
 import androidx.lifecycle.ViewModel
 
 data class CartItem(
+    val id:Int,
     val name:String,
     val image:String,
     val price:Int,
-    val quantity:Int,
+    var quantity:Int,
 ) : ViewModel()

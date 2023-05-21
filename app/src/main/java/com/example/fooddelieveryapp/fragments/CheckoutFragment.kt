@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.example.fooddelieveryapp.databinding.FragmentCheckoutBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -16,6 +17,8 @@ class CheckoutFragment : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title =
+            requireActivity().resources.getString(R.string.checkout);
     }
 
     override fun onCreateView(

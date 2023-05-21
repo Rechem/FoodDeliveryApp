@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.example.fooddelieveryapp.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -28,6 +29,9 @@ class SettingsFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        (requireActivity() as AppCompatActivity).supportActionBar?.title =
+            requireActivity().resources.getString(R.string.settings);
     }
 
     override fun onCreateView(

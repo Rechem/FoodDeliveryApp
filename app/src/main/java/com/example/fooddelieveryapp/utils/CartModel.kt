@@ -8,10 +8,18 @@ import com.example.fooddelieveryapp.Dao.*
 import com.example.fooddelieveryapp.models.Food
 import java.lang.IndexOutOfBoundsException
 
-class CartModel(val cartItemDao : CartItemDao){
-//    fun createCart(cartDao: CartDao,restaurantId : Int, ownerId : Int):Long{
-//        return cartDao.addCart(Cart(0,ownerId,restaurantId))
-//    }
+class CartModel(private val cartItemDao : CartItemDao){
+
+    companion object {
+        @Volatile
+        private var instance: CartModel? = null
+
+        fun getInstance(cartItemDao : CartItemDao): CartModel {
+            return instance ?: synchronized(this) {
+                instance ?: CartModel(cartItemDao).also { instance = it }
+            }
+        }
+    }
 
 
     fun clearCart(){
@@ -48,5 +56,12 @@ class CartModel(val cartItemDao : CartItemDao){
         }catch (e : IndexOutOfBoundsException){
             return emptyList()
         }
+    }
+
+    fun incrementCartItemQuantity(id:Int){
+        cartItemDao.incrementCartItemQuantity(id);
+    }
+    fun decrementCartItemQuantity(id:Int){
+        cartItemDao.decrementCartItemQuantity(id);
     }
 }

@@ -10,141 +10,143 @@
         android:layout_width="fill_parent"
         android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bg">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg">
 
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="50dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/arrow_left" />
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="50dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/arrow_left" />
 
-        <TextView
-            android:id="@+id/foodName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="TextView"
-            android:textColor="@color/main_color"
-            android:textSize="28sp"
-            app:layout_constraintBottom_toBottomOf="@+id/back"
-            app:layout_constraintStart_toEndOf="@+id/back"
-            app:layout_constraintTop_toTopOf="@+id/back" />
+            <TextView
+                android:id="@+id/foodName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="TextView"
+                android:textColor="@color/main_color"
+                android:textSize="28sp"
+                app:layout_constraintBottom_toBottomOf="@+id/back"
+                app:layout_constraintStart_toEndOf="@+id/back"
+                app:layout_constraintTop_toTopOf="@+id/back" />
 
-        <ImageView
-            android:id="@+id/cart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/cart" />
+            <ImageView
+                android:id="@+id/cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/cart" />
 
-        <ImageView
-            android:id="@+id/food_details_image"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:src="@drawable/restau"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/foodName" />
+            <ImageView
+                android:id="@+id/food_details_image"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:src="@drawable/restau"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/foodName" />
 
-        <TextView
-            android:id="@+id/details_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="240 DA"
-            android:textColor="@color/text_color"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/food_details_image" />
+            <TextView
+                android:id="@+id/details_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="240 DA"
+                android:textColor="@color/text_color"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/food_details_image" />
 
-        <TextView
-            android:id="@+id/food_descritpion"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="TextView"
-            android:textColor="@color/text_color"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/details_price" />
+            <TextView
+                android:id="@+id/food_descritpion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="TextView"
+                android:textColor="@color/text_color"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/details_price" />
 
-        <TextView
-            android:id="@+id/quantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="0"
-            android:textAppearance="@style/TextAppearance.App.Body1"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/food_descritpion" />
+            <TextView
+                android:id="@+id/quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="0"
+                android:textAppearance="@style/TextAppearance.App.Body1"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/food_descritpion" />
 
-        <ImageView
-            android:id="@+id/addBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/quantity"
-            app:layout_constraintStart_toEndOf="@+id/quantity"
-            app:layout_constraintTop_toTopOf="@+id/quantity"
-            app:layout_constraintVertical_bias="1.0"
-            app:srcCompat="@drawable/add" />
+            <ImageView
+                android:id="@+id/addBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/quantity"
+                app:layout_constraintStart_toEndOf="@+id/quantity"
+                app:layout_constraintTop_toTopOf="@+id/quantity"
+                app:layout_constraintVertical_bias="1.0"
+                app:srcCompat="@drawable/add" />
 
-        <ImageView
-            android:id="@+id/minusBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/quantity"
-            app:layout_constraintEnd_toStartOf="@+id/quantity"
-            app:layout_constraintTop_toTopOf="@+id/quantity"
-            app:srcCompat="@drawable/minus" />
+            <ImageView
+                android:id="@+id/minusBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/quantity"
+                app:layout_constraintEnd_toStartOf="@+id/quantity"
+                app:layout_constraintTop_toTopOf="@+id/quantity"
+                app:srcCompat="@drawable/minus" />
 
-        <Button
-            android:id="@+id/add_to_cart_btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/botton"
-            android:enabled="true"
-            android:fontFamily="@font/poppins_semibold"
-            android:gravity="center"
-            android:text="@string/add_to_cart"
-            android:textAlignment="gravity"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/quantity" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/add_to_cart_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/botton"
+                android:enabled="true"
+                android:fontFamily="@font/poppins_semibold"
+                android:gravity="center"
+                android:text="@string/add_to_cart"
+                android:textAlignment="gravity"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/quantity" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 </FrameLayout>

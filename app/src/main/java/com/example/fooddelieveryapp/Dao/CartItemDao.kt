@@ -14,8 +14,11 @@ interface CartItemDao {
     fun getCartRestaurantId():Int
     @Insert
     fun addCartItem(vararg item:CartItem)
-    @Update
-    fun updateCartItem(item:CartItem)
+    @Query("update cartItems set quantity = quantity + 1 where mealId = :id")
+    fun incrementCartItemQuantity(id: Int)
+
+    @Query("update cartItems set quantity = quantity - 1 where mealId = :id")
+    fun decrementCartItemQuantity(id: Int)
     @Delete
     fun deleteCartItem(item:CartItem)
     @Query("delete from cartItems")

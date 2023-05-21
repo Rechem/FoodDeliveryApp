@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.room.Room
@@ -26,9 +27,11 @@ import com.google.android.material.snackbar.Snackbar
 
 class FoodDetailsFragment : Fragment() {
     lateinit var binding: FragmentFoodDetailsBinding
+    lateinit var vm:FoodModel;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        vm = ViewModelProvider(requireActivity())[FoodModel::class.java]
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = vm.food!!.name;
     }
 
     override fun onCreateView(
@@ -45,7 +48,6 @@ class FoodDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val cartItemDao = AppDatabase.getInstance(requireActivity())!!.getCartItemDao()
-        val vm = ViewModelProvider(requireActivity())[FoodModel::class.java]
         val food = vm.food
         binding.apply {
 
@@ -57,8 +59,9 @@ class FoodDetailsFragment : Fragment() {
                     .into(foodDetailsImage)
             }
             foodDescritpion.text = food?.description
+            quantity.text = "1";
             addToCartBtn.setOnClickListener {
-                val cartmodel = CartModel(cartItemDao);
+                val cartmodel = CartModel.getInstance(cartItemDao);
 //                val cartId = cartmodel.createCart(
 //                    dataBase!!.getCartDao(),
 //                    food!!.idRestaurant,1

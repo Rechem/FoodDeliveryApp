@@ -12,6 +12,28 @@
     android:layout_marginHorizontal="24dp">
 
 
+    <ImageView
+        android:id="@+id/minusBtnItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/quantityItem"
+        app:layout_constraintEnd_toStartOf="@+id/quantityItem"
+        app:layout_constraintTop_toTopOf="@+id/quantityItem"
+        app:srcCompat="@drawable/minus" />
+
+    <ImageView
+        android:id="@+id/addBtnItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/quantityItem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/quantityItem"
+        app:layout_constraintTop_toTopOf="@+id/quantityItem"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/add" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
@@ -28,6 +50,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins"
             android:textFontWeight="500"
+            android:textColor="@color/text_color"
             android:text="TextView"
             android:textAppearance="@style/TextAppearance.App.Body2" />
 
@@ -39,6 +62,7 @@
             android:fontFamily="@font/poppins"
             android:textFontWeight="600"
             android:text="TextView"
+            android:textColor="@color/text_color"
             android:textAppearance="@style/TextAppearance.App.Body1" />
     </LinearLayout>
 
@@ -53,11 +77,12 @@
 
 
     <TextView
-        android:id="@+id/quantity"
+        android:id="@+id/quantityItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:text="TextView"
+        android:textColor="@color/text_color"
         android:textAppearance="@style/TextAppearance.App.Body1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
