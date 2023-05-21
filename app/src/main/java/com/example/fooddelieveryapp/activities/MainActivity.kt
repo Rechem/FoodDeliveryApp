@@ -12,7 +12,9 @@ import androidx.core.content.edit
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.fooddelieveryapp.Dao.AppDatabase
 import com.example.fooddelieveryapp.R
@@ -21,12 +23,18 @@ import com.example.fooddelieveryapp.fragments.OrdersFragment
 import com.example.fooddelieveryapp.fragments.RestaurantsFragment
 import com.example.fooddelieveryapp.fragments.SettingsFragment
 import com.example.fooddelieveryapp.models.Restaurant
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var prefs: SharedPreferences
     lateinit var navController: NavController
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -64,7 +72,9 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
-
+            R.id.cartBtn -> {
+                Navigation.findNavController(this,R.id.navHost).navigate(R.id.cartFragment)
+            }
             R.id.nav_logout -> {
                 Toast.makeText(this, "logged out", Toast.LENGTH_SHORT).show()
                 prefs.edit {
