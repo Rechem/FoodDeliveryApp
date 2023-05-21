@@ -88,6 +88,7 @@ class FoodDetailsFragment : Fragment() {
         }
 
         binding.cart.setOnClickListener {
+
             findNavController().navigate(R.id.action_foodDetailsFragment_to_cartFragment)
         }
     }

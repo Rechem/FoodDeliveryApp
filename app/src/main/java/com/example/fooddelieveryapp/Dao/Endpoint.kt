@@ -7,7 +7,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import com.example.fooddelieveryapp.models.Restaurant
+import com.example.fooddelieveryapp.models.UserConnexion
+import com.example.fooddelieveryapp.models.UserInfo
 import com.example.fooddelieveryapp.utils.API_URL
+import retrofit2.http.Body
+import retrofit2.http.POST
 
 interface Endpoint {
 
@@ -22,6 +26,8 @@ interface Endpoint {
             return endpoint!!
         }
     }
+    @POST("login")
+    suspend fun login(@Body ConnexionInfo : UserConnexion): Response<UserInfo>
 
     @GET("restaurants")
     suspend fun getRestaurants(): Response<List<Restaurant>>
