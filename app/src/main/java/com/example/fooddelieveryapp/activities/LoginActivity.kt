@@ -52,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
 
             CoroutineScope(Dispatchers.IO).launch {
                 val connexionInfo = UserConnexion(binding.email.text.toString(),binding.password.text.toString())
-                val response = Endpoint.createEndpoint().login(connexionInfo)
+                val response = Endpoint.createEndpoint(baseContext).login(connexionInfo)
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         //binding.progressBar.visibility = View.GONE
@@ -83,7 +83,4 @@ class LoginActivity : AppCompatActivity() {
 
         }
     }
-
-
-
 }

@@ -17,15 +17,17 @@
             android:id="@+id/settings"
             android:icon="@drawable/baseline_settings_24"
             android:title="@string/settings_cap" />
+
     </group>
     <item android:title="">
         <menu>
             <item
-                android:id="@+id/nav_logout"
+                android:id="@+id/nav_logout11"
                 android:icon="@drawable/logout"
                 android:title="Logout" />
         </menu>
     </item>
+
 
 
 

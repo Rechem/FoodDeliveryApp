@@ -87,6 +87,7 @@ class CartFragment : Fragment() {
         val carts = dataBase!!.getCartItemDao().getAllItems();
         val TAG = "all"
         Log.i(TAG, carts.toString())
+        print("something")
             data.addAll(
                 cartmodel.getCartItems().map {
                     CartItem(
