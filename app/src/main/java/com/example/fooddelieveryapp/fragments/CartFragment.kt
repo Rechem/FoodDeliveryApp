@@ -77,6 +77,9 @@ class CartFragment : Fragment() {
             }
         }
 
+        binding.addNoteBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_cartFragment_to_cookNoteFragment)
+        }
 
         binding.cartCrossBtn.setOnClickListener{
             findNavController().popBackStack()
@@ -98,6 +101,7 @@ class CartFragment : Fragment() {
         val carts = dataBase!!.getCartItemDao().getAllItems();
         val TAG = "all"
         Log.i(TAG, carts.toString())
+        print("something")
             data.addAll(
                 cartmodel.getCartItems().map {
                     CartItem(

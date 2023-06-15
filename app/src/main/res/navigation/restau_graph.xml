@@ -60,7 +60,7 @@
         android:name="com.example.fooddelieveryapp.fragments.OrdersFragment"
         android:label="fragment_orders"
         tools:layout="@layout/fragment_orders" />
-    <fragment
+    <dialog
         android:id="@+id/cookNoteFragment"
         android:name="com.example.fooddelieveryapp.fragments.CookNoteFragment"
         android:label="fragment_cook_note"

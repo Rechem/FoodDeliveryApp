@@ -31,7 +31,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/cross_btn"
+            android:id="@+id/close_cook_note_x_btn"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:rotation="45"
@@ -56,7 +56,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:background="@drawable/edittext"
-            android:hint="Add a note"
             android:inputType="textMultiLine"
             android:lines="3"
             android:maxLines="3"
@@ -75,7 +74,7 @@
             tools:layout_editor_absoluteX="24dp">
 
             <Button
-                android:id="@+id/close_btn"
+                android:id="@+id/close_cook_note_btn"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -91,7 +90,7 @@
                 android:layout_height="0dp"></Space>
 
             <Button
-                android:id="@+id/add_note_btn"
+                android:id="@+id/confirm_note_btn"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="1"

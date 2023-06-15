@@ -61,7 +61,7 @@ class RestaurantsFragment : Fragment() {
 
     private fun loadData() {
         CoroutineScope(Dispatchers.IO).launch {
-            val response = Endpoint.createEndpoint().getRestaurants()
+            val response = Endpoint.createEndpoint(requireContext()).getRestaurants()
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     binding.progressBar.visibility = View.GONE

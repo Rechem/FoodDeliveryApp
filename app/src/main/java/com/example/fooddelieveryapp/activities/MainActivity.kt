@@ -1,9 +1,11 @@
 package com.example.fooddelieveryapp.activities
 
+import android.content.ContentValues
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -28,19 +30,18 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var prefs: SharedPreferences
     lateinit var navController: NavController
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         AppDatabase.getInstance(this)
         prefs = getSharedPreferences("connection", Context.MODE_PRIVATE)
-
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
@@ -50,6 +51,21 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         NavigationUI.setupActionBarWithNavController(this, navController, binding.drawerLayout)
         NavigationUI.setupWithNavController(binding.navView, navController)
+
+        // FOR DRAWER
+        binding.navView.setNavigationItemSelectedListener{
+            when (it.itemId) {
+                R.id.logoutBtn -> {
+                    Log.i("deconnexion", "logged out")
+                    prefs = getSharedPreferences("connection", Context.MODE_PRIVATE)
+                    prefs.edit {
+                        putBoolean("connected", false)
+                    }
+                    Toast.makeText(this, "logged out", Toast.LENGTH_SHORT).show()
+                }
+            }
+            true
+        }
 
         prefs.apply {
             if (!this.contains("connected"))
@@ -65,23 +81,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
-        return true
+        return super.onCreateOptionsMenu(menu)
     }
 
 
+    // FOR NAVBAR
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
             R.id.cartBtn -> {
+                Log.i("nav", "cartbtn")
                 Navigation.findNavController(this,R.id.navHost).navigate(R.id.cartFragment)
             }
-            R.id.nav_logout -> {
-                Toast.makeText(this, "logged out", Toast.LENGTH_SHORT).show()
-                prefs.edit {
-                    putBoolean("connected", false)
-                }
-            }
-
         }
         return super.onOptionsItemSelected(item)
 
