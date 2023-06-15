@@ -22,12 +22,16 @@ import com.example.fooddelieveryapp.adapters.CartItemAdapter
 import com.example.fooddelieveryapp.databinding.ActivityCartBinding
 import com.example.fooddelieveryapp.databinding.FragmentCartBinding
 import com.example.fooddelieveryapp.models.CartItem
+import com.example.fooddelieveryapp.models.CartTotal
 import com.example.fooddelieveryapp.utils.CartModel
 
 class CartFragment : Fragment() {
     lateinit var binding: FragmentCartBinding;
     lateinit var cartmodel: CartModel;
     lateinit var items : List<CartItem>
+    val deliveryFee = 70;
+    val cartTotal = CartTotal(0,deliveryFee);
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,11 +50,14 @@ class CartFragment : Fragment() {
         for (item in items){
             sum +=item.price *item.quantity
         }
-        binding.mealsPrice.text = "${sum}"
-        val deliveryFee = 70;
-        binding.deliveryFeesPrice.text = "$deliveryFee"
-        binding.totalCart.text = "${sum+deliveryFee}"
 
+        cartTotal.mealsTotal = sum
+
+        binding.mealsPrice.text = "${cartTotal.mealsTotal}"
+
+        binding.deliveryFeesPrice.text = "${cartTotal.deliveryFees}"
+
+        binding.totalCart.text ="${cartTotal.mealsTotal + cartTotal.deliveryFees}"
 
         return binding.root
     }
