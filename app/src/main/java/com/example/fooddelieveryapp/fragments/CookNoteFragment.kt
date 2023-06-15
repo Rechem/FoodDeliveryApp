@@ -1,11 +1,14 @@
 package com.example.fooddelieveryapp.fragments
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fooddelieveryapp.Dao.AppDatabase
@@ -56,6 +59,12 @@ class CookNoteFragment : BottomSheetDialogFragment()  {
             findNavController().popBackStack()
         }
         binding.confirmNoteBtn.setOnClickListener {
+            val prefs = requireActivity().getSharedPreferences("note", Context.MODE_PRIVATE)
+            prefs.edit {
+                putString("cookNote", binding.cookNoteEditText.text.toString())
+                putBoolean("edited",true)
+            }
+            Toast.makeText(requireContext(), "logged out", Toast.LENGTH_SHORT).show()
             findNavController().popBackStack()
         }
 
