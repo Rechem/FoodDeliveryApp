@@ -2,10 +2,9 @@ package com.example.fooddelieveryapp.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.fooddelieveryapp.R
 import com.example.fooddelieveryapp.adapters.ItemPriceAdapter
 import com.example.fooddelieveryapp.databinding.ActivityOrderBinding
-import com.example.fooddelieveryapp.models.CartItem
+import com.example.fooddelieveryapp.models.CartItemModal
 
 class OrderActivity : AppCompatActivity() {
 
@@ -21,8 +20,8 @@ class OrderActivity : AppCompatActivity() {
         binding.totalSum.text = "4200 DZD"
     }
 
-    fun loadData():List<CartItem> {
-        val data = mutableListOf<CartItem>()
+    fun loadData():List<CartItemModal> {
+        val data = mutableListOf<CartItemModal>()
 
 
         return data

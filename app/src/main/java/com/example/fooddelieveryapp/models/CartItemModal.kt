@@ -2,7 +2,7 @@ package com.example.fooddelieveryapp.models
 
 import androidx.lifecycle.ViewModel
 
-data class CartItem(
+data class CartItemModal(
     val id:Int,
     val name:String,
     val image:String,

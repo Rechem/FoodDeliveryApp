@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.fooddelieveryapp.Dao.AppDatabase
 import com.example.fooddelieveryapp.Dao.CartItem
 import com.example.fooddelieveryapp.Dao.CartItemDao
+import com.example.fooddelieveryapp.models.CartItemModal
 import com.example.fooddelieveryapp.utils.CartModel
 
 class CartViewModel(): ViewModel() {
@@ -46,6 +47,11 @@ class CartViewModel(): ViewModel() {
 
     fun clearCart(){
         cartmodel.clearCart();
+        cartTotal.value = 0;
+    }
+
+    fun deleteCartItem(id:Int){
+        cartmodel.deleteCartItemById(id);
     }
 
 }

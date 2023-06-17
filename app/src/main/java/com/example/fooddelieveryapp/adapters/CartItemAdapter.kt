@@ -1,20 +1,17 @@
 package com.example.fooddelieveryapp.adapters
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.fooddelieveryapp.models.CartItem
+import com.example.fooddelieveryapp.models.CartItemModal
 import com.example.fooddelieveryapp.databinding.CartItemLayoutBinding
 import com.example.fooddelieveryapp.utils.API_URL
-import com.example.fooddelieveryapp.utils.CartModel
 import com.example.fooddelieveryapp.viewmodels.CartViewModel
 
 
-class CartItemAdapter(var data:List<CartItem>, val ctx: Context, var cartViewModel: CartViewModel):RecyclerView.Adapter<CartItemAdapter.MyViewHolder>() {
+class CartItemAdapter(var data:MutableList<CartItemModal>, val ctx: Context, var cartViewModel: CartViewModel):RecyclerView.Adapter<CartItemAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
@@ -42,20 +39,25 @@ class CartItemAdapter(var data:List<CartItem>, val ctx: Context, var cartViewMod
             }
 
             minusBtnItem.setOnClickListener{
-                if(data[position].quantity > 1){
+                if(data[position].quantity > 1) {
                     cartViewModel.subFromCartTotal(data[position].price)
                     cartViewModel.decrementCartItemQuantity(data[position].id);
                     data[position].quantity--;
                     notifyItemChanged(position, "quantity")
-                }else{
-
                 }
+            }
+
+            removeCartItem.setOnClickListener{
+                cartViewModel.deleteCartItem(data[position].id);
+                cartViewModel.subFromCartTotal(data[position].price * data[position].quantity);
+                data.removeAt(position);
+                notifyItemRemoved(position);
             }
         }
     }
 
     fun clearItems(){
-        data = emptyList();
+        data = ArrayList();
         notifyDataSetChanged();
     }
 

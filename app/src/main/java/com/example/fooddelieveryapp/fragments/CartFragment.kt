@@ -15,18 +15,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fooddelieveryapp.Dao.AppDatabase
-import com.example.fooddelieveryapp.Dao.CartItemDao
 import com.example.fooddelieveryapp.R
 import com.example.fooddelieveryapp.activities.LoginActivity
 import com.example.fooddelieveryapp.adapters.CartItemAdapter
 import com.example.fooddelieveryapp.databinding.FragmentCartBinding
-import com.example.fooddelieveryapp.models.CartItem
+import com.example.fooddelieveryapp.models.CartItemModal
 import com.example.fooddelieveryapp.viewmodels.CartViewModel
 
 
 class CartFragment : Fragment() {
     lateinit var binding: FragmentCartBinding;
-    lateinit var items : List<CartItem>
+    lateinit var items : List<CartItemModal>
     lateinit var cartViewModel: CartViewModel;
     val deliveryFee = 70;
 
@@ -97,22 +96,20 @@ class CartFragment : Fragment() {
         binding.clearAllBtn.setOnClickListener {
             cartViewModel.clearCart();
             (binding.cartRecyclerView.adapter as CartItemAdapter).clearItems();
-            binding.mealsPrice.text = "0";
-            binding.totalCart.text = binding.deliveryFeesPrice.text
         }
 
     }
 
-    fun loadData():List<CartItem> {
+    fun loadData():MutableList<CartItemModal> {
 
-        val data = mutableListOf<CartItem>()
+        val data = mutableListOf<CartItemModal>()
         val dataBase = AppDatabase.getInstance(requireActivity())
         val carts = dataBase!!.getCartItemDao().getAllItems();
         val TAG = "all"
         Log.i(TAG, carts.toString())
             data.addAll(
                 cartViewModel.getCartItems().map {
-                    CartItem(
+                    CartItemModal(
                         id = it.mealId,
                         name = it.name,
                         image = it.image,

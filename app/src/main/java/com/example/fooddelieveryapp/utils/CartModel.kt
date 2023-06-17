@@ -67,4 +67,8 @@ class CartModel(){
     fun decrementCartItemQuantity(id:Int){
         cartItemDao.decrementCartItemQuantity(id);
     }
+
+    fun deleteCartItemById(id: Int){
+        cartItemDao.deleteCartItemById(id);
+    }
 }
