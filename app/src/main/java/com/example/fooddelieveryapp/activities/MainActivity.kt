@@ -73,6 +73,12 @@ class MainActivity : AppCompatActivity() {
                     putBoolean("connected", false)
                 }
         }
+        prefs.apply {
+            if (!this.contains("note"))
+                this.edit {
+                    putBoolean("edited", false)
+                }
+        }
 
     }
 

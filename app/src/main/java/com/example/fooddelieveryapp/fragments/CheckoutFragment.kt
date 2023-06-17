@@ -57,8 +57,14 @@ class CheckoutFragment : BottomSheetDialogFragment() {
             val meals = dataBase!!.getCartItemDao().getAllItems().map {
                 Meal(it.mealId, it.quantity)
             }
+            val prefs = requireActivity().getSharedPreferences("note", Context.MODE_PRIVATE)
+            val edited = prefs.getBoolean("edited",false)
+            var cookNote : String? = null
+            if(edited){
+                 cookNote = prefs.getString("cookNote",null)
+            }
             CoroutineScope(Dispatchers.IO).launch {
-                val orderInfo = OrderInfo(null,
+                val orderInfo = OrderInfo(cookNote,
                     binding.deliveryAddressEditText.text.toString(),
                     binding.deliveryNoteEditText.text.toString(),
                     meals
