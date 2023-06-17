@@ -81,9 +81,9 @@ class CartFragment : Fragment() {
             findNavController().navigate(R.id.action_cartFragment_to_cookNoteFragment)
         }
 
-        binding.cartCrossBtn.setOnClickListener{
-            findNavController().popBackStack()
-        }
+//        binding.cartCrossBtn.setOnClickListener{
+//            findNavController().popBackStack()
+//        }
 
         binding.clearAllBtn.setOnClickListener {
             cartmodel.clearCart();
@@ -113,16 +113,6 @@ class CartFragment : Fragment() {
                     )
                 }
             )
-
-//        data.add(CartItem("Yelena", R.drawable.w, 240.0, 2))
-//        data.add(CartItem("Yelena", R.drawable.w, 240.0, 2))
-//        data.add(CartItem("Yelena", R.drawable.w, 240.0, 2))
-//        data.add(CartItem("Yelena", R.drawable.w, 240.0, 2))
-//        data.add(CartItem("Yelena", R.drawable.w, 240.0, 2))
-//        data.add(CartItem("Yelena", R.drawable.w, 240.0, 2))
-//        data.add(CartItem("Yelena", R.drawable.w, 240.0, 2))
-
-
         return data
     }
 

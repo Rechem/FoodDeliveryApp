@@ -66,19 +66,19 @@ class FoodFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val restaurant = vm.restau
-        binding.restaurantName.text = restaurant?.name
         loadData(restaurant!!)
-
-
-        //  back listner
-        binding.back.setOnClickListener {
-            findNavController().popBackStack()
-        }
-
-        // cart listner
-        binding.cart.setOnClickListener {
-            findNavController().navigate(R.id.action_foodFragment_to_cartFragment)
-        }
+//        binding.restaurantName.text = restaurant?.name
+//
+//
+//        //  back listner
+//        binding.back.setOnClickListener {
+//            findNavController().popBackStack()
+//        }
+//
+//        // cart listner
+//        binding.cart.setOnClickListener {
+//            findNavController().navigate(R.id.action_foodFragment_to_cartFragment)
+//        }
     }
 
     private fun loadData(restaurant : Restaurant){

@@ -23,8 +23,6 @@ class OrderActivity : AppCompatActivity() {
 
     fun loadData():List<CartItem> {
         val data = mutableListOf<CartItem>()
-
-
         return data
     }
 }
