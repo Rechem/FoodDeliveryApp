@@ -51,7 +51,7 @@ class FoodDetailsFragment : Fragment() {
         val food = vm.food
         binding.apply {
 
-            foodName.text = food?.name
+//            foodName.text = food?.name
             detailsPrice.text = "${food?.price} DA"
             if (food != null) {
                 Glide.with(requireActivity())
@@ -87,13 +87,13 @@ class FoodDetailsFragment : Fragment() {
                 }
             }
         }
-        binding.back.setOnClickListener {
-            findNavController().popBackStack()
-        }
-
-        binding.cart.setOnClickListener {
-
-            findNavController().navigate(R.id.action_foodDetailsFragment_to_cartFragment)
-        }
+//        binding.back.setOnClickListener {
+//            findNavController().popBackStack()
+//        }
+//
+//        binding.cart.setOnClickListener {
+//
+//            findNavController().navigate(R.id.action_foodDetailsFragment_to_cartFragment)
+//        }
     }
 }

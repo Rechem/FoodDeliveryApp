@@ -22,8 +22,6 @@ class OrderActivity : AppCompatActivity() {
 
     fun loadData():List<CartItemModal> {
         val data = mutableListOf<CartItemModal>()
-
-
         return data
     }
 }

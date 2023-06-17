@@ -7,55 +7,30 @@
     android:layout_height="match_parent"
     tools:context=".fragments.CartFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg"
         tools:context=".activities.CartActivity">
 
-        <ImageView
-            android:id="@+id/cart_cross_btn"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="32dp"
-            android:rotation="45"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/add"
-            app:tint="@color/main_color" />
-
-        <TextView
-            android:id="@+id/email_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/poppins"
-            android:text="@string/cart"
-            android:textAppearance="@style/TextAppearance.App.H4"
-            android:textColor="@color/main_color"
-            android:textFontWeight="600"
-            app:layout_constraintBottom_toBottomOf="@+id/cart_cross_btn"
-            app:layout_constraintStart_toEndOf="@+id/cart_cross_btn"
-            app:layout_constraintTop_toTopOf="@+id/cart_cross_btn" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cartRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="56dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/textView11"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clearAllBtn" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/clearAllBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:fontFamily="@font/poppins"
             android:text="@string/clear_all"
@@ -64,7 +39,7 @@
             android:textColor="@color/main_color"
             android:textFontWeight="500"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email_text" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:id="@+id/divider"
@@ -97,10 +72,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
+            android:gravity="end"
             android:textAppearance="@style/TextAppearance.App.H6"
             android:textColor="@color/main_color"
             android:textFontWeight="600"
-            android:gravity="end"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider" />
 
@@ -138,9 +113,9 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:background="@drawable/action_btn"
+                android:fontFamily="@font/poppins"
                 android:padding="8dp"
                 android:text="@string/checkout"
-                android:fontFamily="@font/poppins"
                 android:textAppearance="@style/TextAppearance.App.H6"
                 android:textColor="@color/white"
                 android:textFontWeight="600" />
@@ -152,8 +127,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/delivery_fees"
             android:fontFamily="@font/poppins"
+            android:text="@string/delivery_fees"
             android:textAppearance="@style/TextAppearance.App.Body2"
             android:textColor="@color/text_color"
             android:textFontWeight="400"
@@ -166,8 +141,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginBottom="2dp"
-            android:text="@string/meals"
             android:fontFamily="@font/poppins"
+            android:text="@string/meals"
             android:textAppearance="@style/TextAppearance.App.Body2"
             android:textColor="@color/text_color"
             android:textFontWeight="400"
@@ -179,8 +154,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
-            android:text="0 DZD"
             android:fontFamily="@font/poppins"
+            android:text="0 DZD"
             android:textAppearance="@style/TextAppearance.App.Body2"
             android:textColor="@color/text_color"
             android:textFontWeight="400"
@@ -193,8 +168,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
-            android:text="0 DZD"
             android:fontFamily="@font/poppins"
+            android:text="0 DZD"
             android:textAppearance="@style/TextAppearance.App.Body2"
             android:textColor="@color/text_color"
             android:textFontWeight="400"

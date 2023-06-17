@@ -2,6 +2,7 @@ package com.example.fooddelieveryapp.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import com.example.fooddelieveryapp.R
 import com.example.fooddelieveryapp.adapters.RestaurantAdapter
 
 import com.example.fooddelieveryapp.databinding.FragmentRestaurantsBinding
+import com.example.fooddelieveryapp.databinding.ActivityMainBinding
 import com.example.fooddelieveryapp.models.RestauModel
 import com.example.fooddelieveryapp.models.Restaurant
 import kotlinx.coroutines.CoroutineScope
@@ -61,22 +63,32 @@ class RestaurantsFragment : Fragment() {
 
     private fun loadData() {
         CoroutineScope(Dispatchers.IO).launch {
-            val response = Endpoint.createEndpoint(requireContext()).getRestaurants()
-            withContext(Dispatchers.Main) {
-                if (response.isSuccessful) {
-                    binding.progressBar.visibility = View.GONE
-                    val restaurants = response.body()
+            try {
+                val response = Endpoint.createEndpoint(requireContext()).getRestaurants()
+                withContext(Dispatchers.Main) {
                     binding.recyclerView.layoutManager = LinearLayoutManager(activity)
-                    restaurantAdapter = RestaurantAdapter(restaurants!!,activity as Context)
-                    binding.recyclerView.adapter = restaurantAdapter
-                    restaurantAdapter.onItemClick = {
-                        val vm = ViewModelProvider(requireActivity())[RestauModel::class.java]
-                        vm.restau = it
-                        findNavController().navigate(R.id.action_restaurantsFragment_to_foodFragment)
+                    if (response.isSuccessful) {
+                        binding.progressBar.visibility = View.GONE
+                        val restaurants = response.body()
+                        restaurantAdapter = RestaurantAdapter(restaurants!!, activity as Context)
+                        binding.recyclerView.adapter = restaurantAdapter
+                        restaurantAdapter.onItemClick = {
+                            val vm = ViewModelProvider(requireActivity())[RestauModel::class.java]
+                            vm.restau = it
+                            findNavController().navigate(R.id.action_restaurantsFragment_to_foodFragment)
+                        }
+                    } else {
+                        throw Exception("Failed to load restaurants, error code: ${response.code()}")
                     }
-                } else {
-                    throw Exception("failed to load restaurants, error code : ${response.code()}")
                 }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    binding.progressBar.visibility = View.GONE
+                    binding.errorText.visibility = View.VISIBLE
+                }
+                Log.i("exception", "Failed to reach server")
+            } catch (e: Exception) {
+                // Handle other types of exceptions here
             }
         }
     }
