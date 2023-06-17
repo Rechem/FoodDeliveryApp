@@ -35,7 +35,6 @@ class CartFragment : Fragment() {
         cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,7 +64,7 @@ class CartFragment : Fragment() {
             binding.totalCart.text ="${((it)?.plus(deliveryFee))}"
         })
 
-        cartViewModel.addToCartTotal(sum);
+        cartViewModel.setCartTotal(sum);
 
         return binding.root
     }

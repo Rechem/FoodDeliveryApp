@@ -33,9 +33,14 @@ class CartViewModel(): ViewModel() {
         cartTotal.value = (cartTotal.value)?.minus(input)
     }
 
+    fun setCartTotal(input:Int){
+        cartTotal.value = input;
+    }
+
     fun getCartItems():List<CartItem>{
         return cartmodel.getCartItems();
     }
+
 
     fun incrementCartItemQuantity(id:Int){
         cartmodel.incrementCartItemQuantity(id);
