@@ -11,11 +11,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.fooddelieveryapp.Dao.AppDatabase
 import com.example.fooddelieveryapp.Dao.Endpoint
 import com.example.fooddelieveryapp.databinding.FragmentCheckoutBinding
-import com.example.fooddelieveryapp.models.CartItem
 import com.example.fooddelieveryapp.models.Meal
 import com.example.fooddelieveryapp.models.OrderInfo
-import com.example.fooddelieveryapp.models.UserConnexion
-import com.example.fooddelieveryapp.utils.CartModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope

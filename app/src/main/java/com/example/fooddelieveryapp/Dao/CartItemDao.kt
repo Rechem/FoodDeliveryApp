@@ -19,8 +19,8 @@ interface CartItemDao {
 
     @Query("update cartItems set quantity = quantity - 1 where mealId = :id")
     fun decrementCartItemQuantity(id: Int)
-    @Delete
-    fun deleteCartItem(item:CartItem)
+    @Query("delete FROM cartItems where mealId = :id")
+    fun deleteCartItemById(id: Int)
     @Query("delete from cartItems")
     fun emptyCart()
 }

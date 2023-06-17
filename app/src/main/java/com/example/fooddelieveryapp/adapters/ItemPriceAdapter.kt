@@ -5,15 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import com.example.fooddelieveryapp.models.CartItem
+import com.example.fooddelieveryapp.models.CartItemModal
 import com.example.fooddelieveryapp.databinding.ItemPriceLayoutBinding
 
-class ItemPriceAdapter(val data:List<CartItem>, val ctx: Context): BaseAdapter() {
+class ItemPriceAdapter(val data:List<CartItemModal>, val ctx: Context): BaseAdapter() {
     override fun getCount(): Int {
         return data.size
     }
 
-    override fun getItem(position: Int): CartItem {
+    override fun getItem(position: Int): CartItemModal {
         return data[position]
     }
 
@@ -22,7 +22,7 @@ class ItemPriceAdapter(val data:List<CartItem>, val ctx: Context): BaseAdapter()
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val item: CartItem = getItem(position);
+        val item: CartItemModal = getItem(position);
 //        ItemPriceLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 //        return ItemPriceLayoutBinding
 
