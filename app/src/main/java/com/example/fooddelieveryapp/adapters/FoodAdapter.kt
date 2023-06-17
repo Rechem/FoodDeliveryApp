@@ -23,7 +23,7 @@ class FoodAdapter(val data:List<Food>, val context: Context):RecyclerView.Adapte
         holder.binding.apply {
             name.text = food.name
             Glide.with(context)
-                .load(API_URL +food.picture)
+                .load(API_URL +"/"+food.picture)
                 .into(foodImage)
             foodPrice.text = "${food.price} DA"
         }

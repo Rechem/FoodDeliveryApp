@@ -6,22 +6,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fooddelieveryapp.databinding.OrderItemLayoutBinding
 import com.example.fooddelieveryapp.models.OrderItem
+import com.example.fooddelieveryapp.models.Restaurant
 
 class OrdersListAdapter(val data:List<OrderItem>, val ctx: Context): RecyclerView.Adapter<OrdersListAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(OrderItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
-
+    var onItemClick : ((OrderItem)->Unit)? = null
     override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val orderItem = data[position]
         holder.binding.apply {
-            orderIdCard.text = data[position].id
-            orderDateCard.text = data[position].date
-            orderStatusCard.text = data[position].status
-            orderRestaurantCard.text = data[position].restaurantName
-            orderPriceCard.text = data[position].totalPrice.toString()
+            orderNumber.text = "Order #${orderItem.id}"
+            orderDateCard.text = orderItem.date
+            orderStatusCard.text = orderItem.status
+            orderRestaurantCard.text = orderItem.restaurantName
+            orderPriceCard.text = "${orderItem.totalPrice.toString()} DZD"
+        }
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(orderItem)
         }
     }
 

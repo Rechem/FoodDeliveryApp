@@ -45,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/email_text" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:layout_marginTop="8dp"
@@ -69,11 +69,11 @@
         android:elevation="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3">
+        app:layout_constraintTop_toBottomOf="@+id/status">
 
 
         <TextView
-            android:id="@+id/orderIdCard"
+            android:id="@+id/nom_restau"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -97,7 +97,7 @@
             android:dividerHeight="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/orderIdCard" />
+            app:layout_constraintTop_toBottomOf="@+id/nom_restau" />
 
         <View
             android:id="@+id/divider2"

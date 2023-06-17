@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.example.fooddelieveryapp.Dao.AppDatabase
@@ -70,15 +71,13 @@ class CheckoutFragment : BottomSheetDialogFragment() {
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         //binding.progressBar.visibility = View.GONE
-                        Snackbar.make(binding.root,"Order submitted", Snackbar.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(),"Order submitted", Toast.LENGTH_LONG).show()
                     } else {
                         throw Exception(response.message())
                     }
                     findNavController().popBackStack()
                 }
             }
-
-
 
         }
 

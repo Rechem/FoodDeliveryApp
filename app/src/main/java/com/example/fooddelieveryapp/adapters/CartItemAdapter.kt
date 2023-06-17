@@ -23,7 +23,7 @@ class CartItemAdapter(var data:MutableList<CartItemModal>, val ctx: Context, var
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.binding.apply {
             Glide.with(ctx)
-                .load(API_URL +data[position].image)
+                .load(API_URL +"/"+data[position].image)
                 .into(image)
 
             name.text = data[position].name

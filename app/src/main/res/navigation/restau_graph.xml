@@ -58,11 +58,20 @@
     <fragment
         android:id="@+id/ordersFragment"
         android:name="com.example.fooddelieveryapp.fragments.OrdersFragment"
-        android:label="fragment_orders"
-        tools:layout="@layout/fragment_orders" />
+        android:label="@string/Orders"
+        tools:layout="@layout/fragment_orders" >
+        <action
+            android:id="@+id/action_ordersFragment_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
+    </fragment>
     <dialog
         android:id="@+id/cookNoteFragment"
         android:name="com.example.fooddelieveryapp.fragments.CookNoteFragment"
         android:label="fragment_cook_note"
         tools:layout="@layout/fragment_cook_note" />
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.example.fooddelieveryapp.fragments.OrderDetailsFragment"
+        android:label="fragment_order_details"
+        tools:layout="@layout/fragment_order_details" />
 </navigation>

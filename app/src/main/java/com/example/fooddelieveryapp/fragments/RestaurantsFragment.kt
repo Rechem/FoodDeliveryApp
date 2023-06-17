@@ -37,9 +37,6 @@ class RestaurantsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-
-
         binding= FragmentRestaurantsBinding.inflate(layoutInflater)
         binding.progressBar.visibility = View.VISIBLE
         loadData()
