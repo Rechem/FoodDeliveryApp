@@ -15,10 +15,11 @@ abstract class AppDatabase: RoomDatabase() {
 
         private var INSTANCE: AppDatabase? =null
 
-        fun getInstance(context: Context): AppDatabase?{
+        fun getInstance(context: Context?): AppDatabase?{
             if (INSTANCE == null) {
+                // just trust that context isnt null in this part
                 INSTANCE =Room
-                    .databaseBuilder(context,AppDatabase::class.java, "users_db")
+                    .databaseBuilder(context!!,AppDatabase::class.java, "users_db")
                     .allowMainThreadQueries()
                     .build()
             }
