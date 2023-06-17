@@ -27,7 +27,7 @@ class RestaurantAdapter(val data:List<Restaurant>, val context : Context):Recycl
         holder.binding.apply {
             name.text = restaurant.name
             Glide.with(context)
-                .load(API_URL +restaurant.picture)
+                .load(API_URL +"/"+restaurant.picture)
                 .into(restauImage)
             rating.rating = restaurant.rating
             cuisine.text = restaurant.restaurantType

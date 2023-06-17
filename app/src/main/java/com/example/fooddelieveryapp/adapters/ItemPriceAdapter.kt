@@ -5,42 +5,42 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.fooddelieveryapp.models.CartItemModal
 import com.example.fooddelieveryapp.databinding.ItemPriceLayoutBinding
+import com.example.fooddelieveryapp.databinding.RestaurantLayoutBinding
+import com.example.fooddelieveryapp.models.OrderMeal
+import com.example.fooddelieveryapp.utils.API_URL
 
-class ItemPriceAdapter(val data:List<CartItemModal>, val ctx: Context): BaseAdapter() {
-    override fun getCount(): Int {
+class ItemPriceAdapter(val data:List<OrderMeal>, val ctx: Context): RecyclerView.Adapter<ItemPriceAdapter.MyViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemPriceAdapter.MyViewHolder {
+        return MyViewHolder(
+            ItemPriceLayoutBinding.inflate(
+                LayoutInflater.from(
+                    parent.context
+                ), parent, false
+            )
+        )
+    }
+
+    override fun getItemCount(): Int {
         return data.size
     }
 
-    override fun getItem(position: Int): CartItemModal {
-        return data[position]
-    }
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val item: CartItemModal = getItem(position);
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val item = data[position]
 //        ItemPriceLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 //        return ItemPriceLayoutBinding
 
-        val binding: ItemPriceLayoutBinding
-        if (convertView == null) {
-            binding = ItemPriceLayoutBinding.inflate(LayoutInflater.from(ctx), parent, false)
-            binding.root.tag = binding
-        } else {
-            binding = convertView.tag as ItemPriceLayoutBinding
+        holder.binding.apply {
+            nameItem.text = item.name;
+            quantityItem.text = item.quantity.toString()
+            priceItem.text = "${(item.price * item.quantity).toString()} DA"
         }
-
-        // Set the text of the list item
-        binding.nameItem.text = item.name;
-        binding.quantityItem.text = item.quantity.toString()
-        binding.priceItem.text = (item.price * item.quantity).toString() + " DZD"
-
-        return binding.root
     }
+
+    class MyViewHolder(val binding: ItemPriceLayoutBinding) : RecyclerView.ViewHolder(binding.root)
 
 
 }

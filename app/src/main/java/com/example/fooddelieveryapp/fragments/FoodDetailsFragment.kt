@@ -55,7 +55,7 @@ class FoodDetailsFragment : Fragment() {
             detailsPrice.text = "${food?.price} DA"
             if (food != null) {
                 Glide.with(requireActivity())
-                    .load(API_URL +food.picture)
+                    .load(API_URL +"/"+food.picture)
                     .into(foodDetailsImage)
             }
             foodDescritpion.text = food?.description

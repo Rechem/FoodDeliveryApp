@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
+import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.edit
 import androidx.lifecycle.ViewModelProvider
@@ -34,7 +36,7 @@ import kotlinx.coroutines.withContext
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-
+    private var togglePassword = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,14 +50,22 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, SignupActivity::class.java)
             this.startActivity(intent)
         }
+        binding.eye.setOnClickListener {
+            if(!togglePassword){
+                binding.password.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                togglePassword = true
+            }else{
+                binding.password.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                togglePassword = false
+            }
+        }
         binding.loginBtn.setOnClickListener{
-
+            var valid = false
             CoroutineScope(Dispatchers.IO).launch {
                 val connexionInfo = UserConnexion(binding.email.text.toString(),binding.password.text.toString())
                 val response = Endpoint.createEndpoint(baseContext).login(connexionInfo)
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
-                        //binding.progressBar.visibility = View.GONE
                         val userInfo = response.body()
                         val prefs = getSharedPreferences("connection", Context.MODE_PRIVATE)
                         val email = binding.email.text.toString()
@@ -69,14 +79,16 @@ class LoginActivity : AppCompatActivity() {
                             putString("password",password)
                             putBoolean("connected",true)
                         }
-                        Snackbar.make(binding.root,"Connected! as $username", Snackbar.LENGTH_LONG).show()
-
+                        Toast.makeText(baseContext,"Connected! as $username", Toast.LENGTH_LONG).show()
+                        valid = true
                     } else {
-                        throw Exception(response.message())
+                        Snackbar.make(view,"wrong email or password", Snackbar.LENGTH_LONG).show()
                     }
                 }
             }
-            this.finish()
+            if(valid){
+                this.finish()
+            }
         }
 
         binding.googleBtn.setOnClickListener{

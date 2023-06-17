@@ -1,6 +1,7 @@
 package com.example.fooddelieveryapp.Dao
 
 import android.content.Context
+import com.example.fooddelieveryapp.models.DetailedOrder
 import com.example.fooddelieveryapp.models.Food
 import com.example.fooddelieveryapp.models.Order
 import com.example.fooddelieveryapp.models.OrderInfo
@@ -57,4 +58,6 @@ interface Endpoint {
     suspend fun getOrders(): Response<List<Order>>
     @GET("meals/restaurant/{idRestaurant}")
     suspend fun getMenus(@Path("idRestaurant") idRestaurant:Int): Response<List<Food>>
+    @GET("orders/{id}")
+    suspend fun getOrder(@Path("id") id:Int): Response<DetailedOrder>
 }
