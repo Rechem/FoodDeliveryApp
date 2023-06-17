@@ -2,6 +2,7 @@ package com.example.fooddelieveryapp.Dao
 
 import android.content.Context
 import com.example.fooddelieveryapp.models.Food
+import com.example.fooddelieveryapp.models.Order
 import com.example.fooddelieveryapp.models.OrderInfo
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -48,8 +49,12 @@ interface Endpoint {
     @POST("orders")
     suspend fun order(@Body orderInfo : OrderInfo): Response<UserInfo>
 
+    @Headers("Content-Type: application/json")
     @GET("restaurants")
     suspend fun getRestaurants(): Response<List<Restaurant>>
+    @Headers("Content-Type: application/json")
+    @GET("orders")
+    suspend fun getOrders(): Response<List<Order>>
     @GET("meals/restaurant/{idRestaurant}")
     suspend fun getMenus(@Path("idRestaurant") idRestaurant:Int): Response<List<Food>>
 }

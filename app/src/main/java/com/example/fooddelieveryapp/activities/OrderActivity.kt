@@ -13,16 +13,8 @@ class OrderActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= ActivityOrderBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
-        binding.itemPriceList.adapter = ItemPriceAdapter(loadData(), this)
 
-        binding.totalSum.text = "4200 DZD"
     }
 
-    fun loadData():List<CartItem> {
-        val data = mutableListOf<CartItem>()
-        return data
-    }
+
 }

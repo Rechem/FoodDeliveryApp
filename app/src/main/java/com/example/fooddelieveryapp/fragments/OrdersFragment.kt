@@ -6,31 +6,43 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.example.fooddelieveryapp.R
+import com.example.fooddelieveryapp.adapters.OrdersListAdapter
+import com.example.fooddelieveryapp.databinding.FragmentOrdersBinding
+import com.example.fooddelieveryapp.models.CartItem
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [OrdersFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class OrdersFragment : Fragment() {
 
-
+    lateinit var binding: FragmentOrdersBinding
+    lateinit var ordersAdapter : OrdersListAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        (requireActivity() as AppCompatActivity).supportActionBar?.title =
-            requireActivity().resources.getString(R.string.orders);
-        return inflater.inflate(R.layout.fragment_orders, container, false)
+        binding= FragmentOrdersBinding.inflate(layoutInflater)
+        val view = binding.root
+        //binding.progressBar.visibility = View.VISIBLE
+        loadData()
+        val dividerItemDecoration = DividerItemDecoration(activity, RecyclerView.VERTICAL)
+        ResourcesCompat.getDrawable(resources, R.drawable.devider_16_vertical, null)
+            ?.let { drawable -> dividerItemDecoration.setDrawable(drawable) }
+        return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        val dividerItemDecoration = DividerItemDecoration(activity, RecyclerView.VERTICAL)
+        ResourcesCompat.getDrawable(resources, R.drawable.devider_16_vertical, null)
+            ?.let { drawable -> dividerItemDecoration.setDrawable(drawable) }
+        binding.ordersRecyclerView.addItemDecoration(dividerItemDecoration)
+    }
+    fun loadData():List<CartItem> {
+        val data = mutableListOf<CartItem>()
 
+        return data
+    }
 }

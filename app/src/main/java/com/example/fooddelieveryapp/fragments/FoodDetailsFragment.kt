@@ -81,8 +81,9 @@ class FoodDetailsFragment : Fragment() {
                     )
 
                     Log.i(TAG, "added")
-                }catch (e:java.lang.Exception){
-                    Snackbar.make(binding.root,e.toString(), Snackbar.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "${food.name} added to cart", Toast.LENGTH_SHORT).show()
+                }catch (e:Exception){
+                    Snackbar.make(binding.root,"This item is already in the cart", Snackbar.LENGTH_SHORT).show()
                     Log.i(TAG, "not added")
                 }
             }

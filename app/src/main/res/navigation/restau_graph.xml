@@ -58,7 +58,7 @@
     <fragment
         android:id="@+id/ordersFragment"
         android:name="com.example.fooddelieveryapp.fragments.OrdersFragment"
-        android:label="fragment_orders"
+        android:label="@string/Orders"
         tools:layout="@layout/fragment_orders" />
     <dialog
         android:id="@+id/cookNoteFragment"

@@ -55,15 +55,29 @@ class MainActivity : AppCompatActivity() {
         // FOR DRAWER
         binding.navView.setNavigationItemSelectedListener{
             when (it.itemId) {
+                R.id.restaurantsFragment-> {
+                    Navigation.findNavController(this,R.id.navHost).navigate(R.id.restaurantsFragment)
+
+                }
+                R.id.ordersFragment-> {
+                    Navigation.findNavController(this,R.id.navHost).navigate(R.id.ordersFragment)
+                }
                 R.id.logoutBtn -> {
                     Log.i("deconnexion", "logged out")
                     prefs = getSharedPreferences("connection", Context.MODE_PRIVATE)
-                    prefs.edit {
-                        putBoolean("connected", false)
+                    val connected = prefs.getBoolean("connected",false)
+                    if(connected){
+                        prefs.edit {
+                            putBoolean("connected", false)
+                        }
+                        Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
+                    }else{
+                        Toast.makeText(this, "You are not signed in", Toast.LENGTH_SHORT).show()
                     }
-                    Toast.makeText(this, "logged out", Toast.LENGTH_SHORT).show()
                 }
+
             }
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
 
@@ -96,7 +110,6 @@ class MainActivity : AppCompatActivity() {
 
         when (item.itemId) {
             R.id.cartBtn -> {
-                Log.i("nav", "cartbtn")
                 Navigation.findNavController(this,R.id.navHost).navigate(R.id.cartFragment)
             }
         }
