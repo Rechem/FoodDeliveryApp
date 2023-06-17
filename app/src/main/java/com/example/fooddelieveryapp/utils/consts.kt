@@ -1,3 +1,2 @@
-package com.example.fooddelieveryapp.utils
-
+package com.example.fooddelieveryapp.util
 const val API_URL = "https://9ba9-193-194-77-246.ngrok-free.app"

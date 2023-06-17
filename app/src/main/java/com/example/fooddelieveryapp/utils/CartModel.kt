@@ -3,20 +3,23 @@ package com.example.fooddelieveryapp.utils
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import com.example.fooddelieveryapp.Dao.*
 import com.example.fooddelieveryapp.models.Food
 import java.lang.IndexOutOfBoundsException
 
-class CartModel(private val cartItemDao : CartItemDao){
+class CartModel(){
+
+    private val cartItemDao = AppDatabase.getInstance(null)?.getCartItemDao()!!;
 
     companion object {
         @Volatile
         private var instance: CartModel? = null
 
-        fun getInstance(cartItemDao : CartItemDao): CartModel {
+        fun getInstance(): CartModel {
             return instance ?: synchronized(this) {
-                instance ?: CartModel(cartItemDao).also { instance = it }
+                instance ?: CartModel().also { instance = it }
             }
         }
     }

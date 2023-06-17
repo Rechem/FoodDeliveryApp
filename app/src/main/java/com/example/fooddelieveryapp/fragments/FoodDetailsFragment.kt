@@ -68,7 +68,7 @@ class FoodDetailsFragment : Fragment() {
                 quantity.text = (quantity.text.toString().toInt()-1).toString()
             }
             addToCartBtn.setOnClickListener {
-                val cartmodel = CartModel.getInstance(cartItemDao);
+                val cartmodel = CartModel.getInstance();
 //                val cartId = cartmodel.createCart(
 //                    dataBase!!.getCartDao(),
 //                    food!!.idRestaurant,1

@@ -1,37 +1,42 @@
 package com.example.fooddelieveryapp.fragments
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.Room
 import com.example.fooddelieveryapp.Dao.AppDatabase
+import com.example.fooddelieveryapp.Dao.CartItemDao
 import com.example.fooddelieveryapp.R
 import com.example.fooddelieveryapp.activities.LoginActivity
-import com.example.fooddelieveryapp.activities.SignupActivity
 import com.example.fooddelieveryapp.adapters.CartItemAdapter
-import com.example.fooddelieveryapp.databinding.ActivityCartBinding
 import com.example.fooddelieveryapp.databinding.FragmentCartBinding
 import com.example.fooddelieveryapp.models.CartItem
-import com.example.fooddelieveryapp.models.CartTotal
-import com.example.fooddelieveryapp.utils.CartModel
+import com.example.fooddelieveryapp.viewmodels.CartViewModel
+
 
 class CartFragment : Fragment() {
     lateinit var binding: FragmentCartBinding;
-    lateinit var cartmodel: CartModel;
     lateinit var items : List<CartItem>
+    lateinit var cartViewModel: CartViewModel;
     val deliveryFee = 70;
-    val cartTotal = CartTotal(0,deliveryFee);
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]
+    }
+
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,25 +44,29 @@ class CartFragment : Fragment() {
 
         (requireActivity() as AppCompatActivity).supportActionBar?.title = resources.getString(R.string.cart);
 
-        cartmodel = CartModel.getInstance(AppDatabase.getInstance(requireActivity())!!.getCartItemDao());
+        cartViewModel = CartViewModel.getInstance();
+
         binding= FragmentCartBinding.inflate(layoutInflater)
 
         binding.cartRecyclerView.layoutManager = LinearLayoutManager(activity)
         items = loadData()
-        binding.cartRecyclerView.adapter = CartItemAdapter(loadData(), activity as Context, cartmodel);
+        binding.cartRecyclerView.adapter = CartItemAdapter(loadData(), activity as Context, cartViewModel);
 
         var sum : Int = 0;
         for (item in items){
             sum +=item.price *item.quantity
         }
 
-        cartTotal.mealsTotal = sum
 
-        binding.mealsPrice.text = "${cartTotal.mealsTotal}"
+        binding.deliveryFeesPrice.text = deliveryFee.toString()
 
-        binding.deliveryFeesPrice.text = "${cartTotal.deliveryFees}"
+        cartViewModel.readCartTotal.observe(requireActivity(), Observer {
+            binding.mealsPrice.text = it.toString();
 
-        binding.totalCart.text ="${cartTotal.mealsTotal + cartTotal.deliveryFees}"
+            binding.totalCart.text ="${((it)?.plus(deliveryFee))}"
+        })
+
+        cartViewModel.addToCartTotal(sum);
 
         return binding.root
     }
@@ -86,7 +95,7 @@ class CartFragment : Fragment() {
 //        }
 
         binding.clearAllBtn.setOnClickListener {
-            cartmodel.clearCart();
+            cartViewModel.clearCart();
             (binding.cartRecyclerView.adapter as CartItemAdapter).clearItems();
             binding.mealsPrice.text = "0";
             binding.totalCart.text = binding.deliveryFeesPrice.text
@@ -101,9 +110,8 @@ class CartFragment : Fragment() {
         val carts = dataBase!!.getCartItemDao().getAllItems();
         val TAG = "all"
         Log.i(TAG, carts.toString())
-        print("something")
             data.addAll(
-                cartmodel.getCartItems().map {
+                cartViewModel.getCartItems().map {
                     CartItem(
                         id = it.mealId,
                         name = it.name,
