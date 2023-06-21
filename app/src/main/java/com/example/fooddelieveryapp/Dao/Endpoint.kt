@@ -15,10 +15,13 @@ import com.example.fooddelieveryapp.models.SignUpInfo
 import com.example.fooddelieveryapp.models.UserConnexion
 import com.example.fooddelieveryapp.models.UserInfo
 import com.example.fooddelieveryapp.utils.API_URL
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import retrofit2.http.Body
 import retrofit2.http.Headers
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 
 interface Endpoint {
 
@@ -49,7 +52,9 @@ interface Endpoint {
     @Headers("Content-Type: application/json")
     @POST("orders")
     suspend fun order(@Body orderInfo : OrderInfo): Response<UserInfo>
-
+    @Multipart
+    @POST("users/avatar")
+    suspend fun updateAvatar(@Part avatarImage: MultipartBody.Part): Response<Unit>
     @Headers("Content-Type: application/json")
     @GET("restaurants")
     suspend fun getRestaurants(): Response<List<Restaurant>>

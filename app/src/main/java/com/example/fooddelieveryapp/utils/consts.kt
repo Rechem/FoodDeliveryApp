@@ -1,2 +1,2 @@
 package com.example.fooddelieveryapp.utils
-const val API_URL = "http://10.0.9.224:3000"
+const val API_URL = "https://52d0-41-220-146-185.ngrok-free.app"
