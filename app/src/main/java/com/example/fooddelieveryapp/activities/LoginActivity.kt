@@ -75,6 +75,7 @@ class LoginActivity : AppCompatActivity() {
                             putInt("idUser",userInfo!!.idUser)
                             putString("username",username)
                             putString("email",email)
+                            putString("avatar",userInfo.avatar)
                             putString("token",userInfo.token)
                             putString("password",password)
                             putBoolean("connected",true)
@@ -83,12 +84,12 @@ class LoginActivity : AppCompatActivity() {
                         valid = true
                     } else {
                         Snackbar.make(view,"wrong email or password", Snackbar.LENGTH_LONG).show()
+                        valid = false
                     }
                 }
             }
-            if(valid){
+
                 this.finish()
-            }
         }
 
         binding.googleBtn.setOnClickListener{

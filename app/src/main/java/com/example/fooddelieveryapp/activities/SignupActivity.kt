@@ -7,6 +7,7 @@ import android.content.IntentSender
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
@@ -114,19 +115,22 @@ class SignupActivity : AppCompatActivity() {
                             putInt("idUser",userInfo!!.idUser)
                             putString("username",username)
                             putString("email",email)
+                            putString("avatar",userInfo.avatar)
                             putString("token",userInfo.token)
                             putString("password",password)
                             putBoolean("connected",true)
                         }
-                        Snackbar.make(binding.root,"Signed up as $username", Snackbar.LENGTH_LONG).show()
-                        Snackbar.make(binding.root,"Connected! as $username", Snackbar.LENGTH_LONG).show()
+                        Toast.makeText(baseContext,"Signed up as $username", Toast.LENGTH_SHORT).show()
 
                     } else {
                         throw Exception(response.message())
                     }
                 }
             }
+            // go to avatar activity
             this.finish()
+            val intent = Intent(this, AvatarActivity::class.java)
+            this.startActivity(intent)
         }
     }
 }

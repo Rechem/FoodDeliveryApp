@@ -56,4 +56,8 @@
     <string name="web_client_id">920300760290-1s2qa3jh0ihsni89gkecg4rpbc233hol.apps.googleusercontent.com</string>
     <string name="error">Couldn\'t load data please check your internet connection</string>
     <string name="Orders">Orders</string>
+    <string name="reset">Reset</string>
+    <string name="confirm">Confirm</string>
+    <string name="skip">Skip</string>
+    <string name="add_an_avatar">Add an avatar</string>
 </resources>

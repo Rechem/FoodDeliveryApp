@@ -2,12 +2,15 @@ package com.example.fooddelieveryapp.activities
 
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.edit
@@ -18,6 +21,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.bumptech.glide.Glide
 import com.example.fooddelieveryapp.Dao.AppDatabase
 import com.example.fooddelieveryapp.R
 import com.example.fooddelieveryapp.databinding.ActivityMainBinding
@@ -25,6 +29,7 @@ import com.example.fooddelieveryapp.fragments.OrdersFragment
 import com.example.fooddelieveryapp.fragments.RestaurantsFragment
 import com.example.fooddelieveryapp.fragments.SettingsFragment
 import com.example.fooddelieveryapp.models.Restaurant
+import com.example.fooddelieveryapp.utils.API_URL
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -53,6 +58,30 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(binding.navView, navController)
 
         // FOR DRAWER
+        prefs = getSharedPreferences("connection", Context.MODE_PRIVATE)
+        val headerView = binding.navView.getHeaderView(0)
+        val profilePic = headerView.findViewById<ImageView>(R.id.profile_image)
+        profilePic.setOnClickListener {
+            val connected = prefs.getBoolean("connected",false)
+            if(connected){
+                val intent = Intent(this, AvatarActivity::class.java)
+                this.startActivity(intent)
+            }else{
+                Snackbar.make(view,"You need to login to change your avatar", Snackbar.LENGTH_LONG).show()
+            }
+        }
+        val avatar = prefs.getString("avatar","")
+        Log.i("avatar",avatar!!)
+        if(avatar==""){
+            profilePic.setImageResource(R.drawable.w)
+        }else{
+            Log.i("avatar","$API_URL/$avatar")
+            Glide.with(this)
+                .load("$API_URL/$avatar")
+                .into(profilePic)
+        }
+        val name = headerView.findViewById<TextView>(R.id.header_username)
+        name.text = prefs.getString("username","")
         binding.navView.setNavigationItemSelectedListener{
             when (it.itemId) {
                 R.id.restaurantsFragment-> {
