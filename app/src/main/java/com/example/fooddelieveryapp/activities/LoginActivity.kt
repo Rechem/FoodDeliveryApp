@@ -1,9 +1,11 @@
 package com.example.fooddelieveryapp.activities
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
@@ -13,8 +15,11 @@ import com.example.fooddelieveryapp.models.UserConnexion
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.coroutines.ContinuationInterceptor
 
 
 class LoginActivity : AppCompatActivity() {
@@ -26,8 +31,6 @@ class LoginActivity : AppCompatActivity() {
         binding= ActivityLoginBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
-
 
         binding.signupText.setOnClickListener {
             val intent = Intent(this, SignupActivity::class.java)
@@ -43,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
         binding.loginBtn.setOnClickListener{
-            var valid = false
+            val activityContext = this
             CoroutineScope(Dispatchers.IO).launch {
                 val connexionInfo = UserConnexion(binding.email.text.toString(),binding.password.text.toString())
                 val response = Endpoint.createEndpoint(baseContext).login(connexionInfo)
@@ -66,11 +69,12 @@ class LoginActivity : AppCompatActivity() {
                             putString("password",password)
                             putBoolean("connected",true)
                         }
+                        Log.i("avatar",userInfo!!.avatar)
                         Toast.makeText(baseContext,"Connected! as $username", Toast.LENGTH_LONG).show()
-                        valid = true
+                        val intent = Intent(activityContext, MainActivity::class.java)
+                        activityContext.startActivity(intent)
                     } else {
                         Snackbar.make(view,"wrong email or password", Snackbar.LENGTH_LONG).show()
-                        valid = false
                     }
                 }
             }
