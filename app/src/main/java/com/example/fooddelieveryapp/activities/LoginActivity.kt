@@ -35,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
         binding= ActivityLoginBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
@@ -54,41 +55,65 @@ class LoginActivity : AppCompatActivity() {
         }
         binding.loginBtn.setOnClickListener{
             val activityContext = this
-            CoroutineScope(Dispatchers.IO).launch {
-                val connexionInfo = UserConnexion(binding.email.text.toString(),binding.password.text.toString())
-                val response = Endpoint.createEndpoint(baseContext).login(connexionInfo)
-                withContext(Dispatchers.Main) {
-                    if (response.isSuccessful) {
-                        val userInfo = response.body()
-                        val prefs = getSharedPreferences("connection", Context.MODE_PRIVATE)
-                        val email = binding.email.text.toString()
-                        val username = userInfo?.username
-                        val password = binding.password.text.toString()
-                        prefs.edit{
-                            putInt("idUser",userInfo!!.idUser)
-                            putString("username",username)
+            if(validateForm()){
+                CoroutineScope(Dispatchers.IO).launch {
+                    val connexionInfo = UserConnexion(binding.email.text.toString(),binding.password.text.toString())
+                    val response = Endpoint.createEndpoint(baseContext).login(connexionInfo)
+                    withContext(Dispatchers.Main) {
+                        if (response.isSuccessful) {
+                            val userInfo = response.body()
+                            val prefs = getSharedPreferences("connection", Context.MODE_PRIVATE)
+                            val email = binding.email.text.toString()
+                            val username = userInfo?.username
+                            val password = binding.password.text.toString()
+                            prefs.edit{
+                                putInt("idUser",userInfo!!.idUser)
+                                putString("username",username)
+                                putString("email",email)
+                                putString("avatar",userInfo.avatar)
+                                putString("token",userInfo.token)
+                                putString("password",password)
+                                putBoolean("connected",true)
+                                apply()
+                            }
+                            Log.i("avatar",userInfo!!.avatar)
+                            val token = prefs.getString("token","")
+                            Log.i("token log",token!!)
+                            Toast.makeText(baseContext,"Connected! as $username", Toast.LENGTH_LONG).show()
+                            val intent = Intent(activityContext, MainActivity::class.java)
+                            activityContext.startActivity(intent)
+                        } else {
+                            Snackbar.make(view,"wrong email or password", Snackbar.LENGTH_LONG).show()
 
-
-                            putString("email",email)
-                            putString("avatar",userInfo.avatar)
-
-                            putString("token",userInfo.token)
-                            putString("password",password)
-                            putBoolean("connected",true)
                         }
-                        Log.i("avatar",userInfo!!.avatar)
-                        Toast.makeText(baseContext,"Connected! as $username", Toast.LENGTH_LONG).show()
-                        val intent = Intent(activityContext, MainActivity::class.java)
-                        activityContext.startActivity(intent)
-                    } else {
-                        Snackbar.make(view,"wrong email or password", Snackbar.LENGTH_LONG).show()
                     }
                 }
+            }else{
+                Snackbar.make(
+                    binding.root,
+                    "Please correct the errors in the form",
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
         }
 
         binding.googleBtn.setOnClickListener{
 
         }
+    }
+
+    private fun validateForm(): Boolean {
+        val email = binding.email.text.toString().trim()
+        val password = binding.password.text.toString().trim()
+
+        if (email.isEmpty()) {
+            binding.email.error = "Email is required"
+            return false
+        }
+        if (password.isEmpty()) {
+            binding.password.error = "Password is required"
+            return false
+        }
+        return true
     }
 }

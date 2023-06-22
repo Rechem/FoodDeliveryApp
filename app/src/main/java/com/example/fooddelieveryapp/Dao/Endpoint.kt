@@ -5,6 +5,7 @@ import com.example.fooddelieveryapp.models.DetailedOrder
 import com.example.fooddelieveryapp.models.Food
 import com.example.fooddelieveryapp.models.Order
 import com.example.fooddelieveryapp.models.OrderInfo
+import com.example.fooddelieveryapp.models.Rating
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -65,4 +66,7 @@ interface Endpoint {
     suspend fun getMenus(@Path("idRestaurant") idRestaurant:Int): Response<List<Food>>
     @GET("orders/{id}")
     suspend fun getOrder(@Path("id") id:Int): Response<DetailedOrder>
+    @Headers("Content-Type: application/json")
+    @POST("restaurants/rate")
+    suspend fun rate(@Body rating : Rating): Response<Unit>
 }

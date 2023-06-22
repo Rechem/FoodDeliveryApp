@@ -30,16 +30,15 @@ class FoodDetailsFragment : Fragment() {
     lateinit var vm:FoodModel;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        vm = ViewModelProvider(requireActivity())[FoodModel::class.java]
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = vm.food!!.name;
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-
+        vm = ViewModelProvider(requireActivity())[FoodModel::class.java]
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = vm.food!!.name
         binding= FragmentFoodDetailsBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -47,6 +46,7 @@ class FoodDetailsFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val cartItemDao = AppDatabase.getInstance(requireActivity())!!.getCartItemDao()
         val food = vm.food
         binding.apply {

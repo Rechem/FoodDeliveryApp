@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity() {
 
             binding.navView.inflateMenu(R.menu.drawer)
             val inflater = LayoutInflater.from(binding.navView.context)
-
             val headerView = inflater.inflate(R.layout.drawer_header, binding.navView, false)
             binding.navView.addHeaderView(headerView);
 

@@ -17,7 +17,6 @@ class CartViewModel(): ViewModel() {
     companion object {
         @Volatile
         private var instance: CartViewModel? = null
-
         fun getInstance(): CartViewModel {
             return instance ?: synchronized(this) {
                 instance ?: CartViewModel().also { instance = it }

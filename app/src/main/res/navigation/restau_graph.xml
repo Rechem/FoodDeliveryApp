@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_foodFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_foodFragment_to_ratingFragment"
+            app:destination="@id/ratingFragment" />
     </fragment>
     <fragment
         android:id="@+id/foodDetailsFragment"
@@ -74,4 +77,9 @@
         android:name="com.example.fooddelieveryapp.fragments.OrderDetailsFragment"
         android:label="fragment_order_details"
         tools:layout="@layout/fragment_order_details" />
+    <dialog
+        android:id="@+id/ratingFragment"
+        android:name="com.example.fooddelieveryapp.fragments.RatingFragment"
+        android:label="fragment_rating"
+        tools:layout="@layout/fragment_rating" />
 </navigation>
