@@ -15,10 +15,6 @@
             android:icon="@drawable/baseline_pending_24"
             android:title="@string/Orders" />
         <item
-            android:id="@+id/settings"
-            android:icon="@drawable/baseline_settings_24"
-            android:title="@string/settings_cap" />
-        <item
             android:id="@+id/logoutBtn"
             android:icon="@drawable/logout"
             android:title="Logout" />

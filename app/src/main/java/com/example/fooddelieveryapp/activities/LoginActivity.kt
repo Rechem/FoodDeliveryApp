@@ -3,31 +3,15 @@ package com.example.fooddelieveryapp.activities
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
-import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import com.example.fooddelieveryapp.Dao.Endpoint
-import com.example.fooddelieveryapp.R
-import com.example.fooddelieveryapp.adapters.FoodAdapter
 import com.example.fooddelieveryapp.databinding.ActivityLoginBinding
-import com.example.fooddelieveryapp.models.FoodModel
 import com.example.fooddelieveryapp.models.UserConnexion
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
-import com.google.android.gms.auth.api.identity.Identity
-import com.google.android.gms.auth.api.identity.SignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -93,6 +77,7 @@ class LoginActivity : AppCompatActivity() {
                             activityContext.startActivity(intent)
                         } else {
                             Snackbar.make(view,"wrong email or password", Snackbar.LENGTH_LONG).show()
+
                         }
                     }
                 }

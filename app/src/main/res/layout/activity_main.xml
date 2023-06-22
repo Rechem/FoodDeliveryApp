@@ -33,8 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/drawer_header"
-        app:menu="@menu/drawer"/>
+        app:menu="@menu/login_drawer"/>
 
 
 

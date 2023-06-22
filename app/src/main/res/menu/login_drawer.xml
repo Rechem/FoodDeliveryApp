@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn ="navigation_view"
+    android:id="@+id/login_drawer">
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/login_btn_drawer"
+            android:icon="@drawable/login"
+            android:title="Login/Signup" />
+    </group>
+</menu>
