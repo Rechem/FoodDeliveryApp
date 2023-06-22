@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity() {
 
         // FOR DRAWER
         prefs = getSharedPreferences("connection", Context.MODE_PRIVATE)
+
         val headerView = binding.navView.getHeaderView(0)
         val profilePic = headerView.findViewById<ImageView>(R.id.profile_image)
         profilePic.setOnClickListener {
@@ -70,6 +71,12 @@ class MainActivity : AppCompatActivity() {
                 Snackbar.make(view,"You need to login to change your avatar", Snackbar.LENGTH_LONG).show()
             }
         }
+        val connected = prefs.getBoolean("connected",false)
+        if (connected) {
+            binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+        } else {
+            binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        }
         val avatar = prefs.getString("avatar","")
         Log.i("avatar",avatar!!)
         if(avatar==""){
@@ -80,6 +87,7 @@ class MainActivity : AppCompatActivity() {
                 .load("$API_URL/$avatar")
                 .into(profilePic)
         }
+
         val name = headerView.findViewById<TextView>(R.id.header_username)
         name.text = prefs.getString("username","")
         binding.navView.setNavigationItemSelectedListener{
@@ -99,6 +107,7 @@ class MainActivity : AppCompatActivity() {
                         prefs.edit {
                             putBoolean("connected", false)
                         }
+                        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                         Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
                     }else{
                         Toast.makeText(this, "You are not signed in", Toast.LENGTH_SHORT).show()
@@ -140,6 +149,10 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.cartBtn -> {
                 Navigation.findNavController(this,R.id.navHost).navigate(R.id.cartFragment)
+            }
+            R.id.loginBtn -> {
+                val intent = Intent(this, LoginActivity::class.java)
+                this.startActivity(intent)
             }
         }
         return super.onOptionsItemSelected(item)
