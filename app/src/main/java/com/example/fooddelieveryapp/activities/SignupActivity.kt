@@ -2,6 +2,7 @@ package com.example.fooddelieveryapp.activities
 
 import android.app.Activity
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
 import androidx.appcompat.app.AppCompatActivity
@@ -75,19 +76,67 @@ class SignupActivity : AppCompatActivity() {
                     .setServerClientId(getString(R.string.web_client_id))
                     // Show all accounts on the device.
                     .setFilterByAuthorizedAccounts(false)
+                    .setRequestVerifiedPhoneNumber(true)
                     .build())
             .build()
 
         val activityResultLauncher : ActivityResultLauncher<IntentSenderRequest> = registerForActivityResult(
             ActivityResultContracts.StartIntentSenderForResult(), ActivityResultCallback {result->
-                if(result.resultCode == Activity.RESULT_OK){
+                if(result.resultCode == RESULT_OK){
                     try {
                         val credential = oneTapClient.getSignInCredentialFromIntent(result.data)
                         val idToken = credential.googleIdToken
                         when {
                             idToken != null -> {
+                                val name = credential.givenName
                                 val email = credential.id
-                                Snackbar.make(binding.root,"Connected! as $email", Snackbar.LENGTH_SHORT).show()
+                                val phone = if (credential.phoneNumber!=null) credential.phoneNumber.toString()  else ""
+                                Log.i("google","username : ${credential.givenName}")
+                                Log.i("google","email : ${credential.id}")
+                                Log.i("google","phone : ${credential.phoneNumber}")
+                                Log.i("google","password : $idToken")
+
+                                val activityContext = this
+                                CoroutineScope(Dispatchers.IO).launch {
+                                    val signUpInfo = SignUpInfo(
+                                        name!!,
+                                        email,
+                                        phone,
+                                        "",
+                                        idToken
+                                    )
+                                    val response = Endpoint.createEndpoint(baseContext).signup(signUpInfo)
+                                    withContext(Dispatchers.Main) {
+                                        if (response.isSuccessful) {
+                                            val userInfo = response.body()
+                                            val prefs = getSharedPreferences("connection", Context.MODE_PRIVATE)
+                                            val username = userInfo?.username
+                                            prefs.edit{
+                                                putInt("idUser",userInfo!!.idUser)
+                                                putString("username",username)
+                                                putString("email",email)
+                                                putString("avatar",userInfo.avatar)
+                                                putString("token",userInfo.token)
+                                                putBoolean("connected",true)
+                                                commit()
+                                                apply()
+                                            }
+                                            Log.i("avatar",userInfo!!.avatar)
+                                            val token = prefs.getString("token","")
+                                            Log.i("token log",token!!)
+                                            Toast.makeText(baseContext,"Connected! as $username", Toast.LENGTH_LONG).show()
+                                            val intent = Intent(activityContext, MainActivity::class.java)
+                                            activityContext.startActivity(intent)
+                                        } else {
+                                            val errorMessage = response.errorBody()?.string() ?: "Unknown error"
+                                            Snackbar.make(
+                                                binding.root,
+                                                errorMessage,
+                                                Snackbar.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                    }
+                                }
                                 Log.d(TAG, "Got ID token.")
                             }
                             else -> {
@@ -107,33 +156,56 @@ class SignupActivity : AppCompatActivity() {
         }
 
         binding.googleSignupBtn.setOnClickListener {
+            Log.i("google","beginning")
             oneTapClient.beginSignIn(signUpRequest)
                 .addOnSuccessListener(this) { result ->
-
                     val intentSenderRequest : IntentSenderRequest = IntentSenderRequest.Builder(
                         result.pendingIntent.intentSender).build()
                     activityResultLauncher.launch(intentSenderRequest)
-
+                    Log.i("google","success")
                 }
                 .addOnFailureListener(this) { e ->
                     // No Google Accounts found. Just continue presenting the signed-out UI.
+                    Log.e("google","failure",e)
                     Log.d(TAG, e.localizedMessage)
                 }
         }
         binding.signupBtn.setOnClickListener {
             if (validateForm()) {
+                val activityContext = this
                 CoroutineScope(Dispatchers.IO).launch {
                     val signUpInfo = SignUpInfo(
                         binding.username.text.toString().trim(),
                         binding.email.text.toString().trim(),
                         binding.phone.text.toString().trim(),
-                        binding.adresse.text.toString(),
-                        binding.password.text.toString()
+                        binding.adresse.text.toString().trim(),
+                        binding.password.text.toString().trim()
                     )
                     val response = Endpoint.createEndpoint(baseContext).signup(signUpInfo)
                     withContext(Dispatchers.Main) {
                         if (response.isSuccessful) {
-                            // Handle successful sign-up
+                            val userInfo = response.body()
+                            val prefs = getSharedPreferences("connection", Context.MODE_PRIVATE)
+                            val email = binding.email.text.toString()
+                            val username = userInfo?.username
+                            val password = binding.password.text.toString()
+                            prefs.edit{
+                                putInt("idUser",userInfo!!.idUser)
+                                putString("username",username)
+                                putString("email",email)
+                                putString("avatar",userInfo.avatar)
+                                putString("token",userInfo.token)
+                                putString("password",password)
+                                putBoolean("connected",true)
+                                commit()
+                                apply()
+                            }
+                            Log.i("avatar",userInfo!!.avatar)
+                            val token = prefs.getString("token","")
+                            Log.i("token log",token!!)
+                            Toast.makeText(baseContext,"Connected! as $username", Toast.LENGTH_LONG).show()
+                            val intent = Intent(activityContext, MainActivity::class.java)
+                            activityContext.startActivity(intent)
                         } else {
                             val errorMessage = response.errorBody()?.string() ?: "Unknown error"
                             Snackbar.make(

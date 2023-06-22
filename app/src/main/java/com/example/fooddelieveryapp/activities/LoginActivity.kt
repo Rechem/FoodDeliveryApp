@@ -67,6 +67,7 @@ class LoginActivity : AppCompatActivity() {
                                 putString("token",userInfo.token)
                                 putString("password",password)
                                 putBoolean("connected",true)
+                                commit()
                                 apply()
                             }
                             Log.i("avatar",userInfo!!.avatar)
