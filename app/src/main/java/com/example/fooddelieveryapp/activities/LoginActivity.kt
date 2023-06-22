@@ -78,13 +78,6 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             }
-//            var returnIntent = Intent();
-//            if(valid){
-//                returnIntent.putExtra("avatar", savedAvatar);
-//                returnIntent.putExtra("avatar", savedUsername);
-//            }
-//            setResult(76, returnIntent)
-            this.finish()
         }
 
         binding.googleBtn.setOnClickListener{

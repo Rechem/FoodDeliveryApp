@@ -1,70 +1,34 @@
 package com.example.fooddelieveryapp.activities
 
-import android.app.Activity
-import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
 import com.example.fooddelieveryapp.Dao.AppDatabase
 import com.example.fooddelieveryapp.R
 import com.example.fooddelieveryapp.databinding.ActivityMainBinding
-import com.example.fooddelieveryapp.fragments.OrdersFragment
-import com.example.fooddelieveryapp.fragments.RestaurantsFragment
-import com.example.fooddelieveryapp.fragments.SettingsFragment
-import com.example.fooddelieveryapp.models.Restaurant
 import com.example.fooddelieveryapp.utils.API_URL
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var prefs: SharedPreferences
     lateinit var navController: NavController
-
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == 76) {
-//            Log.d("TAG", "after hours")
-//            if (resultCode == RESULT_OK) {
-//                // The method you want to run after ActivityB finishes
-//                val headerView = binding.navView.getHeaderView(0)
-//                val profilePic = headerView.findViewById<ImageView>(R.id.profile_image)
-//                val avatar = data!!.getStringExtra("avatar")
-//                Log.i("avatar",avatar!!)
-//                Log.i("avatar","$API_URL/$avatar")
-//
-//                Log.d("TAG", "after hours2 $API_URL/$avatar")
-//                Glide.with(this)
-//                        .load("$API_URL/$avatar")
-//                        .into(profilePic)
-//          }
-//        }
-//    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -72,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         prefs = getSharedPreferences("connection", Context.MODE_PRIVATE)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
+
         val view = binding.root
         setContentView(view)
         val navHostFragment =
@@ -83,64 +48,70 @@ class MainActivity : AppCompatActivity() {
         // FOR DRAWER
         prefs = getSharedPreferences("connection", Context.MODE_PRIVATE)
 
-        val headerView = binding.navView.getHeaderView(0)
-        val profilePic = headerView.findViewById<ImageView>(R.id.profile_image)
-        profilePic.setOnClickListener {
-            val connected = prefs.getBoolean("connected",false)
-            if(connected){
-                val intent = Intent(this, AvatarActivity::class.java)
-                startActivity(intent);
-            }else{
-                Snackbar.make(view,"You need to login to change your avatar", Snackbar.LENGTH_LONG).show()
-            }
-        }
         val connected = prefs.getBoolean("connected",false)
+
         if (connected) {
-            binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-        } else {
-            binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-        }
-        val avatar = prefs.getString("avatar","")
-        Log.i("avatar",avatar!!)
-        if(avatar==""){
-            profilePic.setImageResource(R.drawable.w)
-        }else{
-            Log.i("avatar","$API_URL/$avatar")
-            Glide.with(this)
-                .load("$API_URL/$avatar")
-                .into(profilePic)
-        }
+            binding.navView.menu.clear()
 
-        val name = headerView.findViewById<TextView>(R.id.header_username)
-        name.text = prefs.getString("username","")
-        binding.navView.setNavigationItemSelectedListener{
-            when (it.itemId) {
-                R.id.restaurantsFragment-> {
-                    Navigation.findNavController(this,R.id.navHost).navigate(R.id.restaurantsFragment)
+            binding.navView.inflateMenu(R.menu.drawer)
+            val inflater = LayoutInflater.from(binding.navView.context)
 
-                }
-                R.id.ordersFragment-> {
-                    Navigation.findNavController(this,R.id.navHost).navigate(R.id.ordersFragment)
-                }
-                R.id.logoutBtn -> {
-                    Log.i("deconnexion", "logged out")
-                    prefs = getSharedPreferences("connection", Context.MODE_PRIVATE)
-                    val connected = prefs.getBoolean("connected",false)
-                    if(connected){
-                        prefs.edit {
-                            putBoolean("connected", false)
-                        }
-                        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-                        Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
-                    }else{
-                        Toast.makeText(this, "You are not signed in", Toast.LENGTH_SHORT).show()
-                    }
-                }
+            val headerView = inflater.inflate(R.layout.drawer_header, binding.navView, false)
+            binding.navView.addHeaderView(headerView);
 
+            val profilePic = headerView.findViewById<ImageView>(R.id.profile_image)
+
+            val avatar = prefs.getString("avatar","")
+            Log.i("avatar",avatar!!)
+            if(avatar==""){
+                profilePic.setImageResource(R.drawable.w)
+            }else{
+                Log.i("avatar","$API_URL/$avatar")
+                Glide.with(this)
+                    .load("$API_URL/$avatar")
+                    .into(profilePic)
             }
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-            true
+
+            val name = headerView.findViewById<TextView>(R.id.header_username)
+            name.text = prefs.getString("username","")
+            binding.navView.setNavigationItemSelectedListener{
+                when (it.itemId) {
+                    R.id.restaurantsFragment-> {
+                        Navigation.findNavController(this,R.id.navHost).navigate(R.id.restaurantsFragment)
+
+                    }
+                    R.id.ordersFragment-> {
+                        Navigation.findNavController(this,R.id.navHost).navigate(R.id.ordersFragment)
+                    }
+                    R.id.logoutBtn -> {
+                        Log.i("deconnexion", "logged out")
+                        prefs = getSharedPreferences("connection", Context.MODE_PRIVATE)
+                        val connected = prefs.getBoolean("connected",false)
+                        if(connected){
+                            prefs.edit {
+                                putBoolean("connected", false)
+                            }
+                            binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                            Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
+                        }else{
+                            Toast.makeText(this, "You are not signed in", Toast.LENGTH_SHORT).show()
+                        }
+
+
+                        binding.navView.menu.clear()
+                        binding.navView.removeHeaderView(binding.navView.getHeaderView(0));
+                        binding.navView.inflateMenu(R.menu.login_drawer)
+                        setDisconnectedItemsMenu()
+                    }
+
+                }
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
+                true
+            }
+        }else{
+            setDisconnectedItemsMenu()
         }
+
 
         prefs.apply {
             if (!this.contains("connected"))
@@ -155,6 +126,19 @@ class MainActivity : AppCompatActivity() {
                 }
         }
 
+    }
+
+    private fun setDisconnectedItemsMenu(){
+        binding.navView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.login_btn_drawer -> {
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            true;
+        }
     }
 
     override fun onSupportNavigateUp() =
