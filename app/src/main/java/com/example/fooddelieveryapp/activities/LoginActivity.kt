@@ -2,31 +2,14 @@ package com.example.fooddelieveryapp.activities
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
-import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import com.example.fooddelieveryapp.Dao.Endpoint
-import com.example.fooddelieveryapp.R
-import com.example.fooddelieveryapp.adapters.FoodAdapter
 import com.example.fooddelieveryapp.databinding.ActivityLoginBinding
-import com.example.fooddelieveryapp.models.FoodModel
 import com.example.fooddelieveryapp.models.UserConnexion
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
-import com.google.android.gms.auth.api.identity.Identity
-import com.google.android.gms.auth.api.identity.SignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -74,8 +57,11 @@ class LoginActivity : AppCompatActivity() {
                         prefs.edit{
                             putInt("idUser",userInfo!!.idUser)
                             putString("username",username)
+
+
                             putString("email",email)
                             putString("avatar",userInfo.avatar)
+
                             putString("token",userInfo.token)
                             putString("password",password)
                             putBoolean("connected",true)
@@ -88,8 +74,13 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             }
-
-                this.finish()
+//            var returnIntent = Intent();
+//            if(valid){
+//                returnIntent.putExtra("avatar", savedAvatar);
+//                returnIntent.putExtra("avatar", savedUsername);
+//            }
+//            setResult(76, returnIntent)
+            this.finish()
         }
 
         binding.googleBtn.setOnClickListener{

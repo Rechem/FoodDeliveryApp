@@ -1,5 +1,6 @@
 package com.example.fooddelieveryapp.activities
 
+import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -12,6 +13,8 @@ import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.edit
 import androidx.core.view.GravityCompat
@@ -42,6 +45,26 @@ class MainActivity : AppCompatActivity() {
     lateinit var prefs: SharedPreferences
     lateinit var navController: NavController
 
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (requestCode == 76) {
+//            Log.d("TAG", "after hours")
+//            if (resultCode == RESULT_OK) {
+//                // The method you want to run after ActivityB finishes
+//                val headerView = binding.navView.getHeaderView(0)
+//                val profilePic = headerView.findViewById<ImageView>(R.id.profile_image)
+//                val avatar = data!!.getStringExtra("avatar")
+//                Log.i("avatar",avatar!!)
+//                Log.i("avatar","$API_URL/$avatar")
+//
+//                Log.d("TAG", "after hours2 $API_URL/$avatar")
+//                Glide.with(this)
+//                        .load("$API_URL/$avatar")
+//                        .into(profilePic)
+//          }
+//        }
+//    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -65,7 +88,7 @@ class MainActivity : AppCompatActivity() {
             val connected = prefs.getBoolean("connected",false)
             if(connected){
                 val intent = Intent(this, AvatarActivity::class.java)
-                this.startActivity(intent)
+                startActivity(intent);
             }else{
                 Snackbar.make(view,"You need to login to change your avatar", Snackbar.LENGTH_LONG).show()
             }

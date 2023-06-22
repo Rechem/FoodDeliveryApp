@@ -80,7 +80,7 @@ class CartFragment : Fragment() {
                 findNavController().navigate(R.id.action_cartFragment_to_checkoutFragment)
             else{
                 val intent = Intent(activity, LoginActivity::class.java)
-                this.startActivity(intent)
+                requireActivity().startActivityForResult(intent, 76);
             }
         }
 

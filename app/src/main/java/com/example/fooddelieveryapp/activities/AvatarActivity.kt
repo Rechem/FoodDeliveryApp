@@ -3,11 +3,11 @@ package com.example.fooddelieveryapp.activities
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.fooddelieveryapp.Dao.Endpoint
 import com.example.fooddelieveryapp.R
 import com.example.fooddelieveryapp.databinding.ActivityAvatarBinding
@@ -15,14 +15,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.asRequestBody
+import java.util.*
 
 
 class AvatarActivity : AppCompatActivity() {
@@ -35,6 +33,8 @@ class AvatarActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.skip.setOnClickListener {
+            val returnIntent = Intent()
+            setResult(RESULT_CANCELED, returnIntent)
             this.finish()
         }
         binding.avatar.setOnClickListener {
@@ -58,6 +58,8 @@ class AvatarActivity : AppCompatActivity() {
                 }
             }
             Log.i("exception", "Failed to update avatar")
+            val returnIntent = Intent()
+            setResult(RESULT_CANCELED, returnIntent)
             this.finish()
         }
         binding.reset.setOnClickListener {
