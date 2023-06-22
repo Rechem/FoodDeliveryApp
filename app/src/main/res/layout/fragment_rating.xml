@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/modal_bg">
+    android:background="@drawable/rectangle_top_rounded"
+    tools:context=".fragments.RatingFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/rectangle_top_rounded"
         android:paddingHorizontal="24dp"
         android:paddingTop="24dp"
-        android:paddingBottom="16dp">
+        android:paddingBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/review"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins"
-            android:text="@string/feedback"
+            android:text="@string/rate_this_restaurant"
             android:textAppearance="@style/TextAppearance.App.H4"
             android:textColor="@color/main_color"
             android:textFontWeight="600"
@@ -36,11 +37,11 @@
             android:rotation="45"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/main_color"
-            app:srcCompat="@drawable/add" />
+            app:srcCompat="@drawable/add"
+            app:tint="@color/main_color" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/experience_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -50,7 +51,7 @@
             app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
         <EditText
-            android:id="@+id/cookNoteEditText"
+            android:id="@+id/experience"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -61,7 +62,7 @@
             app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toBottomOf="@+id/experience_text" />
 
         <LinearLayout
             android:id="@+id/linearLayout3"
@@ -69,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/cookNoteEditText"
+            app:layout_constraintTop_toBottomOf="@+id/experience"
             tools:layout_editor_absoluteX="24dp">
 
             <Button
@@ -89,7 +90,7 @@
                 android:layout_height="0dp"></Space>
 
             <Button
-                android:id="@+id/add_note_btn"
+                android:id="@+id/rate"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -105,13 +106,13 @@
         <RatingBar
             android:id="@+id/ratingBar"
             style="?android:attr/ratingBarStyleIndicator"
-            android:isIndicator="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:isIndicator="false"
             android:progressTint="@color/golden"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/review" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

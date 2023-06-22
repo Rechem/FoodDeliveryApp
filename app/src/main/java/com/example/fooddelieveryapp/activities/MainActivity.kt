@@ -102,11 +102,13 @@ class MainActivity : AppCompatActivity() {
                 R.id.logoutBtn -> {
                     Log.i("deconnexion", "logged out")
                     prefs = getSharedPreferences("connection", Context.MODE_PRIVATE)
-                    val connected = prefs.getBoolean("connected",false)
                     if(connected){
-                        prefs.edit {
-                            putBoolean("connected", false)
+                        prefs.edit{
+                            clear()
+                            commit()
                         }
+                        val token = prefs.getString("token","")
+                        Log.i("token",token!!)
                         binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                         Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
                     }else{

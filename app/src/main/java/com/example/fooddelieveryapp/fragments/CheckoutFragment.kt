@@ -70,7 +70,6 @@ class CheckoutFragment : BottomSheetDialogFragment() {
                 val response = Endpoint.createEndpoint(requireContext()).order(orderInfo)
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
-                        //binding.progressBar.visibility = View.GONE
                         Toast.makeText(requireContext(),"Order submitted", Toast.LENGTH_LONG).show()
                     } else {
                         throw Exception(response.message())

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentSender
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
@@ -31,7 +32,8 @@ import kotlinx.coroutines.withContext
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
-
+    private var togglePassword = false
+    private var toggleConfirmPassword = false
     private lateinit var oneTapClient: SignInClient
     private lateinit var signUpRequest: BeginSignInRequest
 
@@ -40,10 +42,30 @@ class SignupActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
         binding= ActivitySignupBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
         // google on tap sign up
+
+        binding.eye1.setOnClickListener {
+            if(!togglePassword){
+                binding.password.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                togglePassword = true
+            }else{
+                binding.password.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                togglePassword = false
+            }
+        }
+        binding.eye2.setOnClickListener {
+            if(!togglePassword){
+                binding.confirmPassword.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                toggleConfirmPassword = true
+            }else{
+                binding.confirmPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                toggleConfirmPassword = false
+            }
+        }
         oneTapClient = Identity.getSignInClient(this)
         signUpRequest = BeginSignInRequest.builder()
             .setGoogleIdTokenRequestOptions(
@@ -99,38 +121,85 @@ class SignupActivity : AppCompatActivity() {
                 }
         }
         binding.signupBtn.setOnClickListener {
-            Log.i(TAG, "onCreate: sign up listner")
-            CoroutineScope(Dispatchers.IO).launch {
-                val signUpInfo = SignUpInfo(binding.username.text.toString(),binding.email.text.toString(),binding.phone.text.toString(),binding.adresse.text.toString(),binding.password.text.toString())
-                val response = Endpoint.createEndpoint(baseContext).signup(signUpInfo)
-                withContext(Dispatchers.Main) {
-                    if (response.isSuccessful) {
-                        //binding.progressBar.visibility = View.GONE
-                        val userInfo = response.body()
-                        val prefs = getSharedPreferences("connection", MODE_PRIVATE)
-                        val email = binding.email.text.toString()
-                        val username = userInfo?.username
-                        val password = binding.password.text.toString()
-                        prefs.edit{
-                            putInt("idUser",userInfo!!.idUser)
-                            putString("username",username)
-                            putString("email",email)
-                            putString("avatar",userInfo.avatar)
-                            putString("token",userInfo.token)
-                            putString("password",password)
-                            putBoolean("connected",true)
+            if (validateForm()) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val signUpInfo = SignUpInfo(
+                        binding.username.text.toString().trim(),
+                        binding.email.text.toString().trim(),
+                        binding.phone.text.toString().trim(),
+                        binding.adresse.text.toString(),
+                        binding.password.text.toString()
+                    )
+                    val response = Endpoint.createEndpoint(baseContext).signup(signUpInfo)
+                    withContext(Dispatchers.Main) {
+                        if (response.isSuccessful) {
+                            // Handle successful sign-up
+                        } else {
+                            val errorMessage = response.errorBody()?.string() ?: "Unknown error"
+                            Snackbar.make(
+                                binding.root,
+                                errorMessage,
+                                Snackbar.LENGTH_SHORT
+                            ).show()
                         }
-                        Toast.makeText(baseContext,"Signed up as $username", Toast.LENGTH_SHORT).show()
-
-                    } else {
-                        throw Exception(response.message())
                     }
                 }
+            } else {
+                // Show validation error message
+                Snackbar.make(
+                    binding.root,
+                    "Please correct the errors in the form",
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
-            // go to avatar activity
-            this.finish()
-            val intent = Intent(this, AvatarActivity::class.java)
-            this.startActivity(intent)
         }
+    }
+
+    private fun validateForm(): Boolean {
+        val username = binding.username.text.toString().trim()
+        val email = binding.email.text.toString().trim()
+        val phone = binding.phone.text.toString().trim()
+        val address = binding.adresse.text.toString().trim()
+        val password = binding.password.text.toString().trim()
+        val confirmPassword = binding.confirmPassword.text.toString().trim()
+
+        if (username.isEmpty()) {
+            binding.username.error = "Username is required"
+            return false
+        }
+
+        if (email.isEmpty()) {
+            binding.email.error = "Email is required"
+            return false
+        }
+
+        // Add more validation rules for other fields
+
+        if (password.isEmpty()) {
+            binding.password.error = "Password is required"
+            return false
+        }
+        if (address.isEmpty()) {
+            binding.adresse.error = "Address is required"
+            return false
+        }
+        if (phone.isEmpty()) {
+            binding.phone.error = "Phone is required"
+            return false
+        }
+
+        if (confirmPassword.isEmpty()) {
+            binding.confirmPassword.error = "Confirm Password is required"
+            return false
+        }
+
+        if (password != confirmPassword) {
+            binding.confirmPassword.error = "Passwords do not match"
+            return false
+        }
+
+        // Perform additional validation as per your requirements
+
+        return true
     }
 }
