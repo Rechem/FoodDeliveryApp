@@ -36,56 +36,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@mipmap/ic_launcher" />
 
-        <View
-            android:id="@+id/sep1"
-            style="@style/Divider"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toStartOf="@+id/or"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signup_btn" />
-
-        <View
-            android:id="@+id/sep2"
-            style="@style/Divider"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/or"
-            app:layout_constraintTop_toBottomOf="@+id/signup_btn" />
-
-        <Button
-            android:id="@+id/google_signup_btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/botton_outlined"
-            android:gravity="center"
-            android:text="Signup with google"
-            android:textAllCaps="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/or" />
-
-        <Button
-            android:id="@+id/fb_signup_btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/botton_outlined"
-            android:gravity="center"
-            android:text="Signup with facebook"
-            android:textAllCaps="false"
-            android:textColor="@color/text_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/google_signup_btn" />
 
         <EditText
             android:id="@+id/username"
@@ -291,7 +241,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/botton"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center"
@@ -315,7 +265,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fb_signup_btn">
+            app:layout_constraintTop_toBottomOf="@+id/signup_btn">
 
             <TextView
                 android:id="@+id/dont_text"
@@ -337,19 +287,6 @@
                 android:textColor="@color/main_color" />
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/or"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/poppins_medium"
-            android:text="OR"
-            android:textColor="@color/text_color"
-            app:layout_constraintEnd_toStartOf="@+id/sep2"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/sep1"
-            app:layout_constraintTop_toBottomOf="@+id/signup_btn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

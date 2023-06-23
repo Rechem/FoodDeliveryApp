@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fooddelieveryapp.R
 import com.example.fooddelieveryapp.databinding.OrderItemLayoutBinding
 import com.example.fooddelieveryapp.models.OrderItem
 import com.example.fooddelieveryapp.models.Restaurant
@@ -22,6 +23,9 @@ class OrdersListAdapter(val data:List<OrderItem>, val ctx: Context): RecyclerVie
             orderNumber.text = "Order #${orderItem.id}"
             orderDateCard.text = orderItem.date
             orderStatusCard.text = orderItem.status
+            if(orderItem.status=="Delivered"){
+                orderStatusCard.setTextColor(ctx.resources.getColor(R.color.green))
+            }
             orderRestaurantCard.text = orderItem.restaurantName
             orderPriceCard.text = "${orderItem.totalPrice.toString()} DZD"
         }

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
@@ -32,12 +33,26 @@ class RestaurantsFragment : Fragment() {
     lateinit var binding: FragmentRestaurantsBinding
     lateinit var restaurantAdapter : RestaurantAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
+
+    private fun refreshRestaurants() {
+        binding.refreshRestaurants.setOnRefreshListener {
+            loadData()
+            binding.refreshRestaurants.isRefreshing = false
+            Toast.makeText(requireContext(),"Restaurants refreshed",Toast.LENGTH_SHORT).show()
+
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding= FragmentRestaurantsBinding.inflate(layoutInflater)
+        refreshRestaurants()
         binding.progressBar.visibility = View.VISIBLE
         loadData()
         val dividerItemDecoration = DividerItemDecoration(activity, RecyclerView.VERTICAL)
@@ -59,6 +74,7 @@ class RestaurantsFragment : Fragment() {
     }
 
     private fun loadData() {
+        binding.errorText.visibility = View.INVISIBLE
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = Endpoint.createEndpoint(requireContext()).getRestaurants()

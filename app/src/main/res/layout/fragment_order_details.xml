@@ -20,6 +20,7 @@
             android:layout_marginTop="24dp"
             android:fontFamily="@font/poppins"
             android:text="4/3/2023 - 15:02"
+            android:visibility="invisible"
             android:textAppearance="@style/TextAppearance.App.Body1"
             android:textColor="@color/main_color"
             android:textFontWeight="500"
@@ -34,6 +35,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/poppins"
             android:text="@string/in_progress"
+            android:visibility="invisible"
             android:textAppearance="@style/TextAppearance.App.Body1"
             android:textColor="@color/warning"
             android:textFontWeight="500"
@@ -42,6 +44,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/orderInfoCard"
+            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -84,6 +87,7 @@
 
             <View
                 android:id="@+id/divider2"
+                android:visibility="invisible"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginStart="16dp"
@@ -96,6 +100,7 @@
 
             <TextView
                 android:id="@+id/orderRestaurantCard"
+                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -112,6 +117,7 @@
 
             <TextView
                 android:id="@+id/totalSum"
+                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -127,6 +133,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/delivererInfoCard"
+            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -144,7 +152,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/delivery_information"
+                android:text="@string/deliverer_information"
+                android:visibility="invisible"
                 android:textAppearance="@style/TextAppearance.App.H6"
                 android:textColor="@color/text_color"
                 android:textFontWeight="600"
@@ -158,20 +167,22 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/first_name"
+                android:visibility="invisible"
                 android:textAppearance="@style/TextAppearance.App.Body2"
                 android:textColor="@color/text_color"
                 android:textFontWeight="400"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                app:layout_constraintTop_toBottomOf="@+id/nom_text" />
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:text="@string/telephone"
+                android:visibility="invisible"
                 android:textAppearance="@style/TextAppearance.App.Body2"
                 android:textColor="@color/text_color"
                 android:textFontWeight="400"
@@ -180,12 +191,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/orderStatusCard" />
 
             <TextView
-                android:id="@+id/textView10"
+                android:id="@+id/nom_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/last_name"
+                android:visibility="invisible"
                 android:textAppearance="@style/TextAppearance.App.Body2"
                 android:textColor="@color/text_color"
                 android:textFontWeight="400"
@@ -198,12 +210,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="Moh"
+                android:visibility="invisible"
                 android:textAppearance="@style/TextAppearance.App.Body2"
                 android:textColor="@color/text_color"
                 android:textFontWeight="400"
-                app:layout_constraintBottom_toBottomOf="@+id/textView10"
-                app:layout_constraintStart_toEndOf="@+id/textView10"
-                app:layout_constraintTop_toTopOf="@+id/textView10" />
+                app:layout_constraintBottom_toBottomOf="@+id/nom_text"
+                app:layout_constraintStart_toEndOf="@+id/nom_text"
+                app:layout_constraintTop_toTopOf="@+id/nom_text" />
 
             <TextView
                 android:id="@+id/delivererTelephone"
@@ -211,12 +224,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="0798164935"
+                android:visibility="invisible"
                 android:textAppearance="@style/TextAppearance.App.Body2"
                 android:textColor="@color/text_color"
                 android:textFontWeight="400"
-                app:layout_constraintBottom_toBottomOf="@+id/textView9"
-                app:layout_constraintStart_toEndOf="@+id/textView9"
-                app:layout_constraintTop_toTopOf="@+id/textView9" />
+                app:layout_constraintBottom_toBottomOf="@+id/phone"
+                app:layout_constraintStart_toEndOf="@+id/phone"
+                app:layout_constraintTop_toTopOf="@+id/phone" />
 
             <TextView
                 android:id="@+id/delivererPrenom"
@@ -224,6 +238,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="Guezdiatoun"
+                android:visibility="invisible"
                 android:textAppearance="@style/TextAppearance.App.Body2"
                 android:textColor="@color/text_color"
                 android:textFontWeight="400"
@@ -236,7 +251,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/progress_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"

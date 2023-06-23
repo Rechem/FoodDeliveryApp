@@ -157,9 +157,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:background="@drawable/botton_outlined"
-        android:text="Continue with google"
-        android:textAllCaps="false"
         android:gravity="center"
+        android:text="@string/continue_with_google"
+        android:textAllCaps="false"
+        android:textColor="@color/text_color"
         app:layout_constraintEnd_toEndOf="@+id/login_btn"
         app:layout_constraintStart_toStartOf="@+id/login_btn"
         app:layout_constraintTop_toBottomOf="@+id/or_text" />
@@ -220,6 +221,25 @@
         app:layout_constraintTop_toTopOf="@+id/password"
         />
 
+    <ImageView
+        android:id="@+id/google_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        app:layout_constraintBottom_toBottomOf="@+id/google_btn"
+        app:layout_constraintStart_toStartOf="@+id/google_btn"
+        app:layout_constraintTop_toTopOf="@+id/google_btn"
+        app:srcCompat="@drawable/google_icon" />
+
+    <ImageView
+        android:id="@+id/fb_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        app:layout_constraintBottom_toBottomOf="@+id/fb_btn"
+        app:layout_constraintStart_toStartOf="@+id/fb_btn"
+        app:layout_constraintTop_toTopOf="@+id/fb_btn"
+        app:srcCompat="@drawable/facebook_icon" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
