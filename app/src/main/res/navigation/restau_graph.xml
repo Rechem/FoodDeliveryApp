@@ -18,8 +18,7 @@
     <fragment
         android:id="@+id/foodFragment"
         android:name="com.example.fooddelieveryapp.fragments.FoodFragment"
-        android:label="fragment_food"
-        tools:layout="@layout/fragment_food" >
+        tools:layout="@layout/fragment_food">
         <action
             android:id="@+id/action_foodFragment_to_foodDetailsFragment"
             app:destination="@id/foodDetailsFragment"
@@ -35,7 +34,6 @@
     <fragment
         android:id="@+id/foodDetailsFragment"
         android:name="com.example.fooddelieveryapp.fragments.FoodDetailsFragment"
-        android:label="fragment_food_details"
         tools:layout="@layout/fragment_food_details" >
         <action
             android:id="@+id/action_foodDetailsFragment_to_cartFragment"
@@ -44,7 +42,6 @@
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.example.fooddelieveryapp.fragments.CartFragment"
-        android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" >
         <action
             android:id="@+id/action_cartFragment_to_checkoutFragment"
@@ -56,7 +53,6 @@
     <dialog
         android:id="@+id/checkoutFragment"
         android:name="com.example.fooddelieveryapp.fragments.CheckoutFragment"
-        android:label="fragment_checkout"
         tools:layout="@layout/fragment_checkout" />
     <fragment
         android:id="@+id/ordersFragment"
@@ -70,16 +66,13 @@
     <dialog
         android:id="@+id/cookNoteFragment"
         android:name="com.example.fooddelieveryapp.fragments.CookNoteFragment"
-        android:label="fragment_cook_note"
         tools:layout="@layout/fragment_cook_note" />
     <fragment
         android:id="@+id/orderDetailsFragment"
         android:name="com.example.fooddelieveryapp.fragments.OrderDetailsFragment"
-        android:label="fragment_order_details"
         tools:layout="@layout/fragment_order_details" />
     <dialog
         android:id="@+id/ratingFragment"
         android:name="com.example.fooddelieveryapp.fragments.RatingFragment"
-        android:label="fragment_rating"
         tools:layout="@layout/fragment_rating" />
 </navigation>

@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -40,11 +41,14 @@ class CartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+
+
         (requireActivity() as AppCompatActivity).supportActionBar?.title = resources.getString(R.string.cart);
 
         cartViewModel = CartViewModel.getInstance();
 
         binding= FragmentCartBinding.inflate(layoutInflater)
+
 
         binding.cartRecyclerView.layoutManager = LinearLayoutManager(activity)
         items = loadData()
@@ -66,6 +70,13 @@ class CartFragment : Fragment() {
 
         cartViewModel.setCartTotal(sum);
 
+        val prefs = requireActivity().getSharedPreferences("note", Context.MODE_PRIVATE)
+        val note = prefs.getString("cookNote", "")
+
+        if(note != ""){
+            binding.addNoteBtn.text = "Edit note"
+        }
+
         return binding.root
     }
 
@@ -74,23 +85,24 @@ class CartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.checkoutBtn.setOnClickListener{
-            val prefs = requireActivity().getSharedPreferences("connection", Context.MODE_PRIVATE)
-            val isConnected = prefs.getBoolean("connected",false)
-            if(isConnected)
-                findNavController().navigate(R.id.action_cartFragment_to_checkoutFragment)
-            else{
-                val intent = Intent(activity, LoginActivity::class.java)
-                requireActivity().startActivityForResult(intent, 76);
+            if(cartViewModel.getCartItems().isNotEmpty()){
+
+                val prefs = requireActivity().getSharedPreferences("connection", Context.MODE_PRIVATE)
+                val isConnected = prefs.getBoolean("connected",false)
+                if(isConnected)
+                    findNavController().navigate(R.id.action_cartFragment_to_checkoutFragment)
+                else{
+                    val intent = Intent(activity, LoginActivity::class.java)
+                    startActivity(intent);
+                }
+            }else{
+                Toast.makeText(requireContext(),"Cart is empty !", Toast.LENGTH_LONG).show()
             }
         }
 
         binding.addNoteBtn.setOnClickListener {
             findNavController().navigate(R.id.action_cartFragment_to_cookNoteFragment)
         }
-
-//        binding.cartCrossBtn.setOnClickListener{
-//            findNavController().popBackStack()
-//        }
 
         binding.clearAllBtn.setOnClickListener {
             cartViewModel.clearCart();

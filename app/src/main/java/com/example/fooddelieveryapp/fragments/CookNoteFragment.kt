@@ -25,6 +25,14 @@ class CookNoteFragment : BottomSheetDialogFragment()  {
     ): View? {
         // Inflate the layout for this fragment
         binding= FragmentCookNoteBinding.inflate(layoutInflater)
+        val prefs = requireActivity().getSharedPreferences("note", Context.MODE_PRIVATE)
+        val note = prefs.getString("cookNote", "")
+
+        if(note != ""){
+            binding.confirmNoteBtn.text = "Save"
+            binding.cookNoteEditText.setText(note)
+        }
+
         return binding.root
     }
 
@@ -39,11 +47,19 @@ class CookNoteFragment : BottomSheetDialogFragment()  {
         }
         binding.confirmNoteBtn.setOnClickListener {
             val prefs = requireActivity().getSharedPreferences("note", Context.MODE_PRIVATE)
+
+            if(binding.cookNoteEditText.text.toString() != "") {
+                if(prefs.getString("cookNote","") != ""){
+                    Toast.makeText(requireContext(), "Note saved !", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(requireContext(), "Note added !", Toast.LENGTH_SHORT).show()
+                }
+
+            }
             prefs.edit {
                 putString("cookNote", binding.cookNoteEditText.text.toString())
                 putBoolean("edited",true)
             }
-            Toast.makeText(requireContext(), "logged out", Toast.LENGTH_SHORT).show()
             findNavController().popBackStack()
         }
 

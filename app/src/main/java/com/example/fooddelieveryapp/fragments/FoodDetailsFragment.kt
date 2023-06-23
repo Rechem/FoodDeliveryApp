@@ -47,11 +47,9 @@ class FoodDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val cartItemDao = AppDatabase.getInstance(requireActivity())!!.getCartItemDao()
         val food = vm.food
         binding.apply {
 
-//            foodName.text = food?.name
             detailsPrice.text = "${food?.price} DA"
             if (food != null) {
                 Glide.with(requireActivity())
@@ -65,7 +63,9 @@ class FoodDetailsFragment : Fragment() {
                 quantity.text = (quantity.text.toString().toInt()+1).toString()
             }
             minusBtn.setOnClickListener {
-                quantity.text = (quantity.text.toString().toInt()-1).toString()
+                if((quantity.text.toString().toInt()) > 1) {
+                    quantity.text = (quantity.text.toString().toInt() - 1).toString()
+                }
             }
             addToCartBtn.setOnClickListener {
                 val cartmodel = CartModel.getInstance();
@@ -80,11 +80,10 @@ class FoodDetailsFragment : Fragment() {
                         quantity.text.toString().toInt()
                     )
 
-                    Log.i(TAG, "added")
                     Toast.makeText(requireContext(), "${food.name} added to cart", Toast.LENGTH_SHORT).show()
+                    findNavController().popBackStack()
                 }catch (e:Exception){
-                    Snackbar.make(binding.root,"This item is already in the cart", Snackbar.LENGTH_SHORT).show()
-                    Log.i(TAG, "not added")
+                    Snackbar.make(binding.root,e.message.toString(), Snackbar.LENGTH_SHORT).show()
                 }
             }
         }

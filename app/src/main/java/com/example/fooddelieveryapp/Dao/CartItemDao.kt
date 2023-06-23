@@ -12,6 +12,10 @@ interface CartItemDao {
 
     @Query("select distinct restaurantId from cartItems")
     fun getCartRestaurantId():Int
+
+    @Query("SELECT COUNT(1) FROM cartItems WHERE mealId = :id")
+    fun checkMealExistsInCart(id: Int):Int
+
     @Insert
     fun addCartItem(vararg item:CartItem)
     @Query("update cartItems set quantity = quantity + 1 where mealId = :id")

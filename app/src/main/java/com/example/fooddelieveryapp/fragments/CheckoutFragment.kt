@@ -39,6 +39,8 @@ class CheckoutFragment : BottomSheetDialogFragment() {
     ): View? {
         binding = FragmentCheckoutBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
+
+
         return binding.root
     }
 
@@ -75,6 +77,7 @@ class CheckoutFragment : BottomSheetDialogFragment() {
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         CartViewModel.getInstance().clearCart()
+                        prefs.edit().clear().apply()
                         Toast.makeText(requireContext(),"Order submitted", Toast.LENGTH_LONG).show()
                     } else {
                         throw Exception(response.message())

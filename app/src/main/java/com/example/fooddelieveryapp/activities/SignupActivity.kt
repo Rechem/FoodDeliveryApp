@@ -92,7 +92,7 @@ class SignupActivity : AppCompatActivity() {
                                 val email = credential.id
                                 val phone = if (credential.phoneNumber!=null) credential.phoneNumber.toString()  else ""
                                 Log.i("google","username : ${credential.givenName}")
-                                Log.i("google","email : ${credential.id}")
+                                    Log.i("google","email : ${credential.id}")
                                 Log.i("google","phone : ${credential.phoneNumber}")
                                 Log.i("google","password : $idToken")
 
@@ -184,23 +184,18 @@ class SignupActivity : AppCompatActivity() {
                     val response = Endpoint.createEndpoint(baseContext).signup(signUpInfo)
                     withContext(Dispatchers.Main) {
                         if (response.isSuccessful) {
-                            val userInfo = response.body()
+                            val userInfo = response.body()!!
                             val prefs = getSharedPreferences("connection", Context.MODE_PRIVATE)
-                            val email = binding.email.text.toString()
-                            val username = userInfo?.username
-                            val password = binding.password.text.toString()
+                            val username = userInfo.username
                             prefs.edit{
-                                putInt("idUser",userInfo!!.idUser)
                                 putString("username",username)
-                                putString("email",email)
                                 putString("avatar",userInfo.avatar)
                                 putString("token",userInfo.token)
-                                putString("password",password)
                                 putBoolean("connected",true)
                                 commit()
                                 apply()
                             }
-                            Log.i("avatar",userInfo!!.avatar)
+                            Log.i("avatar",userInfo.avatar)
                             val token = prefs.getString("token","")
                             Log.i("token log",token!!)
                             Toast.makeText(baseContext,"Connected! as $username", Toast.LENGTH_LONG).show()

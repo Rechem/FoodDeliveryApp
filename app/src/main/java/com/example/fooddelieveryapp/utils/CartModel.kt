@@ -1,10 +1,5 @@
 package com.example.fooddelieveryapp.utils
 
-import android.content.Context
-import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.MutableLiveData
-import androidx.room.Room
 import com.example.fooddelieveryapp.Dao.*
 import com.example.fooddelieveryapp.models.Food
 import java.lang.IndexOutOfBoundsException
@@ -32,6 +27,11 @@ class CartModel(){
     fun addItemToCart(food : Food, qty : Int) {
     //check already present restaurant id
     val restaurantId = cartItemDao.getCartRestaurantId();
+
+    if(checkIfItemExists(food.idMeal)){
+        throw Exception("This item is already in the cart");
+    }
+
     if (restaurantId == 0 || restaurantId == food.idRestaurant) {
         cartItemDao.addCartItem(
             CartItem(
@@ -48,10 +48,9 @@ class CartModel(){
     }
 }
 
-//    fun checkIfCartExists(cartDao: CartDao,restaurantId:Int,userId:Int):Boolean{
-//        val results = cartDao.getCartByUserIdAndRestaurantId(userId = userId,restaurantId = restaurantId)
-//        return results.isNotEmpty()
-//    }
+    fun checkIfItemExists(mealId: Int): Boolean {
+        return cartItemDao.checkMealExistsInCart(mealId) == 1;
+    }
 
     fun getCartItems():List<CartItem>{
         try {
