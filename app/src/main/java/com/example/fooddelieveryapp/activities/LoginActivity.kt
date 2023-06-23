@@ -56,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
             if(validateForm()){
                 CoroutineScope(Dispatchers.IO).launch {
                     val connexionInfo = UserConnexion(binding.email.text.toString(),binding.password.text.toString())
-                    val response = Endpoint.createEndpoint().login(connexionInfo)
+                    val response = Endpoint.createEndpoint(baseContext).login(connexionInfo)
                     withContext(Dispatchers.Main) {
                         if (response.isSuccessful) {
                             val userInfo = response.body()!!

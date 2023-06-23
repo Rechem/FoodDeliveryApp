@@ -61,7 +61,7 @@ class RestaurantsFragment : Fragment() {
     private fun loadData() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = Endpoint.createEndpoint().getRestaurants()
+                val response = Endpoint.createEndpoint(requireContext()).getRestaurants()
                 withContext(Dispatchers.Main) {
                     binding.recyclerView.layoutManager = LinearLayoutManager(activity)
                     if (response.isSuccessful) {

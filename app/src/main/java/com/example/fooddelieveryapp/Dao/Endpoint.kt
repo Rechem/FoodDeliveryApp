@@ -28,11 +28,10 @@ import retrofit2.http.Part
 interface Endpoint {
 
     companion object {
-        private const val AUTH_TOKEN = "your_auth_token"
-
-
         var endpoint: Endpoint? = null
-        fun createEndpoint(token: String): Endpoint {
+        fun createEndpoint(context : Context): Endpoint {
+            val prefs = context.getSharedPreferences("connection", Context.MODE_PRIVATE)
+            val token = prefs.getString("token","")!!
             Log.i("tokenRatez",token)
             val client: OkHttpClient = OkHttpClient.Builder()
                 .addInterceptor(AuthInterceptor(token))
@@ -42,16 +41,6 @@ interface Endpoint {
             Retrofit.Builder().baseUrl(API_URL).client(client).addConverterFactory(
             GsonConverterFactory.create()
             ).build().create(Endpoint::class.java)
-            return endpoint!!
-        }
-
-        fun createEndpoint(): Endpoint {
-            endpoint =null
-            endpoint =
-            Retrofit.Builder().baseUrl(API_URL).addConverterFactory(
-            GsonConverterFactory.create()
-            ).build().create(Endpoint::class.java)
-
             return endpoint!!
         }
     }

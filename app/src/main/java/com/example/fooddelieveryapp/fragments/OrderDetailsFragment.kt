@@ -67,11 +67,7 @@ class OrderDetailsFragment : Fragment() {
     private fun loadData(orderNumber : Int){
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val prefs = requireActivity().getSharedPreferences("connection", Context.MODE_PRIVATE)
-                val token = prefs.getString("token","")!!
-                Log.i("tokenRate",token!!)
-
-                val response = Endpoint.createEndpoint(token).getOrder(orderNumber)
+                val response = Endpoint.createEndpoint(requireContext()).getOrder(orderNumber)
                 withContext(Dispatchers.Main) {
                     binding.itemPriceList.layoutManager = LinearLayoutManager(activity)
                     if (response.isSuccessful) {

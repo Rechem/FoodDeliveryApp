@@ -69,7 +69,7 @@ class OrdersFragment : Fragment() {
                 val prefs = requireActivity().getSharedPreferences("connection", Context.MODE_PRIVATE)
                 val token = prefs.getString("token","")!!
 
-                val response = Endpoint.createEndpoint(token).getOrders()
+                val response = Endpoint.createEndpoint(requireContext()).getOrders()
                 withContext(Dispatchers.Main) {
                     binding.ordersRecyclerView.layoutManager = LinearLayoutManager(activity)
                     if (response.isSuccessful) {

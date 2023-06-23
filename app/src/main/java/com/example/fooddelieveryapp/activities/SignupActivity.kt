@@ -130,7 +130,7 @@ class SignupActivity : AppCompatActivity() {
                         binding.adresse.text.toString(),
                         binding.password.text.toString()
                     )
-                    val response = Endpoint.createEndpoint().signup(signUpInfo)
+                    val response = Endpoint.createEndpoint(baseContext).signup(signUpInfo)
                     withContext(Dispatchers.Main) {
                         if (response.isSuccessful) {
                             // Handle successful sign-up
