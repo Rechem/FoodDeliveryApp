@@ -20,8 +20,6 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.ContinuationInterceptor
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -58,25 +56,19 @@ class LoginActivity : AppCompatActivity() {
             if(validateForm()){
                 CoroutineScope(Dispatchers.IO).launch {
                     val connexionInfo = UserConnexion(binding.email.text.toString(),binding.password.text.toString())
-                    val response = Endpoint.createEndpoint(baseContext).login(connexionInfo)
+                    val response = Endpoint.createEndpoint().login(connexionInfo)
                     withContext(Dispatchers.Main) {
                         if (response.isSuccessful) {
-                            val userInfo = response.body()
+                            val userInfo = response.body()!!
                             val prefs = getSharedPreferences("connection", Context.MODE_PRIVATE)
-                            val email = binding.email.text.toString()
-                            val username = userInfo?.username
-                            val password = binding.password.text.toString()
+                            val username = userInfo.username
                             prefs.edit{
-                                putInt("idUser",userInfo!!.idUser)
                                 putString("username",username)
-                                putString("email",email)
                                 putString("avatar",userInfo.avatar)
                                 putString("token",userInfo.token)
-                                putString("password",password)
                                 putBoolean("connected",true)
                                 apply()
                             }
-                            Log.i("avatar",userInfo!!.avatar)
                             val token = prefs.getString("token","")
                             Log.i("token log",token!!)
                             Toast.makeText(baseContext,"Connected! as $username", Toast.LENGTH_LONG).show()

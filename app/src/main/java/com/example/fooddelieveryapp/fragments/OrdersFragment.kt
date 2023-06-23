@@ -66,7 +66,10 @@ class OrdersFragment : Fragment() {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = Endpoint.createEndpoint(requireContext()).getOrders()
+                val prefs = requireActivity().getSharedPreferences("connection", Context.MODE_PRIVATE)
+                val token = prefs.getString("token","")!!
+
+                val response = Endpoint.createEndpoint(token).getOrders()
                 withContext(Dispatchers.Main) {
                     binding.ordersRecyclerView.layoutManager = LinearLayoutManager(activity)
                     if (response.isSuccessful) {

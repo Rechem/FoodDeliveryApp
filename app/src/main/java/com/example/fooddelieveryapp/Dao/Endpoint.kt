@@ -1,6 +1,7 @@
 package com.example.fooddelieveryapp.Dao
 
 import android.content.Context
+import android.util.Log
 import com.example.fooddelieveryapp.models.DetailedOrder
 import com.example.fooddelieveryapp.models.Food
 import com.example.fooddelieveryapp.models.Order
@@ -31,17 +32,26 @@ interface Endpoint {
 
 
         var endpoint: Endpoint? = null
-        fun createEndpoint(context : Context): Endpoint {
-            val prefs = context.getSharedPreferences("connection", Context.MODE_PRIVATE)
-            val authToken = prefs.getString("token","")
+        fun createEndpoint(token: String): Endpoint {
+            Log.i("tokenRatez",token)
             val client: OkHttpClient = OkHttpClient.Builder()
-                .addInterceptor(AuthInterceptor(authToken!!))
+                .addInterceptor(AuthInterceptor(token))
                 .build()
-            if(endpoint ==null) {
-                endpoint = Retrofit.Builder().baseUrl(API_URL).client(client). addConverterFactory(
-                    GsonConverterFactory.create()).build(). create(Endpoint::class.java)
+            endpoint = null;
+            endpoint =
+            Retrofit.Builder().baseUrl(API_URL).client(client).addConverterFactory(
+            GsonConverterFactory.create()
+            ).build().create(Endpoint::class.java)
+            return endpoint!!
+        }
 
-            }
+        fun createEndpoint(): Endpoint {
+            endpoint =null
+            endpoint =
+            Retrofit.Builder().baseUrl(API_URL).addConverterFactory(
+            GsonConverterFactory.create()
+            ).build().create(Endpoint::class.java)
+
             return endpoint!!
         }
     }

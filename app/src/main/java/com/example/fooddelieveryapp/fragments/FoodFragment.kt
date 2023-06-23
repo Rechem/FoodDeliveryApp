@@ -82,29 +82,17 @@ class FoodFragment : Fragment() {
 
         val restaurant = vm.restau
         loadData(restaurant!!)
-//        binding.restaurantName.text = restaurant?.name
-//
-//
-//        //  back listner
-//        binding.back.setOnClickListener {
-//            findNavController().popBackStack()
-//        }
-//
-//        // cart listner
-//        binding.cart.setOnClickListener {
-//            findNavController().navigate(R.id.action_foodFragment_to_cartFragment)
-//        }
     }
 
     private fun loadData(restaurant : Restaurant){
         CoroutineScope(Dispatchers.IO).launch {
-            val response = Endpoint.createEndpoint(requireActivity()).getMenus(restaurant.idRestaurant)
+            val response = Endpoint.createEndpoint().getMenus(restaurant.idRestaurant)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     //binding.progressBar.visibility = View.GONE
                     val menus = response.body()
                     binding.recyclerView.layoutManager = GridLayoutManager(activity,2)
-                    foodAdpater = FoodAdapter(menus!!,activity as Context)
+                    foodAdpater = FoodAdapter(menus!!, activity as Context)
                     binding.recyclerView.adapter = foodAdpater
                     foodAdpater.onItemClick={
                         val vm = ViewModelProvider(requireActivity())[FoodModel::class.java]

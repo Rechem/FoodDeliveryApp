@@ -56,7 +56,12 @@ class RatingFragment : BottomSheetDialogFragment() {
                     binding.experience.text.toString().trim(),
                     binding.ratingBar.rating
                 )
-                val response = Endpoint.createEndpoint(requireContext()).rate(rating)
+
+                val prefs = requireActivity().getSharedPreferences("connection", Context.MODE_PRIVATE)
+                val token = prefs.getString("token","")
+                Log.i("tokenRate",token!!)
+
+                val response = Endpoint.createEndpoint(token).rate(rating)
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         Toast.makeText(requireContext(),"Restaurant ${vm.restau!!.name} rated successfully", Toast.LENGTH_LONG).show()

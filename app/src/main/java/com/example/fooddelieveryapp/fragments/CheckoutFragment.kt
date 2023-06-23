@@ -67,7 +67,8 @@ class CheckoutFragment : BottomSheetDialogFragment() {
                     binding.deliveryNoteEditText.text.toString(),
                     meals
                 )
-                val response = Endpoint.createEndpoint(requireContext()).order(orderInfo)
+                val token = prefs.getString("token","")!!
+                val response = Endpoint.createEndpoint(token).order(orderInfo)
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         Toast.makeText(requireContext(),"Order submitted", Toast.LENGTH_LONG).show()

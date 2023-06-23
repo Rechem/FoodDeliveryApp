@@ -46,7 +46,12 @@ class AvatarActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.IO).launch {
                 val requestFile = image?.asRequestBody("image/jpeg".toMediaTypeOrNull())
                 val imagePart = MultipartBody.Part.createFormData("avatar", image?.name, requestFile!!)
-                val response = Endpoint.createEndpoint(baseContext).updateAvatar(imagePart)
+
+                val prefs = getSharedPreferences("connection", Context.MODE_PRIVATE)
+                val token = prefs.getString("token","")!!
+                Log.i("tokenRate",token!!)
+
+                val response = Endpoint.createEndpoint(token).updateAvatar(imagePart)
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         Log.i("success", "avatar updated")
