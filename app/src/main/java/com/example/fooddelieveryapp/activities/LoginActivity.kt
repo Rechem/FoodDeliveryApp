@@ -67,6 +67,7 @@ class LoginActivity : AppCompatActivity() {
                                 putString("avatar",userInfo.avatar)
                                 putString("token",userInfo.token)
                                 putBoolean("connected",true)
+                                commit()
                                 apply()
                             }
                             val token = prefs.getString("token","")

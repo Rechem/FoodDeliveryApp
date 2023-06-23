@@ -11,11 +11,14 @@ import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import android.content.Context;
+import android.content.SharedPreferences
 import androidx.core.app.NotificationCompat
+import androidx.core.content.edit
 
 class FirebaseService : FirebaseMessagingService() {
 
     private val TAG = "firebase_service"
+    lateinit var prefs: SharedPreferences
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         val title = remoteMessage.notification!!.title
         val body = remoteMessage.notification!!.body
@@ -27,6 +30,7 @@ class FirebaseService : FirebaseMessagingService() {
 
         val builder: NotificationCompat.Builder =
             NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+                .setSmallIcon(R.drawable.alert_light_frame)
                 .setContentTitle(title)
                 .setContentText(body)
 //                .setSmallIcon(R.drawable.alert_light_frame)
@@ -54,7 +58,12 @@ class FirebaseService : FirebaseMessagingService() {
     }
     override fun onNewToken(token: String) {
         Log.d(TAG, "Refreshed token: $token")
-
+        prefs = getSharedPreferences("firebase", Context.MODE_PRIVATE)
+        prefs.apply {
+                this.edit {
+                    putString("fcmToken", token)
+                }
+        }
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
         // FCM registration token to your app server.

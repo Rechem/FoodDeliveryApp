@@ -14,6 +14,7 @@ import com.example.fooddelieveryapp.Dao.Endpoint
 import com.example.fooddelieveryapp.databinding.FragmentCheckoutBinding
 import com.example.fooddelieveryapp.models.Meal
 import com.example.fooddelieveryapp.models.OrderInfo
+import com.example.fooddelieveryapp.viewmodels.CartViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
@@ -61,15 +62,19 @@ class CheckoutFragment : BottomSheetDialogFragment() {
             if(edited){
                  cookNote = prefs.getString("cookNote",null)
             }
+            val fbPrefs = requireActivity().getSharedPreferences("firebase", Context.MODE_PRIVATE)
+            val fcmToken = fbPrefs.getString("fcmToken","")
             CoroutineScope(Dispatchers.IO).launch {
                 val orderInfo = OrderInfo(cookNote,
                     binding.deliveryAddressEditText.text.toString(),
                     binding.deliveryNoteEditText.text.toString(),
-                    meals
+                    meals,
+                    fcmToken!!
                 )
                 val response = Endpoint.createEndpoint(requireContext()).order(orderInfo)
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
+                        CartViewModel.getInstance().clearCart()
                         Toast.makeText(requireContext(),"Order submitted", Toast.LENGTH_LONG).show()
                     } else {
                         throw Exception(response.message())
