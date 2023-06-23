@@ -5,6 +5,10 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
@@ -39,6 +43,14 @@ class FoodFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+    }
+    private fun refreshFood(restaurant: Restaurant) {
+        binding.refreshFood.setOnRefreshListener {
+            loadData(restaurant)
+            binding.refreshFood.isRefreshing = false
+            Toast.makeText(requireContext(),"Meals refreshed", Toast.LENGTH_SHORT).show()
+
+        }
     }
 
 
@@ -80,7 +92,9 @@ class FoodFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val restaurant = vm.restau
-        loadData(restaurant!!)
+        refreshFood(restaurant!!)
+        binding.progressBar.visibility = View.VISIBLE
+        loadData(restaurant)
     }
 
     private fun loadData(restaurant : Restaurant){
@@ -99,6 +113,7 @@ class FoodFragment : Fragment() {
                         vm.restaurant = restaurant
                         findNavController().navigate(R.id.action_foodFragment_to_foodDetailsFragment)
                     }
+                    binding.progressBar.visibility = View.GONE
                 } else {
                     throw Exception("failed to load restaurants, error code : ${response.code()}")
                 }

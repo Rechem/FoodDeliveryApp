@@ -2,12 +2,15 @@ package com.example.fooddelieveryapp.activities
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import com.example.fooddelieveryapp.Dao.Endpoint
 import com.example.fooddelieveryapp.R
 import com.example.fooddelieveryapp.databinding.ActivityAvatarBinding
@@ -26,11 +29,13 @@ import java.util.*
 class AvatarActivity : AppCompatActivity() {
      lateinit var binding : ActivityAvatarBinding
      var image : File? =null
+    lateinit var prefs :SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAvatarBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        prefs = getSharedPreferences("connection", MODE_PRIVATE)
 
         binding.skip.setOnClickListener {
             val returnIntent = Intent()
@@ -43,14 +48,23 @@ class AvatarActivity : AppCompatActivity() {
             startActivityForResult(intent,1)
         }
         binding.confirm.setOnClickListener {
+            binding.progressBar.visibility = View.VISIBLE
+            val activityContext = this
             CoroutineScope(Dispatchers.IO).launch {
                 val requestFile = image?.asRequestBody("image/jpeg".toMediaTypeOrNull())
                 val imagePart = MultipartBody.Part.createFormData("avatar", image?.name, requestFile!!)
-
                 val response = Endpoint.createEndpoint(baseContext).updateAvatar(imagePart)
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
-                        Log.i("success", "avatar updated")
+                        val avatar = response.body()
+                        prefs.edit{
+                            putString("avatar",avatar!!.avatar)
+                            commit()
+                            apply()
+                        }
+                        binding.progressBar.visibility = View.GONE
+                        val intent = Intent(activityContext,MainActivity::class.java)
+                        startActivity(intent)
                         Toast.makeText(baseContext,"Avatar updated", Toast.LENGTH_SHORT).show()
                     } else {
                         Log.i("error code","${response.code()}")
@@ -61,7 +75,6 @@ class AvatarActivity : AppCompatActivity() {
             Log.i("exception", "Failed to update avatar")
             val returnIntent = Intent()
             setResult(RESULT_CANCELED, returnIntent)
-            this.finish()
         }
         binding.reset.setOnClickListener {
             binding.avatar.setImageResource(R.drawable.picker)

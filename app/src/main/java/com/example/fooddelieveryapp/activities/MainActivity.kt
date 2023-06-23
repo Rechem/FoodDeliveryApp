@@ -24,6 +24,7 @@ import com.example.fooddelieveryapp.Dao.AppDatabase
 import com.example.fooddelieveryapp.R
 import com.example.fooddelieveryapp.databinding.ActivityMainBinding
 import com.example.fooddelieveryapp.utils.API_URL
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -47,29 +48,25 @@ class MainActivity : AppCompatActivity() {
 
         // FOR DRAWER
         prefs = getSharedPreferences("connection", Context.MODE_PRIVATE)
-
         val connected = prefs.getBoolean("connected",false)
+
 
         if (connected) {
             binding.navView.menu.clear()
-
             binding.navView.inflateMenu(R.menu.drawer)
             val inflater = LayoutInflater.from(binding.navView.context)
             val headerView = inflater.inflate(R.layout.drawer_header, binding.navView, false)
             binding.navView.addHeaderView(headerView);
-
             val profilePic = headerView.findViewById<ImageView>(R.id.profile_image)
+            profilePic.setOnClickListener {
+                val intent = Intent(this, AvatarActivity::class.java)
+                this.startActivity(intent)
+            }
 
             val avatar = prefs.getString("avatar","")
-            Log.i("avatar",avatar!!)
-            if(avatar==""){
-                profilePic.setImageResource(R.drawable.w)
-            }else{
-                Log.i("avatar","$API_URL/$avatar")
-                Glide.with(this)
-                    .load("$API_URL/$avatar")
-                    .into(profilePic)
-            }
+            Glide.with(this)
+                .load("$API_URL/$avatar")
+                .into(profilePic)
 
             val name = headerView.findViewById<TextView>(R.id.header_username)
             name.text = prefs.getString("username","")
@@ -164,25 +161,4 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
 
     }
-//    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-//        when(item.itemId){
-//            R.id.restaurants -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
-//                RestaurantsFragment()
-//            ).commit()
-//            R.id.orders -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
-//                OrdersFragment()
-//            ).commit()
-//            R.id.settings -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
-//                SettingsFragment()
-//            ).commit()
-//            R.id.nav_logout -> {
-//                Toast.makeText(this, "logged out", Toast.LENGTH_SHORT).show()
-//                prefs.edit{
-//                    putBoolean("connected",false)
-//                }
-//            }
-//        }
-//        drawerLayout.closeDrawer(GravityCompat.START)
-//        return true
-//    }
 }

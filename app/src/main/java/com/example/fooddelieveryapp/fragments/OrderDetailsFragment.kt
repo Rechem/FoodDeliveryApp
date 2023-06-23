@@ -50,6 +50,7 @@ class OrderDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding= FragmentOrderDetailsBinding.inflate(layoutInflater)
+
         binding.progressBar.visibility = View.VISIBLE
 
         return binding.root
@@ -80,10 +81,27 @@ class OrderDetailsFragment : Fragment() {
                         binding.itemPriceList.adapter = itemPriceAdapter
                         binding.date.text = order.date
                         binding.status.text =order.status
+                        if(order.status=="Delivered"){
+                            binding.status.setTextColor(requireActivity().resources.getColor(R.color.green))
+                        }
                         binding.totalSum.text = order.totalPrice.toString()
                         binding.delivererNom.text = order.deliverer.lastName
                         binding.delivererPrenom.text = order.deliverer.firstName
                         binding.delivererTelephone.text = order.deliverer.phoneNumber
+                        binding.orderInfoCard.visibility = View.VISIBLE
+                        binding.delivererInfoCard.visibility = View.VISIBLE
+                        binding.date.visibility = View.VISIBLE
+                        binding.status.visibility = View.VISIBLE
+                        binding.totalSum.visibility = View.VISIBLE
+                        binding.delivererNom.visibility = View.VISIBLE
+                        binding.delivererPrenom.visibility = View.VISIBLE
+                        binding.delivererTelephone.visibility = View.VISIBLE
+                        binding.orderRestaurantCard.visibility = View.VISIBLE
+                        binding.orderStatusCard.visibility = View.VISIBLE
+                        binding.orderPriceCard.visibility = View.VISIBLE
+                        binding.phone.visibility = View.VISIBLE
+                        binding.nomText.visibility = View.VISIBLE
+
                     } else {
                         throw Exception("Failed to load order details, error code: ${response.code()}")
                     }

@@ -1,6 +1,7 @@
 package com.example.fooddelieveryapp.fragments
 
 import android.content.Context
+import android.content.Intent
 import com.example.fooddelieveryapp.R
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.example.fooddelieveryapp.Dao.AppDatabase
 import com.example.fooddelieveryapp.Dao.Endpoint
+import com.example.fooddelieveryapp.activities.MainActivity
 import com.example.fooddelieveryapp.databinding.FragmentCheckoutBinding
 import com.example.fooddelieveryapp.models.Meal
 import com.example.fooddelieveryapp.models.OrderInfo
@@ -79,6 +81,8 @@ class CheckoutFragment : BottomSheetDialogFragment() {
                         CartViewModel.getInstance().clearCart()
                         prefs.edit().clear().apply()
                         Toast.makeText(requireContext(),"Order submitted", Toast.LENGTH_LONG).show()
+                        val intent = Intent(requireActivity(),MainActivity::class.java)
+                        startActivity(intent)
                     } else {
                         throw Exception(response.message())
                     }

@@ -2,8 +2,10 @@ package com.example.fooddelieveryapp.Dao
 
 import android.content.Context
 import android.util.Log
+import com.example.fooddelieveryapp.models.Avatar
 import com.example.fooddelieveryapp.models.DetailedOrder
 import com.example.fooddelieveryapp.models.Food
+import com.example.fooddelieveryapp.models.GoogleignInInfo
 import com.example.fooddelieveryapp.models.Order
 import com.example.fooddelieveryapp.models.OrderInfo
 import com.example.fooddelieveryapp.models.Rating
@@ -54,7 +56,7 @@ interface Endpoint {
     suspend fun order(@Body orderInfo : OrderInfo): Response<UserInfo>
     @Multipart
     @POST("users/avatar")
-    suspend fun updateAvatar(@Part avatarImage: MultipartBody.Part): Response<Unit>
+    suspend fun updateAvatar(@Part avatarImage: MultipartBody.Part): Response<Avatar>
     @Headers("Content-Type: application/json")
     @GET("restaurants")
     suspend fun getRestaurants(): Response<List<Restaurant>>
@@ -68,4 +70,6 @@ interface Endpoint {
     @Headers("Content-Type: application/json")
     @POST("restaurants/rate")
     suspend fun rate(@Body rating : Rating): Response<Unit>
+    @POST("loginWithGoogle")
+    suspend fun googleSignIn(@Body info : GoogleignInInfo): Response<UserInfo>
 }

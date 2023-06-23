@@ -1,12 +1,17 @@
 package com.example.fooddelieveryapp.fragments
 
 import android.content.Context
+import android.graphics.PorterDuff
+import android.graphics.drawable.ClipDrawable
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
@@ -39,12 +44,24 @@ class OrdersFragment : Fragment() {
     ): View? {
         binding= FragmentOrdersBinding.inflate(layoutInflater)
         val view = binding.root
+        val color = requireActivity().getColor(R.color.main_color)
+
         binding.progressBar.visibility = View.VISIBLE
+        refreshOrders()
         loadData()
         val dividerItemDecoration = DividerItemDecoration(activity, RecyclerView.VERTICAL)
         ResourcesCompat.getDrawable(resources, R.drawable.devider_16_vertical, null)
             ?.let { drawable -> dividerItemDecoration.setDrawable(drawable) }
         return view
+    }
+
+    private fun refreshOrders() {
+        binding.refreshOrders.setOnRefreshListener {
+            loadData()
+            binding.refreshOrders.isRefreshing = false
+            Toast.makeText(requireContext(),"Orders refreshed", Toast.LENGTH_SHORT).show()
+
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,14 +73,7 @@ class OrdersFragment : Fragment() {
         binding.ordersRecyclerView.addItemDecoration(dividerItemDecoration)
     }
     fun loadData() {
-//        val data = mutableListOf<OrderItem>()
-//        data.add(OrderItem("ackvjgh","restau","11/23/23",370,"in progress"))
-//        data.add(OrderItem("ackvjgh","restau","11/23/23",370,"in progress"))
-//        data.add(OrderItem("ackvjgh","restau","11/23/23",370,"in progress"))
-//        data.add(OrderItem("ackvjgh","restau","11/23/23",370,"in progress"))
-//        data.add(OrderItem("ackvjgh","restau","11/23/23",370,"in progress"))
-//        data.add(OrderItem("ackvjgh","restau","11/23/23",370,"in progress"))
-
+        binding.errorText.visibility = View.INVISIBLE
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val prefs = requireActivity().getSharedPreferences("connection", Context.MODE_PRIVATE)
@@ -77,6 +87,12 @@ class OrdersFragment : Fragment() {
                         val orders = response.body()!!.map {
                             OrderItem(it.idOrder,it.restaurantName!!,it.date!!,it.totalPrice,it.status!!)
                         }
+                        if (orders.isEmpty()){
+                            binding.noOrders.visibility = View.VISIBLE
+                        }else{
+                            binding.noOrders.visibility = View.GONE
+                        }
+                        Log.i("orders",orders.toString())
                         ordersAdapter = OrdersListAdapter(orders, activity as Context)
                         binding.ordersRecyclerView.adapter = ordersAdapter
                         ordersAdapter.onItemClick = {
@@ -95,7 +111,7 @@ class OrdersFragment : Fragment() {
                 }
                 Log.i("exception", "Failed to reach server")
             } catch (e: Exception) {
-                // Handle other types of exceptions here
+                Log.e("Exception","exception",e)
             }
         }
     }

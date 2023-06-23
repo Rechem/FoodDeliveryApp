@@ -30,10 +30,9 @@ class FirebaseService : FirebaseMessagingService() {
 
         val builder: NotificationCompat.Builder =
             NotificationCompat.Builder(applicationContext, CHANNEL_ID)
-                .setSmallIcon(R.drawable.alert_light_frame)
+                .setSmallIcon(R.drawable.ic_notification_overlay)
                 .setContentTitle(title)
                 .setContentText(body)
-//                .setSmallIcon(R.drawable.alert_light_frame)
                 .setAutoCancel(true);
 
         val notificationManager = getSystemService(
@@ -64,9 +63,5 @@ class FirebaseService : FirebaseMessagingService() {
                     putString("fcmToken", token)
                 }
         }
-        // If you want to send messages to this application instance or
-        // manage this apps subscriptions on the server side, send the
-        // FCM registration token to your app server.
-        // sendRegistrationToServer(token)
     }
 }
