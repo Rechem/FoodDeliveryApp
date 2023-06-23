@@ -223,9 +223,9 @@
 
     <ImageView
         android:id="@+id/google_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
+        android:layout_width="28dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="42dp"
         app:layout_constraintBottom_toBottomOf="@+id/google_btn"
         app:layout_constraintStart_toStartOf="@+id/google_btn"
         app:layout_constraintTop_toTopOf="@+id/google_btn"

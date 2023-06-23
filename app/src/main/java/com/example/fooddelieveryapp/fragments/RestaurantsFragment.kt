@@ -33,10 +33,6 @@ class RestaurantsFragment : Fragment() {
     lateinit var binding: FragmentRestaurantsBinding
     lateinit var restaurantAdapter : RestaurantAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     private fun refreshRestaurants() {
         binding.refreshRestaurants.setOnRefreshListener {

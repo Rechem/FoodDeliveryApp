@@ -29,11 +29,6 @@ class CheckoutFragment : BottomSheetDialogFragment() {
 
     lateinit var binding:FragmentCheckoutBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        (requireActivity() as AppCompatActivity).supportActionBar?.title =
-            requireActivity().resources.getString(R.string.checkout);
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

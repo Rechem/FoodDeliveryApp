@@ -22,7 +22,7 @@ class CookNoteFragment : BottomSheetDialogFragment()  {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding= FragmentCookNoteBinding.inflate(layoutInflater)
         val prefs = requireActivity().getSharedPreferences("note", Context.MODE_PRIVATE)

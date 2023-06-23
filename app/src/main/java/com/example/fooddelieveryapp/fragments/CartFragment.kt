@@ -39,11 +39,7 @@ class CartFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
-
-
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = resources.getString(R.string.cart);
+    ): View {
 
         cartViewModel = CartViewModel.getInstance();
 

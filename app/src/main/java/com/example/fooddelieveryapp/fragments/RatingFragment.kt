@@ -27,10 +27,6 @@ class RatingFragment : BottomSheetDialogFragment() {
     lateinit var binding: FragmentRatingBinding
     lateinit var vm: RestauModel;
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
